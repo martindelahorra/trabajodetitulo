@@ -17,7 +17,7 @@
         <div class="row" >
             <div class="col">
                 <div>
-                    <img src="{{ asset('images/tastylogo.jpg') }}" class="img-fluid" alt="images/tastylogo.jpg">
+                    <img src="{{ asset('images/tastybanner.jpg') }}" class="img-fluid">
                 </div>
             </div>
         </div>
