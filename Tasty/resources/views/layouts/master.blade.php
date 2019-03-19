@@ -17,13 +17,13 @@
         <div class="row" >
             <div class="col">
                 <div>
-                    <img src="{{ asset('images/tastybanner.jpg') }}" class="img-fluid">
+                    <img src="{{ asset('images/tastybanner.jpg') }}" class="img-fluid" alt='Soy un banner'>
                 </div>
             </div>
         </div>
         
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="#"><b>Tasty</b></a>
+            <a class="navbar-brand" href="/"><b>Tasty</b></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                 aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -43,11 +43,11 @@
                             <a class="dropdown-item" href="#">Pizzas</a>
                             <a class="dropdown-item" href="#">Tablas</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Something else here</a>
+                            <a class="dropdown-item" href="#">Otros</a>
                         </div>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Contacto</a>
                     </li>
                 </ul>
             </div>
