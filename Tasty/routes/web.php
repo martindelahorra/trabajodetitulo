@@ -14,3 +14,6 @@
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/pizzas/crear',function(){
+    return view ('pizzas/create');
+});
