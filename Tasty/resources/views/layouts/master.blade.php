@@ -51,7 +51,7 @@
                         </div>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Contacto</a>
+                        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Dirección</a>
                     </li>
                 </ul>
             </div>
@@ -62,37 +62,25 @@
         <footer>
             <div class="container">
                 <div class="row">
-                    <div class="col">
-                            
-                    </div>
-                    <div class="col" style=" text-align: center">
-                        <span><b>Redes sociales</b></span>
-                    </div>
-                    <div class="col" style="text-align: center">
-                            <span><b>Contacto</b></span>
-                    </div>
-                    <div class="col" style="text-align: center">
-                            <span><b>Medios de pago</b></span>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
+                    <div class="col-sm-3">
                             <img src="{{ asset('images/tastylogo.jpg') }}" class="img-fluid">
                     </div>
-                    <div class="col" style=" text-align: center">
-                        <a href="https://www.facebook.com/taasty.s"><i class="fab fa-facebook-square"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-whatsapp-square"></i></a>
+                    <div class="col-sm-3">
+                        <span><b>Redes sociales</b></span>
+                        <p class="rs"><a href="https://www.facebook.com/taasty.s"><i class="fab fa-facebook-square"></i> Facebook</a></p>
+                        <p class="rs"><a href="#"><i class="fab fa-instagram"></i> Instagram</a></p>
+                        <p class="rs"><a href="#"><i class="fab fa-whatsapp-square"></i> Whastapp</a></p>
                     </div>
-                    <div class="col" style="text-align: center">
-                        <p>Telefono:****</p>
-                        <p>Mail: *****</p>                        
+                    <div class="col-sm-3">
+                            <span><b>Contacto</b></span>
+                            <p>Telefono:****</p>
+                        <p>Mail: *****</p>
                     </div>
-                    <div class="col" style="text-align: center">
-                        Medios de pago
+                    <div class="col-sm-3">
+                            <span><b>Dirección</b></span>
+                            <p>Medios de pago</p>
                     </div>
                 </div>
-
             </div>
         </footer>
 
@@ -108,6 +96,10 @@
             height: 190px;
             width: 100%;
             background: #f5f5ef;
+            margin-bottom: 2rem;
+        }
+        .rs {
+            vertical-align: middle;
         }
     </style>
 
