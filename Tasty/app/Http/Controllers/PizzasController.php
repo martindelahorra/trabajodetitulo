@@ -14,7 +14,8 @@ class PizzasController extends Controller
      */
     public function index()
     {
-        //
+        $pizzas = Pizza::all();
+        return view('pizzas.index',compact('pizzas'));
     }
 
     /**

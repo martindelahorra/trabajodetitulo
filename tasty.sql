@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 21-03-2019 a las 00:04:01
--- Versión del servidor: 10.1.36-MariaDB
--- Versión de PHP: 7.2.11
+-- Tiempo de generación: 24-03-2019 a las 00:23:51
+-- Versión del servidor: 10.1.35-MariaDB
+-- Versión de PHP: 7.2.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -21,29 +21,39 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `tasty`
 --
+CREATE DATABASE IF NOT EXISTS `tasty` DEFAULT CHARACTER SET utf8 COLLATE utf8_spanish2_ci;
+USE `tasty`;
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `pizza`
+-- Estructura de tabla para la tabla `pizzas`
 --
 
-CREATE TABLE `pizza` (
+CREATE TABLE `pizzas` (
   `cod_pizza` int(11) NOT NULL,
   `precio_pizza` int(11) NOT NULL,
   `tamaño` varchar(2) COLLATE utf8_spanish2_ci NOT NULL,
   `descripcion` varchar(255) COLLATE utf8_spanish2_ci NOT NULL,
-  `stock` int(11) NOT NULL,
-  `ingredientes` varchar(50) COLLATE utf8_spanish2_ci NOT NULL
+  `disponible` tinyint(1) NOT NULL,
+  `ingredientes` varchar(50) COLLATE utf8_spanish2_ci DEFAULT NULL,
+  `imagen` longblob
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+--
+-- Volcado de datos para la tabla `pizzas`
+--
+
+INSERT INTO `pizzas` (`cod_pizza`, `precio_pizza`, `tamaño`, `descripcion`, `disponible`, `ingredientes`, `imagen`) VALUES
+(1, 5490, 'Me', 'Pizza Mediana con derecho a 3 ingredientes.\r\n*Camarón (+300 adicional).\r\n**+500 por Ingrediente extra.', 1, NULL, NULL);
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `sushi`
+-- Estructura de tabla para la tabla `sushis`
 --
 
-CREATE TABLE `sushi` (
+CREATE TABLE `sushis` (
   `cod_sushi` int(11) NOT NULL,
   `envoltura` varchar(60) COLLATE utf8_spanish2_ci NOT NULL,
   `descripcion` varchar(255) COLLATE utf8_spanish2_ci NOT NULL,
@@ -55,10 +65,10 @@ CREATE TABLE `sushi` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `usuario`
+-- Estructura de tabla para la tabla `usuarios`
 --
 
-CREATE TABLE `usuario` (
+CREATE TABLE `usuarios` (
   `id_usuario` int(11) NOT NULL,
   `username` varchar(40) COLLATE utf8_spanish2_ci NOT NULL,
   `password` varchar(40) COLLATE utf8_spanish2_ci NOT NULL,
@@ -73,21 +83,21 @@ CREATE TABLE `usuario` (
 --
 
 --
--- Indices de la tabla `pizza`
+-- Indices de la tabla `pizzas`
 --
-ALTER TABLE `pizza`
+ALTER TABLE `pizzas`
   ADD PRIMARY KEY (`cod_pizza`);
 
 --
--- Indices de la tabla `sushi`
+-- Indices de la tabla `sushis`
 --
-ALTER TABLE `sushi`
+ALTER TABLE `sushis`
   ADD PRIMARY KEY (`cod_sushi`);
 
 --
--- Indices de la tabla `usuario`
+-- Indices de la tabla `usuarios`
 --
-ALTER TABLE `usuario`
+ALTER TABLE `usuarios`
   ADD PRIMARY KEY (`id_usuario`);
 
 --
@@ -95,21 +105,21 @@ ALTER TABLE `usuario`
 --
 
 --
--- AUTO_INCREMENT de la tabla `pizza`
+-- AUTO_INCREMENT de la tabla `pizzas`
 --
-ALTER TABLE `pizza`
-  MODIFY `cod_pizza` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `pizzas`
+  MODIFY `cod_pizza` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT de la tabla `sushi`
+-- AUTO_INCREMENT de la tabla `sushis`
 --
-ALTER TABLE `sushi`
+ALTER TABLE `sushis`
   MODIFY `cod_sushi` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT de la tabla `usuario`
+-- AUTO_INCREMENT de la tabla `usuarios`
 --
-ALTER TABLE `usuario`
+ALTER TABLE `usuarios`
   MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
