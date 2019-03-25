@@ -61,23 +61,28 @@
         <footer>
             <div class="container">
                 <div class="row">
-                    <div class="col-sm-3">
+                    <div class="col-sm">
                         <img src="{{ asset('images/tastylogo.jpg') }}" class="img-fluid">
                     </div>
-                    <div class="col-sm-3">
+                    <div class="col-sm">
                         <span><b>Redes sociales</b></span>
-                        <p class="rs"><a href="https://www.facebook.com/taasty.s"><i class="fab fa-facebook-square"></i> Facebook</a></p>
-                        <p class="rs"><a href="#"><i class="fab fa-instagram"></i> Instagram</a></p>
-                        <p class="rs"><a href="#"><i class="fab fa-whatsapp-square"></i> Whastapp</a></p>
+                        <p class="rs"><a class="btn" href="https://www.facebook.com/taasty.s"><i class="fab fa-facebook-square"></i> Facebook</a></p>
+                        <p class="rs"><a class="btn" href="https://www.instagram.com/tasty.vi/"><i class="fab fa-instagram"></i> Instagram</a></p>
+                        <p class="rs"><a class="btn" href="#"><i class="fab fa-whatsapp-square"></i> Whastapp</a></p>
                     </div>
-                    <div class="col-sm-3">
+                    <div class="col-sm">
                         <span><b>Contacto</b></span>
                         <p>Telefono:****</p>
                         <p>Mail: *****</p>
                     </div>
-                    <div class="col-sm-3">
+                    <div class="col-sm">
                         <span><b>Dirección</b></span>
-                        <p>Medios de pago</p>
+                        
+                    </div>
+                    <div class="col-sm">
+                        <span><b>Medios de pago</b></span>
+                        <img src="{{ asset('images/metodospagos.jpg') }}" class="img-fluid">
+
                     </div>
                 </div>
             </div>
