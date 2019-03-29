@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -19,3 +21,5 @@ Route::get('/pizzas/crear',function(){
 });
 
 Route::resource('pizzas', 'PizzasController');
+
+Route::resource('sushis', 'SushisController');
