@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+<<<<<<< HEAD
 Route::get('/pizzas/crear',function(){
     return view ('pizzas/create');
 });
@@ -23,3 +24,7 @@ Route::get('/pizzas/crear',function(){
 Route::resource('pizzas', 'PizzasController');
 
 Route::resource('sushis', 'SushisController');
+=======
+Route::resource('pizzas', 'PizzasController');
+Route::resource('ingredientes', 'IngredientesController');
+>>>>>>> 15af8430a222ad4e5ec1b61619acebec5349d1ad

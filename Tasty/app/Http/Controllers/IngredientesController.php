@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Pizza;
 use App\Ingrediente;
 use Illuminate\Http\Request;
 
-class PizzasController extends Controller
+class IngredientesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +14,7 @@ class PizzasController extends Controller
      */
     public function index()
     {
-        $pizzas = Pizza::all();
-        return view('pizzas.index',compact('pizzas'));
+        //
     }
 
     /**
@@ -27,8 +25,6 @@ class PizzasController extends Controller
     public function create()
     {
         //
-        // $ingredientes = Ingrediente::where('disponible','<>','0');
-        // dd($ingredientes);
     }
 
     /**
@@ -45,10 +41,10 @@ class PizzasController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Pizza  $pizza
+     * @param  \App\Ingrediente  $ingrediente
      * @return \Illuminate\Http\Response
      */
-    public function show(Pizza $pizza)
+    public function show(Ingrediente $ingrediente)
     {
         //
     }
@@ -56,10 +52,10 @@ class PizzasController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Pizza  $pizza
+     * @param  \App\Ingrediente  $ingrediente
      * @return \Illuminate\Http\Response
      */
-    public function edit(Pizza $pizza)
+    public function edit(Ingrediente $ingrediente)
     {
         //
     }
@@ -68,10 +64,10 @@ class PizzasController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Pizza  $pizza
+     * @param  \App\Ingrediente  $ingrediente
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Pizza $pizza)
+    public function update(Request $request, Ingrediente $ingrediente)
     {
         //
     }
@@ -79,10 +75,10 @@ class PizzasController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Pizza  $pizza
+     * @param  \App\Ingrediente  $ingrediente
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Pizza $pizza)
+    public function destroy(Ingrediente $ingrediente)
     {
         //
     }

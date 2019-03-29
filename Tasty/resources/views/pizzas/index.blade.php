@@ -2,24 +2,32 @@
 
 @section('contenido')
 <div class="row mt-4">
+    @foreach($pizzas as $p)
     <div class="col">
-        @foreach($pizzas as $p)
-        <div class="card mb-3" style="max-width: 540px;">
+        <div class="card mb-3">
             <div class="row no-gutters">
-                <div class="col-md-4">
-                    <img src="..." class="card-img" alt="...">
-                </div>
                 <div class="col-md-8">
+                    <img src="data:image/jpeg;base64,{{base64_encode($p->imagen)}}" class="card-img m-1" alt="Imagen no disponible">
+                </div>
+                <div class="col-md-4">
                     <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
+                        <h5 class="card-title">
+                            @switch($p->tamaño)
+                            @case('Me')
+                            Mediana
+                            @break
+                            @case('Fa')
+                            Familiar
+                            @break
+                            @endswitch
+                        </h5>
                         <p class="card-text">{{$p->descripcion}}</p>
-                        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
                     </div>
                 </div>
             </div>
         </div>
-        @endforeach
     </div>
+    @endforeach
 </div>
 
-@endsection
+@endsection 
