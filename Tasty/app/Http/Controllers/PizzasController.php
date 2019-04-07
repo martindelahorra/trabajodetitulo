@@ -26,9 +26,8 @@ class PizzasController extends Controller
      */
     public function create()
     {
-        //
-        // $ingredientes = Ingrediente::where('disponible','<>','0');
-        // dd($ingredientes);
+         $ingredientes = Ingrediente::where('disponible','=','0')->get();
+         return view('pizzas.create',compact('ingredientes'));
     }
 
     /**
