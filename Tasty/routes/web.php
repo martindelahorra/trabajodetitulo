@@ -23,3 +23,8 @@ Route::get('/pizzas/crear',function(){
 Route::resource('pizzas', 'PizzasController');
 
 Route::resource('sushis', 'SushisController');
+
+//Usuario
+Route::get('/login',['as'=>'login','uses'=>'LoginController@login']);
+
+Route::resource('usuarios', 'UsuariosController');

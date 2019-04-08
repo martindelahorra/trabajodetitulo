@@ -53,6 +53,15 @@
                         </div>
                     </li>
                 </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    
+                      
+                      
+                    
+                      <li><a href="/login" class="btn text-dark">Iniciar Sesión</a></li>
+                      <li><a href="/usuarios/create" class="btn text-dark">Registrarse</a></li>
+                    
+                  </ul>
             </div>
         </nav>
 
