@@ -26,5 +26,6 @@ Route::resource('sushis', 'SushisController');
 
 //Usuario
 Route::get('/login',['as'=>'login','uses'=>'LoginController@login']);
-
+Route::post('/login','LoginController@autenticar');
+Route::get('/logout','LoginController@logout');
 Route::resource('usuarios', 'UsuariosController');

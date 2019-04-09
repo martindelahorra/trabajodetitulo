@@ -16,7 +16,7 @@ class UsuariosController extends Controller
      */
     public function index()
     {
-        
+        //
     }
 
     /**
@@ -35,10 +35,14 @@ class UsuariosController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
-    }
+     public function store(UsuarioRequest $request)
+       {
+
+         $usuario = request(['username','rut','nombre_completo','rol']);
+         $usuario['password'] = Hash::make($request->password);
+         Usuario::create($usuario);
+         return redirect('/login');
+       }
 
     /**
      * Display the specified resource.
