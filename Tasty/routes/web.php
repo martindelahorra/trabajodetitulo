@@ -19,7 +19,10 @@ Route::get('/', function () {
 Route::get('/pizzas/crear',function(){
     return view ('pizzas/create');
 });
+Route::get('/pizzas/crear/{tamano}','PizzasController@ArmaPizza');
 
 Route::resource('pizzas', 'PizzasController');
 
 Route::resource('sushis', 'SushisController');
+Route::resource('ingredientes', 'IngredientesController');
+

@@ -7,7 +7,9 @@
         <div class="card mb-3">
             <div class="row no-gutters">
                 <div class="col-md-8">
-                    <img src="data:image/jpeg;base64,{{base64_encode($p->imagen)}}" class="card-img m-1" alt="Imagen no disponible">
+                    <a href="pizzas/crear/{{$p->tamaño}}">
+                        <img src="data:image/jpeg;base64,{{base64_encode($p->imagen)}}" class="card-img m-1" alt="Imagen no disponible">
+                    </a>
                 </div>
                 <div class="col-md-4">
                     <div class="card-body">
@@ -29,5 +31,4 @@
     </div>
     @endforeach
 </div>
-
 @endsection 

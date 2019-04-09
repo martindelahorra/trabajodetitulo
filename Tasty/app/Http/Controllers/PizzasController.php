@@ -24,10 +24,15 @@ class PizzasController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function ArmaPizza($tamano)
     {
-         $ingredientes = Ingrediente::where('disponible','=','0')->get();
-         return view('pizzas.create',compact('ingredientes'));
+        if($tamano=='Me' or $tamano=='Fa'){
+            // $primero = Ingrediente::where('disponible','0')->first();
+            $ingredientes = Ingrediente::where('disponible','=','0')->orderBy('categoria')->get();
+            return view('pizzas.create',compact('ingredientes','tamano'));
+        }else{
+            return redirect('/pizzas');
+        }
     }
 
     /**

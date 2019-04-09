@@ -35,10 +35,10 @@
                     <li class="nav-item @if(\Request::is('pizzas')) active @endif">
                         <a class="nav-link" href="/pizzas">Pizza</a>
                     </li>
-                    <li class="nav-item @if(\Request::is('sushis')) active @endif"">
+                    <li class="nav-item @if(\Request::is('sushis')) active @endif">
                         <a class="nav-link" href="#">Sushi</a>
                     </li>
-                    <li class="nav-item @if(\Request::is('empanadas')) active @endif"">
+                    <li class="nav-item @if(\Request::is('empanadas')) active @endif">
                         <a class="nav-link" href="#">Empanadas</a>
                     </li>
                     <li class="nav-item dropdown">
