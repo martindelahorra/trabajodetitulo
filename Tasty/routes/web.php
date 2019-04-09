@@ -26,3 +26,9 @@ Route::resource('pizzas', 'PizzasController');
 Route::resource('sushis', 'SushisController');
 Route::resource('ingredientes', 'IngredientesController');
 
+
+//Usuario
+Route::get('/login',['as'=>'login','uses'=>'LoginController@login']);
+Route::post('/login','LoginController@autenticar');
+Route::get('/logout','LoginController@logout');
+Route::resource('usuarios', 'UsuariosController');
