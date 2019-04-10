@@ -16,16 +16,17 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/pizzas/crear',function(){
-    return view ('pizzas/create');
-});
-Route::get('/pizzas/crear/{tamano}','PizzasController@ArmaPizza');
 
+// Pizzas
+Route::get('/pizzas/crear/{tamano}','PizzasController@ArmaPizza');
 Route::resource('pizzas', 'PizzasController');
 
+// Sushis
 Route::resource('sushis', 'SushisController');
-Route::resource('ingredientes', 'IngredientesController');
 
+// Ingredientes
+Route::resource('ingredientes', 'IngredientesController');
+Route::get('/ingredientes/{cod_ingrediente}/restore','IngredientesController@restore');
 
 //Usuario
 Route::get('/login',['as'=>'login','uses'=>'LoginController@login']);

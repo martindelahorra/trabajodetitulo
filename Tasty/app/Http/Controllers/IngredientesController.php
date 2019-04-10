@@ -14,7 +14,8 @@ class IngredientesController extends Controller
      */
     public function index()
     {
-        $ingredientes = Ingrediente::all();
+        // $ingredientes = Ingrediente::all();
+        $ingredientes = Ingrediente::withTrashed()->get();
         return view('ingredientes.index',compact('ingredientes'));
     }
 
@@ -25,7 +26,7 @@ class IngredientesController extends Controller
      */
     public function create()
     {
-        //
+        return view('ingredientes.create');
     }
 
     /**
@@ -36,7 +37,9 @@ class IngredientesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $ingrediente = request(['nombre','precio','categoria']);
+        Ingrediente::create($ingrediente);
+        return redirect('/ingredientes');
     }
 
     /**
@@ -47,7 +50,7 @@ class IngredientesController extends Controller
      */
     public function show(Ingrediente $ingrediente)
     {
-        //
+        //No se usa
     }
 
     /**
@@ -58,7 +61,7 @@ class IngredientesController extends Controller
      */
     public function edit(Ingrediente $ingrediente)
     {
-        //
+        return view('ingredientes.edit',compact('ingrediente'));
     }
 
     /**
@@ -70,7 +73,8 @@ class IngredientesController extends Controller
      */
     public function update(Request $request, Ingrediente $ingrediente)
     {
-        //
+        $ingrediente->update(request(['nombre','precio','categoria']));
+        return redirect('/ingredientes');
     }
 
     /**
@@ -81,6 +85,13 @@ class IngredientesController extends Controller
      */
     public function destroy(Ingrediente $ingrediente)
     {
-        //
+        Ingrediente::destroy($ingrediente->cod_ingrediente);
+        return redirect('/ingredientes');
     }
+
+    public function restore($cod_ingrediente){
+        $ingrediente = Ingrediente::onlyTrashed()->where('cod_ingrediente',$cod_ingrediente);
+        $ingrediente->restore();
+        return redirect('/ingredientes');
+      }
 }

@@ -28,7 +28,7 @@ class PizzasController extends Controller
     {
         if($tamano=='Me' or $tamano=='Fa'){
             // $primero = Ingrediente::where('disponible','0')->first();
-            $ingredientes = Ingrediente::where('disponible','=','0')->orderBy('categoria')->get();
+            $ingredientes = Ingrediente::all();
             return view('pizzas.create',compact('ingredientes','tamano'));
         }else{
             return redirect('/pizzas');

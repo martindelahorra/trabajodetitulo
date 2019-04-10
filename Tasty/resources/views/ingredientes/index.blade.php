@@ -6,31 +6,30 @@
         <hr />
     </div>
 </div>
-<!-- @can('create',App\Usuario::class) -->
 <div class="row">
     <div class="col">
-        <a href="#" class="btn btn-outline-primary" disabled>Agregar ingredientes</a>
+        <a href="/ingredientes/create" class="btn btn-outline-primary">Agregar ingredientes</a>
     </div>
 </div>
-<!-- @endcan -->
 <div class="row mt-2">
     <div class="col">
-        <table class="table table-bordered table-striped table-hover">
-            <thead>
+        <table class="col-sm-4 col-md-12 table table-bordered table-striped table-hover">
+            <thead class="text-center">
                 <tr>
                     <th>Id</th>
                     <th>Nombre</th>
                     <th>Precio</th>
                     <th>Categoría</th>
+                    <th>Estado</th>
                     <th>Opciones</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody class="text-center">
                 @foreach($ingredientes as $ing)
                 <tr>
                     <td>{{ $ing->cod_ingrediente }}</td>
                     <td>{{ $ing->nombre }}</td>
-                    <td>{{ $ing->precio }}</td>
+                    <td>${{ number_format($ing->precio,0,",",".") }}</td>
                     <td>@if($ing->categoria=='C')
                         Carne
                         @elseif($ing->categoria=='V')
@@ -40,11 +39,22 @@
                         @endif
                     </td>
                     <td>
-                        <!-- form -->
-                        <a href="#" class="btn btn-outline-dark">Editar</a>
-                        <!-- <button type="" class="btn btn-outline-danger">Borrar</button> -->
-                        <a href="#" class="btn btn-outline-info">Borrar</a>
-                        <!-- endForm -->
+                        @if ($ing->deleted_at==null)
+                            Disponible
+                        @else
+                            No Disponible
+                        @endif
+
+                    </td>
+                    <td>
+                        {{ Form::open(array('url'=>'ingredientes/'.$ing->cod_ingrediente,'method'=>'delete')) }}
+                        <a href="/ingredientes/{{$ing->cod_ingrediente}}/edit" class="btn btn-outline-dark">Editar</a>
+                        @if ($ing->deleted_at==null)
+                            <button type="submit" class="btn btn-outline-danger">No Disponible</button>
+                        @else
+                            <a href="/ingredientes/{{$ing->cod_ingrediente}}/restore" class="btn btn-outline-info">Disponible</a>
+                        @endif
+                        {{ Form::close() }}
                     </td>
                 </tr>
                 @endforeach
@@ -54,7 +64,7 @@
 </div>
 <div class="row">
     <div class="col">
-        <a href="/" class="btn">Volver al inicio</a>
+        <a href="/" class="btn btn-outline-info">Volver al inicio</a>
     </div>
 </div>
 @endsection
