@@ -6,7 +6,7 @@
     </div>
 </div>
 <!-- Carrusel Horizontal -->
-<div class="row m-2">
+<div class="row mt-2 mb-2">
     <div class="col">
         <div id="carouselHorizontal" class="carousel slide" data-ride="carousel">
             <ol class="carousel-indicators">
@@ -45,8 +45,9 @@
             </div>
         </div> -->
     <div class="col-sm-4">
-        <div class="card" style="width: 20rem; ">
+        <div class="card">
             <div id="carouselControls1" class="carousel slide" data-ride="carousel">
+                <a href="/pizzas">
                 <div class="carousel-inner">
                     <div class="carousel-item active">
                         <img src="images/pizza1.jpg" class="d-block w-100" alt="Imagen no disponible">
@@ -55,6 +56,7 @@
                         <img src="images/pizza2.jpg" class="d-block w-100" alt="Imagen no disponible">
                     </div>
                 </div>
+                </a>
                 <a class="carousel-control-prev" href="#carouselControls1" role="button" data-slide="prev">
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                     <span class="sr-only">Previous</span>
@@ -71,7 +73,7 @@
         </div>
     </div>
     <div class="col-sm-4">
-        <div class="card" style="width: 20rem; ">
+        <div class="card">
             <div id="carouselControls2" class="carousel slide" data-ride="carousel">
                 <div class="carousel-inner">
                     <div class="carousel-item active">
@@ -103,7 +105,7 @@
         </div>
     </div>
     <div class="col-sm-4">
-        <div class="card" style="width: 20rem; ">
+        <div class="card">
             <div id="carouselControls3" class="carousel slide" data-ride="carousel">
                 <div class="carousel-inner">
                     <div class="carousel-item active">
@@ -128,10 +130,16 @@
             </div>
         </div>
     </div>
-    <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+    <!-- <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
         Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
         irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
         cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-    </p>
+    </p> -->
 </div>
+
+<style>
+        .card {
+            margin-top: 10px;
+        }
+    </style>
 @endsection 

@@ -12,7 +12,6 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
         crossorigin="anonymous">
-
 </head>
 
 <body>
@@ -60,7 +59,7 @@
                 <ul class="nav navbar-nav navbar-right">
                     @auth
                     <li class="nav-item">
-                        <a class="nav-link text-dark" href="/productos">{{ Auth::user()->nombre_completo }}</a>
+                        <a class="nav-link text-dark" href="#">{{ Auth::user()->nombre_completo }}</a>
                         <input type="hidden" name="usuario " value="{{ Auth::User()->idusuario}}">
                     </li>
                     <li class="nav-item">
@@ -86,7 +85,7 @@
                         <span><b>Redes sociales</b></span>
                         <p class="rs"><a class="btn" href="https://www.facebook.com/taasty.s"><i class="fab fa-facebook-square"></i> Facebook</a></p>
                         <p class="rs"><a class="btn" href="https://www.instagram.com/tasty.vi/"><i class="fab fa-instagram"></i> Instagram</a></p>
-                        <p class="rs"><a class="btn" href="#"><i class="fab fa-whatsapp-square"></i> Whastapp</a></p>
+                        <p class="rs"><a class="btn" href="https://wa.me/56223170624?text=Hola,%20que%20tal?%20Quería%20pedir...%20"><i class="fab fa-whatsapp-square"></i> Whastapp</a></p>
                     </div>
                     <div class="col-sm">
                         <span><b>Contacto</b></span>
