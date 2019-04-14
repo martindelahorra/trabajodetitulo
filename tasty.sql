@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 10-04-2019 a las 04:15:31
+-- Tiempo de generación: 14-04-2019 a las 19:47:38
 -- Versión del servidor: 10.1.35-MariaDB
 -- Versión de PHP: 7.2.9
 
@@ -21,8 +21,6 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `tasty`
 --
-CREATE DATABASE IF NOT EXISTS `tasty` DEFAULT CHARACTER SET utf8 COLLATE utf8_spanish2_ci;
-USE `tasty`;
 
 -- --------------------------------------------------------
 
@@ -43,16 +41,16 @@ CREATE TABLE `ingredientes` (
 --
 
 INSERT INTO `ingredientes` (`cod_ingrediente`, `nombre`, `precio`, `categoria`, `deleted_at`) VALUES
-(1, 'Salame', 500, 'C', NULL),
-(2, 'Carne', 500, 'C', NULL),
-(3, 'Tocino', 500, 'C', NULL),
-(4, 'Pollo Furay', 500, 'C', NULL),
-(5, 'Pollo Normal', 500, 'C', NULL),
-(6, 'Salchicha', 500, 'C', NULL),
-(7, 'Chorizo', 500, 'C', NULL),
-(8, 'Extra Queso', 500, 'O', NULL),
-(9, 'Aceituna', 500, 'V', NULL),
-(10, 'Champiñon', 500, 'V', NULL),
+(1, 'Salame', 500, 'C', '2019-04-12 22:23:43'),
+(2, 'Carne', 500, 'C', '2019-04-12 22:22:28'),
+(3, 'Tocino', 500, 'C', '2019-04-12 22:22:30'),
+(4, 'Pollo Furay', 500, 'C', '2019-04-12 22:22:35'),
+(5, 'Pollo Normal', 500, 'C', '2019-04-12 22:22:40'),
+(6, 'Salchicha', 500, 'C', '2019-04-12 22:22:42'),
+(7, 'Chorizo', 500, 'C', '2019-04-12 22:22:44'),
+(8, 'Extra Queso', 500, 'O', '2019-04-12 22:22:46'),
+(9, 'Aceituna', 500, 'V', '2019-04-12 22:23:06'),
+(10, 'Champiñon', 500, 'V', '2019-04-12 22:23:10'),
 (11, 'Tomate', 500, 'V', NULL),
 (12, 'Pimentón', 500, 'V', NULL),
 (13, 'Piña', 500, 'O', NULL),
@@ -95,12 +93,26 @@ INSERT INTO `pizzas` (`cod_pizza`, `precio_pizza`, `tamaño`, `descripcion`, `di
 
 CREATE TABLE `sushis` (
   `cod_sushi` int(11) NOT NULL,
-  `envoltura` varchar(60) COLLATE utf8_spanish2_ci NOT NULL,
+  `envoltura` varchar(60) COLLATE utf8_spanish2_ci DEFAULT NULL,
   `descripcion` varchar(255) COLLATE utf8_spanish2_ci NOT NULL,
-  `cortes` int(11) NOT NULL,
-  `precio_roll` int(11) NOT NULL,
-  `stock` int(11) NOT NULL
+  `cortes` tinyint(2) NOT NULL,
+  `precio_roll` mediumint(5) NOT NULL,
+  `deleted_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+--
+-- Volcado de datos para la tabla `sushis`
+--
+
+INSERT INTO `sushis` (`cod_sushi`, `envoltura`, `descripcion`, `cortes`, `precio_roll`, `deleted_at`) VALUES
+(1, 'Sésamo', 'Relleno con Kanikama, Queso, Palta', 10, 0, '0000-00-00 00:00:00'),
+(2, 'Panko', 'Relleno con Pollo, Queso, Cebollín', 10, 0, '0000-00-00 00:00:00'),
+(3, NULL, 'Korokes', 4, 800, '2019-04-14 17:09:20'),
+(4, 'Ciboulette', 'Relleno con Salmón, Queso, Palmito', 10, 0, '2019-04-14 17:41:04'),
+(5, '', 'Relleno con Camarón, Queso, Ciboulette', 10, 0, '2019-04-14 17:41:04'),
+(6, NULL, 'Koroke', 5, 0, '2019-04-14 17:41:04'),
+(7, 'Futomaki', 'Relleno con Queso, Palta', 5, 0, '2019-04-14 17:41:04'),
+(8, 'Futomaki', 'Relleno con Queso, Palta', 3, 0, '2019-04-14 17:41:04');
 
 -- --------------------------------------------------------
 
@@ -175,7 +187,7 @@ ALTER TABLE `pizzas`
 -- AUTO_INCREMENT de la tabla `sushis`
 --
 ALTER TABLE `sushis`
-  MODIFY `cod_sushi` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `cod_sushi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`

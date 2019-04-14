@@ -10,7 +10,7 @@ class Sushi extends Model
     use SoftDeletes;
     public $timestamps = false;
     protected $dates =['deleted_at'];
-    public $primaryKey = 'cod_sushi';
+    protected $primaryKey = 'cod_sushi';
     protected $fillable = ['cod_sushi','envoltura','descripcion','cortes','precio_roll'];
     
     
