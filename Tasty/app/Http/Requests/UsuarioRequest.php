@@ -27,7 +27,9 @@ class UsuarioRequest extends FormRequest
             'username' => ['required','unique:usuarios,username'],
             'nombre_completo' => ['required'],
             'password' => ['required', 'confirmed'],
-            'rut' => ['required', new ValidarRut]
+            'rut' => ['required', new ValidarRut],
+            'direccion' => ['between:1,100'],
+            'telefono' => ['between:8,12']
           ];
     }
     public function messages(){
@@ -37,7 +39,9 @@ class UsuarioRequest extends FormRequest
           'nombre_completo.required' => 'Ingrese nombre completo',
           'password.required' => 'Ingrese su contraseña',
           'password.confirmed' => 'Las contraseñas no coinciden',
-          'rut.required' => 'Ingrese su rut'
+          'rut.required' => 'Ingrese su rut',
+          'direccion.between' => 'Campo Direccion Maximo 100 caracteres',
+          'telefono.between' => 'Campo telefono Maximo 12 caracteres'
         ];
       }
 }

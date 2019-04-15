@@ -25,6 +25,14 @@
             <input type="text" name="nombre_completo" class="form-control">
           </div>
           <div class="form-group">
+            <label for="telefono">Telefono</label>
+            <input type="text" name="telefono" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="direccion">Direccion</label>
+            <input type="text" name="direccion" class="form-control" >
+          </div>
+          <div class="form-group">
             <label for="rut">RUT</label>
             <input type="text" name="rut" class="form-control">
           </div>
@@ -36,6 +44,7 @@
             <label for="password_confirmation">Repetir Contraseña</label>
             <input type="password" name="password_confirmation" class="form-control">
           </div>
+          
           <div class="form-group">
             <button type="submit" class="btn btn-secondary">Registrarse</button>
           </div>
