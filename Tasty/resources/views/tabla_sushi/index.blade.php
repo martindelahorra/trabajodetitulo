@@ -1,4 +1,4 @@
-@extends('layouts.master') 
+@extends('layouts.master')
 @section('contenido')
 <div class="row mt-4">
     @foreach ($tabla_sushi as $tabla)
@@ -16,12 +16,15 @@
                         <h4 class="card-title">
                             {{$tabla->nombre}}
                         </h4>
+                        <hr>
+                        <ul>
+                            @foreach ($inter as $i) @if ($i->cod_tabla==$tabla->cod_tabla)
+                            <li>
+                                <p><b>{{$i->sushi->envoltura}}:</b> {{$i->sushi->descripcion}}</p>
+                            </li>
+                            @endif @endforeach
+                        </ul>
                     </div>
-                    <ul>
-                        @foreach ($inter as $i) @if ($i->cod_tabla==$tabla->cod_tabla)
-                    <li><p><b>{{$i->sushi->envoltura}}:</b> {{$i->sushi->descripcion}}</p></li>
-                        @endif @endforeach
-                    </ul>
                     <div class="card-footer">
                         Precio: ${{$tabla->precio}}
                     </div>
