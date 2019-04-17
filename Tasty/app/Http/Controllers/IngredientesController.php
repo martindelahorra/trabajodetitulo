@@ -14,7 +14,6 @@ class IngredientesController extends Controller
      */
     public function index()
     {
-        // $ingredientes = Ingrediente::all();
         $ingredientes = Ingrediente::withTrashed()->get();
         return view('ingredientes.index',compact('ingredientes'));
     }
