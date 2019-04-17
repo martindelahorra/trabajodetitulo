@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Sushi;
 use App\TablaSushi;
+use App\Sushi;
+use App\TsushiSushi;
 use Illuminate\Http\Request;
 
-class SushisController extends Controller
+class TablaSushiController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,9 +15,11 @@ class SushisController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
+
     {
-        $sushis = Sushi::all();
-        return view('sushis.index', compact('sushis'));
+        $inter = TsushiSushi::all();
+        $tabla_sushi = TablaSushi::all();
+        return view('tabla_sushi.index', compact('tabla_sushi', 'inter'));
     }
 
     /**
@@ -43,10 +46,10 @@ class SushisController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Sushi  $sushi
+     * @param  \App\TablaSushi  $tablaSushi
      * @return \Illuminate\Http\Response
      */
-    public function show(Sushi $sushi)
+    public function show(TablaSushi $tablaSushi)
     {
         //
     }
@@ -54,10 +57,10 @@ class SushisController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Sushi  $sushi
+     * @param  \App\TablaSushi  $tablaSushi
      * @return \Illuminate\Http\Response
      */
-    public function edit(Sushi $sushi)
+    public function edit(TablaSushi $tablaSushi)
     {
         //
     }
@@ -66,10 +69,10 @@ class SushisController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Sushi  $sushi
+     * @param  \App\TablaSushi  $tablaSushi
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Sushi $sushi)
+    public function update(Request $request, TablaSushi $tablaSushi)
     {
         //
     }
@@ -77,10 +80,10 @@ class SushisController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Sushi  $sushi
+     * @param  \App\TablaSushi  $tablaSushi
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Sushi $sushi)
+    public function destroy(TablaSushi $tablaSushi)
     {
         //
     }

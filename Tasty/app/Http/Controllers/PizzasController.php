@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use App\Pizza;
 use App\Ingrediente;
 use Illuminate\Http\Request;
-
+use App\Cart;
+use Session;
 class PizzasController extends Controller
 {
     /**
@@ -89,5 +90,17 @@ class PizzasController extends Controller
     public function destroy(Pizza $pizza)
     {
         //
+    }
+    public function getAddToCart(Request $request, $id)
+    {
+        
+        $pizza = Pizza::find($id);
+        $oldCart = Session::has('cart') ? Session::get('cart'):null;
+        $cart = new Cart($oldCart);
+        $cart->add($pizza, $pizza->id);
+
+        $request->session()->put('cart', $cart);
+        dd($request->session()->put('cart'));
+        return redirect()->route('pizza.index');
     }
 }

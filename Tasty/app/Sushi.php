@@ -3,16 +3,15 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Sushi extends Model
 {
-    use SoftDeletes;
-    public $timestamps = false;
-    protected $dates =['deleted_at'];
-    protected $primaryKey = 'cod_sushi';
-    protected $fillable = ['cod_sushi','envoltura','descripcion','cortes','precio_roll'];
-    
-    
-    					
+    protected $table = 'sushis';
+    public $primaryKey = 'cod_sushi';
+    public $fillable = ['envoltura', 'descripcion', 'cortes'];
+
+    public function tsushisushis()
+    {
+       return $this->hasMany('App\TsushiSushi', 'cod_sushi');
+    }
 }

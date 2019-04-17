@@ -37,8 +37,8 @@
                     <li class="nav-item @if(\Request::is('pizzas')) active @endif">
                         <a class="nav-link" href="/pizzas">Pizza</a>
                     </li>
-                    <li class="nav-item @if(\Request::is('sushis')) active @endif">
-                        <a class="nav-link" href="#">Sushi</a>
+                    <li class="nav-item @if(\Request::is('tabla_sushis')) active @endif">
+                        <a class="nav-link" href="/tabla_sushis">Tablas Sushi</a>
                     </li>
                     <li class="nav-item @if(\Request::is('empanadas')) active @endif">
                         <a class="nav-link" href="#">Empanadas</a>
@@ -50,7 +50,7 @@
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="#">Pizzas</a>
-                            <a class="dropdown-item" href="#">Sushi</a>
+                            <a class="dropdown-item" href="/sushis">Sushi</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item disabled" href="#">Otros</a>
                         </div>

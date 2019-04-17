@@ -61,6 +61,7 @@ class IngredientesController extends Controller
      */
     public function edit(Ingrediente $ingrediente)
     {
+        $ingrediente = Ingrediente::find($ingrediente->cod_ingrediente);
         return view('ingredientes.edit',compact('ingrediente'));
     }
 

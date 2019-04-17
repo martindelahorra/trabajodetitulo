@@ -24,7 +24,11 @@
                             @endswitch
                         </h5>
                         <p class="card-text">{{$p->descripcion}}</p>
+                    
                     </div>
+                {{-- <div class="card-footer">   
+                <a href="/add-to-cart/{{$p->cod_pizza}}" class="btn btn-success">Add Product</a>
+                </div> --}}
                 </div>
             </div>
         </div>
