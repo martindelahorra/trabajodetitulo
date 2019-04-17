@@ -21,7 +21,9 @@ Route::get('/', function () {
 Route::get('/pizzas/crear/{tamano}','PizzasController@ArmaPizza');
 Route::resource('pizzas', 'PizzasController');
 
-// Sushis
+// TablasSushi
+Route::resource('tabla_sushis', 'TablaSushiController');
+// Sushi
 Route::resource('sushis', 'SushisController');
 
 // Ingredientes
@@ -33,3 +35,6 @@ Route::get('/login',['as'=>'login','uses'=>'LoginController@login']);
 Route::post('/login','LoginController@autenticar');
 Route::get('/logout','LoginController@logout');
 Route::resource('usuarios', 'UsuariosController');
+
+
+Route::get('/add-to-cart/{cod_pizza}','PizzasController@getAddToCart');

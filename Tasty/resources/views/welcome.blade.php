@@ -100,7 +100,7 @@
             </div>
             <div class="card-body">
                 <h5 class="card-title">Sushi</h5>
-                <a href="#" class="btn btn-secondary">Ver Detalles</a>
+                <a href="/tabla_sushis" class="btn btn-secondary">Ver Detalles</a>
             </div>
         </div>
     </div>

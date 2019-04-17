@@ -19,7 +19,7 @@
                 </div>
                 @endforeach
                 <div class="form-group">
-                    <button type="button" class="btn btn-success" disabled>Agregar Pizza</button>
+                    <button type="button" class="btn btn-success" >Agregar Pizza</button>
                     <a href="/pizzas" class="btn btn-info">Volver</a>
                 </div>
             </div>
