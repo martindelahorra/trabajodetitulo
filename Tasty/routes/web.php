@@ -27,8 +27,10 @@ Route::resource('tabla_sushis', 'TablaSushiController');
 Route::resource('sushis', 'SushisController');
 
 // Ingredientes
-Route::resource('ingredientes', 'IngredientesController');
+Route::get('/ingredientes/disponibles','IngredientesController@disponibleAll');
+Route::get('/ingredientes/nodisponibles','IngredientesController@notDisponibleAll');
 Route::get('/ingredientes/{cod_ingrediente}/restore','IngredientesController@restore');
+Route::resource('ingredientes', 'IngredientesController');
 
 //Usuario
 Route::get('/login',['as'=>'login','uses'=>'LoginController@login']);

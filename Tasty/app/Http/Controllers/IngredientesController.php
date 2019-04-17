@@ -15,7 +15,23 @@ class IngredientesController extends Controller
     public function index()
     {
         $ingredientes = Ingrediente::withTrashed()->get();
-        return view('ingredientes.index',compact('ingredientes'));
+        return view('ingredientes.index', compact('ingredientes'));
+    }
+
+    public function disponibleAll()
+    {
+        $ingredientes = Ingrediente::withTrashed()->get();
+        foreach ($ingredientes as $ing)
+            $ing->restore();
+        return redirect('/ingredientes');        
+    }
+
+    public function notDisponibleAll()
+    {
+        $ingredientes = Ingrediente::withTrashed()->get();
+        foreach ($ingredientes as $ing)
+            $ing->delete();
+        return redirect('/ingredientes');        
     }
 
     /**
@@ -36,7 +52,7 @@ class IngredientesController extends Controller
      */
     public function store(Request $request)
     {
-        $ingrediente = request(['nombre','precio','categoria']);
+        $ingrediente = request(['nombre', 'precio', 'categoria']);
         Ingrediente::create($ingrediente);
         return redirect('/ingredientes');
     }
@@ -61,7 +77,7 @@ class IngredientesController extends Controller
     public function edit(Ingrediente $ingrediente)
     {
         $ingrediente = Ingrediente::find($ingrediente->cod_ingrediente);
-        return view('ingredientes.edit',compact('ingrediente'));
+        return view('ingredientes.edit', compact('ingrediente'));
     }
 
     /**
@@ -73,7 +89,7 @@ class IngredientesController extends Controller
      */
     public function update(Request $request, Ingrediente $ingrediente)
     {
-        $ingrediente->update(request(['nombre','precio','categoria']));
+        $ingrediente->update(request(['nombre', 'precio', 'categoria']));
         return redirect('/ingredientes');
     }
 
@@ -89,9 +105,10 @@ class IngredientesController extends Controller
         return redirect('/ingredientes');
     }
 
-    public function restore($cod_ingrediente){
-        $ingrediente = Ingrediente::onlyTrashed()->where('cod_ingrediente',$cod_ingrediente);
+    public function restore($cod_ingrediente)
+    {
+        $ingrediente = Ingrediente::onlyTrashed()->where('cod_ingrediente', $cod_ingrediente);
         $ingrediente->restore();
         return redirect('/ingredientes');
-      }
+    }
 }

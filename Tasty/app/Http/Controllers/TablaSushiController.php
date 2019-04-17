@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\TablaSushi;
-use App\Sushi;
 use App\TsushiSushi;
 use Illuminate\Http\Request;
 
