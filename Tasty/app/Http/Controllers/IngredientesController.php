@@ -74,9 +74,9 @@ class IngredientesController extends Controller
      * @param  \App\Ingrediente  $ingrediente
      * @return \Illuminate\Http\Response
      */
-    public function edit(Ingrediente $ingrediente)
+    public function edit($ingrediente)
     {
-        $ingrediente = Ingrediente::find($ingrediente->cod_ingrediente);
+        $ingrediente = Ingrediente::withTrashed()->get()->find($ingrediente);
         return view('ingredientes.edit', compact('ingrediente'));
     }
 
