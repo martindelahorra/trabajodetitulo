@@ -43,6 +43,9 @@
                     <li class="nav-item @if(\Request::is('empanadas')) active @endif">
                         <a class="nav-link" href="#">Empanadas</a>
                     </li>
+                    <li class="nav-item @if(\Request::is('sushis')) active @endif">
+                        <a class="nav-link" href="/sushis">Rolls Sushi</a>
+                    </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
                             aria-expanded="false">
@@ -55,6 +58,7 @@
                             <a class="dropdown-item disabled" href="#">Otros</a>
                         </div>
                     </li>
+                   
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     @auth
