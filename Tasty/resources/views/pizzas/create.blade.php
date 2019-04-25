@@ -1,5 +1,4 @@
 @extends('layouts.master')
-
 @section('contenido')
 <div class="row">
     <div class="col">
@@ -7,7 +6,6 @@
         <hr>
     </div>
 </div>
-
 <div class="row">
     <div class="col col-md-6 offset-md-3">
         <div class="card">
