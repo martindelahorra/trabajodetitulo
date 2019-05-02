@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="icon" type="image/png" href="images/tastylogo.png">
+    <link rel="icon" type="image/png" href="images/tastylogo.png" sizes="16x16">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr"
         crossorigin="anonymous">
     <title>Tasty</title>
@@ -42,6 +42,9 @@
                     </li>
                     <li class="nav-item @if(\Request::is('empanadas')) active @endif">
                         <a class="nav-link" href="#">Empanadas</a>
+                    </li>
+                    <li class="nav-item @if(\Request::is('ingredientes')) active @endif">
+                        <a class="nav-link" href="/ingredientes">Ingredientes</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"

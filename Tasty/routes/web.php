@@ -32,11 +32,17 @@ Route::get('/ingredientes/nodisponibles','IngredientesController@notDisponibleAl
 Route::get('/ingredientes/{cod_ingrediente}/restore','IngredientesController@restore');
 Route::resource('ingredientes', 'IngredientesController');
 
-//Usuario
+// Usuario
 Route::get('/login',['as'=>'login','uses'=>'LoginController@login']);
 Route::post('/login','LoginController@autenticar');
 Route::get('/logout','LoginController@logout');
 Route::resource('usuarios', 'UsuariosController');
+
+// Tamaños
+Route::get('/pizza_tamanos/disponibles','TamanosController@disponibleAll');
+Route::get('/pizza_tamanos/nodisponibles','TamanosController@notDisponibleAll');
+Route::get('/pizza_tamanos/{cod_ingrediente}/restore','TamanosController@restore');
+Route::resource('pizza_tamanos', 'TamanosController');
 
 
 Route::get('/add-to-cart/{cod_pizza}','PizzasController@getAddToCart');
