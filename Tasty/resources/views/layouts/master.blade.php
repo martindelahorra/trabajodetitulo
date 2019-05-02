@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -45,6 +44,8 @@
                     </li>
                     <li class="nav-item @if(\Request::is('ingredientes')) active @endif">
                         <a class="nav-link" href="/ingredientes">Ingredientes</a>
+                    <li class="nav-item @if(\Request::is('sushis')) active @endif">
+                        <a class="nav-link" href="/sushis">Rolls Sushi</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
@@ -58,6 +59,7 @@
                             <a class="dropdown-item disabled" href="#">Otros</a>
                         </div>
                     </li>
+                   
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     @auth
