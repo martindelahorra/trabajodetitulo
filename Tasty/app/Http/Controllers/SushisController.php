@@ -26,7 +26,7 @@ class SushisController extends Controller
      */
     public function create()
     {
-        //
+        return view('sushis.create');
     }
 
     /**
@@ -37,7 +37,14 @@ class SushisController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $imagen = $request->file('imagen');
+        $sushi = new Sushi();
+        $sushi->envoltura = $request->envoltura;
+        $sushi->descripcion = $request->descripcion;
+        $sushi->cortes = $request->cortes;
+        $sushi->imagen = $imagen->openFile()->fread($imagen->getSize());
+        $sushi->save();
+        return redirect('/sushis');
     }
 
     /**

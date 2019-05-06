@@ -1,5 +1,7 @@
-@extends('layouts.master')
+@extends('layouts.master') 
 @section('contenido')
+
+
 <div class="row mt-4">
     @foreach ($tabla_sushi as $tabla)
     <div class="col-md-6">
