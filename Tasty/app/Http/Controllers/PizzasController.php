@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Pizza;
 use App\Ingrediente;
 use App\PizzaIngrediente;
+use App\PizzaTamano;
 use Illuminate\Http\Request;
 use App\Cart;
 use Session;
@@ -19,7 +20,7 @@ class PizzasController extends Controller
      */
     public function index()
     {
-        $pizzas = Pizza::all();
+        $pizzas = PizzaTamano::all();
         return view('pizzas.index', compact('pizzas'));
     }
 
