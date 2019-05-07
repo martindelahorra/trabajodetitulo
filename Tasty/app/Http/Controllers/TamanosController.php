@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\PizzaTamano;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class TamanosController extends Controller
 {
@@ -52,11 +53,16 @@ class TamanosController extends Controller
      */
     public function store(Request $request)
     {
-        $tamaño = request(['nombre', 'precio']);
-        $imagen = $request->file('imagen');
-        $tamaño['imagen'] = $imagen->openFile()->fread($imagen->getSize());
-        PizzaTamano::create($tamaño);
-        return redirect('/pizza_tamanos');
+        $tamaño = new PizzaTamano();
+        $tamaño->nombre = $request->nombre;
+        $tamaño->precio = $request->precio;
+        
+        if ($request->file('imagen')) {
+            $path = Storage::disk('public')->put('image', $request->file('imagen'));
+            $tamaño->fill(['imagen'=> asset($path)])->save();
+        }
+        $tamaño->save();
+        return redirect('/pizzas');
     }
 
     /**

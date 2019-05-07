@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Sushi;
 use App\TablaSushi;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class SushisController extends Controller
 {
@@ -37,12 +38,15 @@ class SushisController extends Controller
      */
     public function store(Request $request)
     {
-        $imagen = $request->file('imagen');
         $sushi = new Sushi();
         $sushi->envoltura = $request->envoltura;
         $sushi->descripcion = $request->descripcion;
         $sushi->cortes = $request->cortes;
-        $sushi->imagen = $imagen->openFile()->fread($imagen->getSize());
+        
+        if ($request->file('imagen')) {
+            $path = Storage::disk('public')->put('image', $request->file('imagen'));
+            $sushi->fill(['imagen'=> asset($path)])->save();
+        }
         $sushi->save();
         return redirect('/sushis');
     }

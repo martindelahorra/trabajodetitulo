@@ -18,7 +18,7 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-sm-6 col-md-4">
-                        <img src="data:image/jpeg;base64,{{base64_encode($s->imagen)}}" class="card-img-top" alt="..." width="20px" height="200px">
+                        <img src="{{$s->imagen}}" class="card-img-top" alt="..." width="20px" height="200px">
                     </div>
                     <div class="col-sm-6 col-md-3">
                         <h3 class="card-title">Envoltura: {{$s->envoltura}}</h3>

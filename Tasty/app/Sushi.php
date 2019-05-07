@@ -9,6 +9,7 @@ class Sushi extends Model
     protected $table = 'sushis';
     public $primaryKey = 'cod_sushi';
     public $fillable = ['envoltura', 'descripcion', 'cortes','imagen'];
+    public $timestamps = false;
 
     public function tsushisushis()
     {

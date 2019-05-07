@@ -29,7 +29,7 @@
         {{ Form::close() }}
     </div>
     <div class="col-md-6">
-      <img class="img-thumbnail border" height="800" width="600" alt="{{$tamaño->nombre}}" src="data:image/jpeg;base64,{{base64_encode($tamaño->imagen)}}" title="{{$tamaño->nombre}}"/>
+      <img class="img-thumbnail border" height="800" width="600" alt="{{$tamaño->nombre}}" src="{{$tamaño->imagen}}" title="{{$tamaño->nombre}}"/>
     </div>
     @if($errors->any())
       <div class="col col-md-6">
