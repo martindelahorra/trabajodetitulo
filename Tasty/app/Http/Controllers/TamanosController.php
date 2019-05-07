@@ -82,7 +82,7 @@ class TamanosController extends Controller
      * @param  \App\PizzaTamano  $pizzaTamano
      * @return \Illuminate\Http\Response
      */
-    public function edit(PizzaTamano $pizzaTamano)
+    public function edit( $pizzaTamano)
     {
         $tamaño = PizzaTamano::withTrashed()->get()->find($pizzaTamano);
         return view('tamaños.edit', compact('tamaño'));
@@ -95,14 +95,18 @@ class TamanosController extends Controller
      * @param  \App\PizzaTamano  $pizzaTamano
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, PizzaTamano $pizzaTamano)
+    public function update(Request $request,  $pizzaTamano)
     {
-        $imagen = $request->file('imagen');
-        if ($imagen != null) {
-            $pizzaTamano->imagen = $imagen->openFile()->fread($imagen->getSize());
-        }
+        
+        
+        $pizzaTamano = PizzaTamano::withTrashed()->get()->find($pizzaTamano);
         $pizzaTamano->nombre = $request->nombre;
         $pizzaTamano->precio = $request->precio;
+        
+        if ($request->file('imagen')) {
+            $path = Storage::disk('public')->put('image', $request->file('imagen'));
+            $pizzaTamano->fill(['imagen'=> asset($path)])->save();
+        }
         $pizzaTamano->save();
         return redirect('/pizza_tamanos');
     }

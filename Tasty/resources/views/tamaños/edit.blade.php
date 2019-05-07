@@ -28,6 +28,7 @@
         </div>
         {{ Form::close() }}
     </div>
+    
     <div class="col-md-6">
       <img class="img-thumbnail border" height="800" width="600" alt="{{$tamaño->nombre}}" src="{{$tamaño->imagen}}" title="{{$tamaño->nombre}}"/>
     </div>

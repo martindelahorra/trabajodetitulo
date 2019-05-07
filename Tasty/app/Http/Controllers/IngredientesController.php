@@ -87,8 +87,9 @@ class IngredientesController extends Controller
      * @param  \App\Ingrediente  $ingrediente
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Ingrediente $ingrediente)
+    public function update(Request $request,  $ingrediente)
     {
+        $ingrediente = Ingrediente::withTrashed()->get()->find($ingrediente);
         $ingrediente->update(request(['nombre', 'precio', 'categoria']));
         return redirect('/ingredientes');
     }
