@@ -44,5 +44,5 @@ Route::get('/pizza_tamanos/nodisponibles','TamanosController@notDisponibleAll');
 Route::get('/pizza_tamanos/{cod_ingrediente}/restore','TamanosController@restore');
 Route::resource('pizza_tamanos', 'TamanosController');
 
-
-Route::get('/add-to-cart/{cod_pizza}','PizzasController@getAddToCart');
+//Cart
+Route::get('/cart','CartController@index')->name('cart.index');
