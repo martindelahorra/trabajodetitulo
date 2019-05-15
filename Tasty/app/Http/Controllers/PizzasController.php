@@ -7,7 +7,7 @@ use App\Ingrediente;
 use App\PizzaIngrediente;
 use App\PizzaTamano;
 use Illuminate\Http\Request;
-use App\Cart;
+
 use Session;
 use function Psy\info;
 
@@ -114,15 +114,5 @@ class PizzasController extends Controller
     {
         //
     }
-    public function getAddToCart(Request $request, $id)
-    {
-        $pizza = Pizza::find($id);
-        $oldCart = Session::has('cart') ? Session::get('cart') : null;
-        $cart = new Cart($oldCart);
-        $cart->add($pizza, $pizza->id);
-
-        $request->session()->put('cart', $cart);
-        dd($request->session()->put('cart'));
-        return redirect()->route('pizza.index');
-    }
+    
 }

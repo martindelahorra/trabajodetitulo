@@ -1,4 +1,4 @@
-@extends('layouts.master') 
+@extends('layouts.master')
 @section('contenido')
 
 
@@ -8,7 +8,8 @@
         <div class="card mb-3">
             <div class="row no-gutters">
                 <div class="col ">
-                    <img src="data:image/jpeg;base64,{{base64_encode($tabla->imagen)}}" class="card-img" alt="Imagen no disponible">
+                    <img src="data:image/jpeg;base64,{{base64_encode($tabla->imagen)}}" class="card-img"
+                        alt="Imagen no disponible">
                 </div>
 
             </div>
@@ -28,7 +29,11 @@
                         </ul>
                     </div>
                     <div class="card-footer">
-                        Precio: ${{$tabla->precio}}
+                        <p>Precio: ${{$tabla->precio}} <button class="btn btn-success derecha">Pedir..</button></p> 
+                        
+                    
+                        
+
                     </div>
                 </div>
             </div>
@@ -37,4 +42,13 @@
 
     @endforeach
 </div>
+<style>
+    .izquierda{
+        float: left;
+    }
+    .derecha{
+        float: right;
+        margin-left: 4px;
+    }
+</style>
 @endsection
