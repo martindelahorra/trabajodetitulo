@@ -20,7 +20,7 @@
                 <h4>Tabla sushis</h4>
                 <p>(Sushis)</p>
             </div>
-            <div class="col-sm-4 col-md-2" >
+            <div class="col-sm-4 col-md-2">
                 <button class="btn btn-sm" style="text-align: right"><span style="color:red;">Remove</span></button>
             </div>
             <div class="col-sm-4 col-md-2">
@@ -46,7 +46,7 @@
                 <h4>Tabla sushis</h4>
                 <p>(Sushis)</p>
             </div>
-            <div class="col-sm-4 col-md-2" >
+            <div class="col-sm-4 col-md-2">
                 <button class="btn btn-sm" style="text-align: right"><span style="color:red;">Remove</span></button>
             </div>
             <div class="col-sm-4 col-md-2">
@@ -65,7 +65,9 @@
         <hr>
         <div class="row">
             <div class="col-6">
-                <p>Shipping is free because we’re awesome like that. Also because that’s additional stuff I don’t feel like figuring out :).</p>
+                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iste obcaecati voluptates eos placeat earum
+                    quia inventore deserunt, mollitia quidem animi quod officiis officia, sint sed odio aperiam saepe
+                    perferendis consectetur!</p>
             </div>
             <div class="col">
                 <p>SubTotal</p>
@@ -74,6 +76,15 @@
             <div class="col">
                 <p>$17.300</p>
                 <p><b>$18.300</b></p>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-8">
+                <button type="button" class="btn btn-outline-secondary btn-lg">Continuar en la tienda</button>
+            </div>
+            <div class="col" >
+                <button type="button" class="btn btn-info btn-lg" >Pedir <i class="fas fa-arrow-right"></i></button>
             </div>
         </div>
     </div>
