@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\TablaSushi;
 use App\TsushiSushi;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class TablaSushiController extends Controller
 {
@@ -28,7 +29,7 @@ class TablaSushiController extends Controller
      */
     public function create()
     {
-        //
+        return view('tabla_sushi.create');
     }
 
     /**
@@ -39,7 +40,17 @@ class TablaSushiController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $tabla = new TablaSushi();
+        $tabla->nombre = $request->nombre;
+        $tabla->precio = $request->precio;
+        
+        
+        if ($request->file('imagen')) {
+            $path = Storage::disk('public')->put('image', $request->file('imagen'));
+            $tabla->fill(['imagen'=> asset($path)])->save();
+        }
+        $tabla->save();
+        return redirect('/tabla_sushis');
     }
 
     /**

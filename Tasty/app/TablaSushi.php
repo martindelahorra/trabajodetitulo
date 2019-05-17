@@ -8,7 +8,8 @@ class TablaSushi extends Model
 {   
     protected $table = 'tabla_sushis';
     public $primaryKey = 'cod_tabla';
-    protected $fillable = ['nombre', 'precio'];
+    protected $fillable = ['nombre', 'precio','imagen'];
+    public $timestamps = false;
 
     public function tsushisushis()
     {

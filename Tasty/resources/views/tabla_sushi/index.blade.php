@@ -1,13 +1,18 @@
 @extends('layouts.master')
 @section('contenido')
 
+<div class="row">
+    <div class="col">
+        <a href="/tabla_sushis/create" class="btn btn-outline-primary ">Agregar Tabla</a>
+    </div>
+</div>
 <div class="row mt-4">
     @foreach ($tabla_sushi as $tabla)
     <div class="col-md-6">
         <div class="card mb-3">
             <div class="row no-gutters">
                 <div class="col ">
-                    <img src="data:image/jpeg;base64,{{base64_encode($tabla->imagen)}}" class="card-img"
+                    <img src="{{($tabla->imagen)}}" class="card-img"
                         alt="Imagen no disponible">
                 </div>
             </div>
