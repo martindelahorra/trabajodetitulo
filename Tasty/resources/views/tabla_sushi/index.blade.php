@@ -29,11 +29,7 @@
                         </ul>
                     </div>
                     <div class="card-footer">
-                        <p>Precio: ${{$tabla->precio}} <button class="btn btn-success derecha">Pedir..</button></p> 
-                        
-                    
-                        
-
+                        <p>Precio: ${{$tabla->precio}} <button class="btn btn-success derecha">Ver ..</button></p> 
                     </div>
                 </div>
             </div>
