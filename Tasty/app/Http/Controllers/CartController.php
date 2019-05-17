@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\TablaSushi;
 use Illuminate\Http\Request;
 use Gloudemans\Shoppingcart\Facades\Cart;
 
@@ -35,7 +36,9 @@ class CartController extends Controller
      */
     public function store(Request $request)
     {
-        
+        $tipo = ($request->tipo == 'tabla')?'App\TablaSushi':'App\Pizza';
+        Cart::add($request->id, $request->nombre,1,$request->precio)->associate($tipo);
+        return redirect()->route('cart.index')->with('success_message','Producto agregado al carrito! :)');
     }
 
     /**
@@ -80,6 +83,7 @@ class CartController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Cart::remove($id);
+        return back()->with('success_message','El producto fue quitado.');
     }
 }

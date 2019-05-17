@@ -7,62 +7,60 @@
     </div>
 </div>
 
-<div class="row mt-4">
+<div class="row">
     <div class="col">
-        <h3>1 Item(s) seleccionado en el carrito</h3>
+        @if (session()->has('success_message'))
+            <div class="alert alert-success" role="alert">
+                {{ session()->get('success_message') }}
+            </div>
+        @endif
+
+        @if(count($errors) >0)
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
+        @if(Cart::count()>0)
+
+        <h3>{{Cart::count()}} Producto(s) en el carrito</h3>
         <hr>
-        <div class="row">
-            <div class="col-sm-4 col-md-2">
-                <img src="https://mlstaticquic-a.akamaihd.net/tabla-de-sushi-cpalitos-begourmet-D_NQ_NP_837781-MLU27606276813_062018-F.webp"
-                    width="150px" height="100px">
+        @foreach (Cart::content() as $item)
+            <div class="row">
+                <div class="col-sm-4 col-md-2">
+                    <img src="https://mlstaticquic-a.akamaihd.net/tabla-de-sushi-cpalitos-begourmet-D_NQ_NP_837781-MLU27606276813_062018-F.webp"
+                        width="150px" height="100px">
+                </div>
+                <div class="col-sm-4 col-md-3">
+                    <h4>{{$item->model->nombre}}</h4>
+                    <p>(Sushis)</p>
+                </div>
+                <div class="col-sm-4 col-md-2" >
+                    <form action="{{ route('cart.destroy', $item->rowId) }}" method="post">
+                        {{ csrf_field() }}
+                        {{ method_field('DELETE') }}
+                        <button class="btn btn-sm" type="submit" style="text-align: right"><span style="color:red;">Quitar</span></button>
+                    </form>
+                </div>
+                <div class="col-sm-4 col-md-2">
+                    <select name="" id="">
+                        <option value="">1</option>
+                        <option value="">2</option>
+                        <option value="">3</option>
+                        <option value="">4</option>
+                        <option value="">5</option>
+                    </select>
+                </div>
+                <div class="col-sm-4 col-md-2">
+                    <p>${{ number_format($item->model->precio,0,",",".") }}</p>
+                </div>
             </div>
-            <div class="col-sm-4 col-md-3">
-                <h4>Tabla sushis</h4>
-                <p>(Sushis)</p>
-            </div>
-            <div class="col-sm-4 col-md-2" >
-                <button class="btn btn-sm" style="text-align: right"><span style="color:red;">Quitar</span></button>
-            </div>
-            <div class="col-sm-4 col-md-2">
-                <select name="" id="">
-                    <option value="">1</option>
-                    <option value="">2</option>
-                    <option value="">3</option>
-                    <option value="">4</option>
-                    <option value="">5</option>
-                </select>
-            </div>
-            <div class="col-sm-4 col-md-2">
-                <p>$17.300</p>
-            </div>
-        </div>
-        <hr>
-        <div class="row">
-            <div class="col-sm-4 col-md-2">
-                <img src="https://mlstaticquic-a.akamaihd.net/tabla-de-sushi-cpalitos-begourmet-D_NQ_NP_837781-MLU27606276813_062018-F.webp"
-                    width="150px" height="100px">
-            </div>
-            <div class="col-sm-4 col-md-3">
-                <h4>Tabla sushis</h4>
-                <p>(Sushis)</p>
-            </div>
-            <div class="col-sm-4 col-md-2" >
-                <button class="btn btn-sm" style="text-align: right"><span style="color:red;">Quitar</span></button>
-            </div>
-            <div class="col-sm-4 col-md-2">
-                <select name="" id="">
-                    <option value="">1</option>
-                    <option value="">2</option>
-                    <option value="">3</option>
-                    <option value="">4</option>
-                    <option value="">5</option>
-                </select>
-            </div>
-            <div class="col-sm-4 col-md-2">
-                <p>$17.300</p>
-            </div>
-        </div>
-        <hr>
+            <hr>
+        @endforeach
         <div class="row">
             <div class="col-6">
                 <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iste obcaecati voluptates eos placeat earum
@@ -87,6 +85,9 @@
                 <button type="button" class="btn btn-info btn-lg" >Pedir <i class="fas fa-arrow-right"></i></button>
             </div>
         </div>
+        @else
+            <h3>El carrito esta vacío</h3>
+        @endif
     </div>
 </div>
 @endsection
