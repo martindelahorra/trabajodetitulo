@@ -64,8 +64,11 @@
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li class="nav-item">
-                        <a class="nav-link text-dark" href="{{ route('cart.index')}}">Cart <i class="fas fa-shopping-cart"></i></a>
-
+                        <a class="nav-link text-dark" href="{{ route('cart.index')}}">Cart <i
+                                class="fas fa-shopping-cart"></i> @if (Cart::count()>0)
+                                <span class="badge badge-warning">{{ Cart::count() }}</span>
+                            @endif 
+                        </a>
                     </li>
                     @auth
                     <li class="nav-item">
