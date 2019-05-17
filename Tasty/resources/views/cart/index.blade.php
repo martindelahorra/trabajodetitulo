@@ -20,8 +20,8 @@
                 <h4>Tabla sushis</h4>
                 <p>(Sushis)</p>
             </div>
-            <div class="col-sm-4 col-md-2">
-                <button class="btn btn-sm" style="text-align: right"><span style="color:red;">Remove</span></button>
+            <div class="col-sm-4 col-md-2" >
+                <button class="btn btn-sm" style="text-align: right"><span style="color:red;">Quitar</span></button>
             </div>
             <div class="col-sm-4 col-md-2">
                 <select name="" id="">
@@ -46,8 +46,8 @@
                 <h4>Tabla sushis</h4>
                 <p>(Sushis)</p>
             </div>
-            <div class="col-sm-4 col-md-2">
-                <button class="btn btn-sm" style="text-align: right"><span style="color:red;">Remove</span></button>
+            <div class="col-sm-4 col-md-2" >
+                <button class="btn btn-sm" style="text-align: right"><span style="color:red;">Quitar</span></button>
             </div>
             <div class="col-sm-4 col-md-2">
                 <select name="" id="">
