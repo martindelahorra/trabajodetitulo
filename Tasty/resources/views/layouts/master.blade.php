@@ -102,18 +102,17 @@
                                     class="fab fa-whatsapp-square"></i> Whastapp</a></p>
                     </div>
                     <div class="col-sm">
-                        <span><b>Contacto</b></span>
+                        <span><b>Contacto</b> <i class="fa fa-phone-square"></i></span>
                         <p>Telefono:****</p>
                         <p>Mail: *****</p>
                     </div>
                     <div class="col-sm">
-                        <span><b>Dirección</b></span>
+                        <span><b>Dirección</b> <i class="fa fa-road"></i></span>
 
                     </div>
                     <div class="col-sm">
-                        <span><b>Medios de pago</b></span>
+                        <span><b>Medios de pago</b><i class="fa fa-credit-card-alt"></i></span>
                         <img src="{{ asset('images/metodospagos.jpg') }}" class="img-fluid">
-
                     </div>
                 </div>
             </div>
