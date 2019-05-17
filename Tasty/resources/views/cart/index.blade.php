@@ -14,7 +14,6 @@
                 {{ session()->get('success_message') }}
             </div>
         @endif
-
         @if(count($errors) >0)
             <div class="alert alert-danger">
                 <ul>
@@ -32,8 +31,8 @@
         @foreach (Cart::content() as $item)
             <div class="row">
                 <div class="col-sm-4 col-md-2">
-                    <img src="https://mlstaticquic-a.akamaihd.net/tabla-de-sushi-cpalitos-begourmet-D_NQ_NP_837781-MLU27606276813_062018-F.webp"
-                        width="150px" height="100px">
+                        <img src="{{($item->model->imagen)}}"
+                        alt="Imagen no disponible"  width="150px" height="100px">
                 </div>
                 <div class="col-sm-4 col-md-3">
                     <h4>{{$item->model->nombre}}</h4>

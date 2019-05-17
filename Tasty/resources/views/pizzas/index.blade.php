@@ -7,7 +7,7 @@
         <div class="card mb-3">
             <div class="row no-gutters">
                 <div class="col-md-8">
-                    <a href="pizzas/crear/{{$p->nombre}}">
+                    <a href="pizzas/crear/{{ substr($p->nombre,0,2) }}">
                         <img src="{{$p->imagen}}" class="card-img m-1" alt="Imagen no disponible">
                     </a>
                 </div>
