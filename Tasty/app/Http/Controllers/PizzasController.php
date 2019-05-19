@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Pizza;
 use App\Ingrediente;
-use App\PizzaIngrediente;
 use App\PizzaTamano;
 use Illuminate\Http\Request;
 
@@ -33,8 +32,14 @@ class PizzasController extends Controller
     {
         if ($tamano == 'Me' or $tamano == 'Fa') {
             // $primero = Ingrediente::where('disponible','0')->first();
+            $tamaños = PizzaTamano::all();
+            foreach ($tamaños as $tam) {
+                if ($tamano == substr($tam->nombre, 0, 2)) {
+                    $tamano=$tam;
+                }
+            }
             $ingredientes = Ingrediente::all();
-            return view('pizzas.create', compact('ingredientes', 'tamano'));
+            return view('pizzas.createTest', compact('ingredientes', 'tamano'));
         } else {
             return redirect('/pizzas');
         }
@@ -48,26 +53,7 @@ class PizzasController extends Controller
      */
     public function store(Request $request)
     {
-        $ingredientes = Ingrediente::all();
-        $array = array();
-        foreach($ingredientes as $key => $ing)
-            $array = array_add($array, $key+1, $ing->nombre);
-        // dd($array);
-        // El arreglo contiene todos los nombres de los ingredientes disponibles
-        // $request->$a se rescata el codigo de los ingredientes seleccionados
-        $regpizza = new Pizza();
-        $regpizza->tamaño = $request->tamano;
-        $regpizza->precio = ($request->tamano=='Me')?6500:7900; //revisar como hacer para futuros cambios de precio
-        $regpizza->save();
-        // se crea la pizza con el precio actual y luego se usa su Codigo para asignarle los ingredientes
-        foreach($array as $a)
-            if(!empty(Ingrediente::find($request->$a))){
-                $registro = new PizzaIngrediente();
-                $registro->cod_pizza = $regpizza->cod_pizza;
-                $registro->cod_ingrediente = $request->$a;
-                $registro->save();
-            }
-        return redirect('/');
+        //
     }
 
     /**
@@ -114,5 +100,4 @@ class PizzasController extends Controller
     {
         //
     }
-    
 }
