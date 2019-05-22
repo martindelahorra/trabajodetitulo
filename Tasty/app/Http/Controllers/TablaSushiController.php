@@ -6,6 +6,7 @@ use App\TablaSushi;
 use App\TsushiSushi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\TablaSushiRequest;
 
 class TablaSushiController extends Controller
 {
@@ -38,7 +39,7 @@ class TablaSushiController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(TablaSushiRequest $request)
     {
         $tabla = new TablaSushi();
         $tabla->nombre = $request->nombre;

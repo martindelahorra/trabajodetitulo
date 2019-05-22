@@ -40,8 +40,8 @@ class UsuarioRequest extends FormRequest
           'password.required' => 'Ingrese su contraseña',
           'password.confirmed' => 'Las contraseñas no coinciden',
           'rut.required' => 'Ingrese su rut',
-          'direccion.between' => 'Campo Direccion Maximo 100 caracteres',
-          'telefono.between' => 'Campo telefono Maximo 12 caracteres'
+          'direccion.between' => 'Campo Direccion un Minimo de 1 y un Maximo 100 caracteres',
+          'telefono.between' => 'Campo telefono tiene un Minimo de 8 y un Maximo 12 caracteres'
         ];
       }
 }

@@ -18,31 +18,32 @@
           <input type="hidden"  name="rol" value="cliente">
           <div class="form-group">
             <label for="username">Nombre de usuario</label>
-            <input type="text" name="username" class="form-control">
+            <input type="text" name="username" class="form-control" value="{{old('username')}}">
           </div>
           <div class="form-group">
             <label for="nombre_completo">Nombre completo</label>
-            <input type="text" name="nombre_completo" class="form-control">
+            <input type="text" name="nombre_completo" class="form-control"  value="{{old('nombre_completo')}}">
           </div>
           <div class="form-group">
             <label for="telefono">Telefono</label>
-            <input type="text" name="telefono" class="form-control">
+            <input type="text" name="telefono" class="form-control" value="{{old('telefono')}}">
           </div>
           <div class="form-group">
             <label for="direccion">Direccion</label>
-            <input type="text" name="direccion" class="form-control" >
+            <input type="text" name="direccion" class="form-control" value="{{old('direccion')}}">
           </div>
           <div class="form-group">
             <label for="rut">RUT</label>
-            <input type="text" name="rut" class="form-control">
+            <input type="text" name="rut" class="form-control" value="{{old('rut')}}">
+            <p>Ej: 199584367</p>
           </div>
           <div class="form-group">
             <label for="password">Contraseña</label>
-            <input type="password" name="password" class="form-control">
+            <input type="password" name="password" class="form-control" value="{{old('password')}}">
           </div>
           <div class="form-group">
             <label for="password_confirmation">Repetir Contraseña</label>
-            <input type="password" name="password_confirmation" class="form-control">
+            <input type="password" name="password_confirmation" class="form-control" value="{{old('password_confirmation')}}">
           </div>
           
           <div class="form-group">
