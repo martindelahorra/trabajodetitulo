@@ -1,0 +1,21 @@
+.izquierda {
+    float: left;
+}
+
+.derecha {
+    float: right;
+    margin-left: 4px;
+}
+footer {
+    position: relative;
+    left: 0px;
+    bottom: 0px;
+    height: 190px;
+    width: 100%;
+    background: #f5f5ef;
+    margin-bottom: 2rem;
+}
+
+.rs {
+    vertical-align: middle;
+}

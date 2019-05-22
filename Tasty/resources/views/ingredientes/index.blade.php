@@ -69,13 +69,5 @@
         <a href="/" class="btn btn-outline-info">Volver al inicio</a>
     </div>
 </div>
-<style>
-    .izquierda{
-        float: left;
-    }
-    .derecha{
-        float: right;
-        margin-left: 4px;
-    }
-</style>
+
 @endsection

@@ -26,7 +26,16 @@ class TablaSushiRequest extends FormRequest
         return [
             'nombre' => ['required'],
             'precio' => ['required'],
-            
+            'imagen' => ['image', 'required']
+        ];
+    }
+    public function messages()
+    {
+        return[
+            'nombre.required' => 'Ingrese el nombre',
+            'precio.required' => 'Ingrese el precio',
+            'imagen.required' => 'Ingrese una imagen',
+            'imagen.image' => 'Ingrese un formato valido (jpeg, png, bmp, gif, or svg)'
         ];
     }
 }
