@@ -52,3 +52,6 @@ Route::delete('/cart/{id}','CartController@destroy')->name('cart.destroy');
 Route::get('empty', function () {
     Cart::destroy();
 });
+
+//Pedidos
+Route::resource('pedidos', 'PedidosController');

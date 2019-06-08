@@ -89,7 +89,7 @@
                 <button type="button" class="btn btn-outline-secondary btn-lg">Continuar en la tienda</button>
             </div>
             <div class="col" >
-                <button type="button" class="btn btn-info btn-lg" >Pedir <i class="fas fa-arrow-right"></i></button>
+                <a href="/pedidos" class="btn btn-info btn-lg" >Pedir <i class="fas fa-arrow-right"></i></a>
             </div>
         </div>
         @else
