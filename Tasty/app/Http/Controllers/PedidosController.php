@@ -6,6 +6,11 @@ use App\Pedido;
 use App\Usuario;
 use Illuminate\Http\Request;
 use Gloudemans\Shoppingcart\Facades\Cart;
+use App\TablaSushi;
+use App\Pizza;
+use App\Ingrediente;
+use App\PizzaIngrediente;
+use App\PizzaTamano;
 
 class PedidosController extends Controller
 {
@@ -16,7 +21,10 @@ class PedidosController extends Controller
      */
     public function index()
     {
-        return view('pedidos.index');
+        $usuario = Usuario::all();
+        $tamanos = PizzaTamano::all();
+        return view('pedidos.index', compact('usuario','tamanos'));
+
     }
 
     /**

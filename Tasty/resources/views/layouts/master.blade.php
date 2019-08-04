@@ -12,7 +12,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="css/style.css" >
+    <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
@@ -67,14 +67,14 @@
                     <li class="nav-item">
                         <a class="nav-link text-dark" href="{{ route('cart.index')}}">Cart <i
                                 class="fas fa-shopping-cart"></i> @if (Cart::count()>0)
-                                <span class="badge badge-warning">{{ Cart::count() }}</span>
-                            @endif 
+                            <span class="badge badge-warning">{{ Cart::count() }}</span>
+                            @endif
                         </a>
                     </li>
                     @auth
                     <li class="nav-item">
                         <a class="nav-link text-dark" href="#">{{ Auth::user()->nombre_completo }}</a>
-                        <input type="hidden" name="usuario " value="{{ Auth::User()->idusuario}}">
+                        <input type="hidden" name="usuario " value="{{ Auth::User()->id_usuario}}">
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-gray" href="/logout">Cerrar Sesión</a>
@@ -112,7 +112,10 @@
                     </div>
                     <div class="col-sm">
                         <span><b>Dirección</b> <i class="fa fa-road"></i></span>
-
+                        <p>Av. Las Azucenas 854, Viña del Mar, Región de Valparaíso</p>
+                        <div><iframe
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3345.9832270748016!2d-71.49605348496428!3d-33.00421768090411!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9689dd551e967bf5%3A0x69a91c66a78deaab!2sTasty+Sebastian!5e0!3m2!1ses-419!2scl!4v1560028072200!5m2!1ses-419!2scl"
+                            width="250" height="200" frameborder="0" style="border:0" allowfullscreen></iframe></div>
                     </div>
                     <div class="col-sm">
                         <span><b>Medios de pago</b><i class="fa fa-credit-card-alt"></i></span>
@@ -126,7 +129,7 @@
     </div>
 
 
-    
+
 
 
 
