@@ -115,7 +115,7 @@
                         <p>Av. Las Azucenas 854, Viña del Mar, Región de Valparaíso</p>
                         <div><iframe
                             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3345.9832270748016!2d-71.49605348496428!3d-33.00421768090411!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9689dd551e967bf5%3A0x69a91c66a78deaab!2sTasty+Sebastian!5e0!3m2!1ses-419!2scl!4v1560028072200!5m2!1ses-419!2scl"
-                            width="250" height="200" frameborder="0" style="border:0" allowfullscreen></iframe></div>
+                            width="250" height="150" frameborder="0" style="border:0" allowfullscreen></iframe></div>
                     </div>
                     <div class="col-sm">
                         <span><b>Medios de pago</b><i class="fa fa-credit-card-alt"></i></span>
