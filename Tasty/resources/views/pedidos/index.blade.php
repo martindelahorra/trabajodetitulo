@@ -4,10 +4,9 @@
 <div class="row mt-4">
     <div class="col">
         <h2> Pedidos</h2>
-        <hr />
+        <hr/>
     </div>
 </div>
-
 
 <div class="row">
     <div class="col-md-6 col-sm-12">
@@ -21,8 +20,7 @@
                 <input type="text" id="nombre_completo" name="nombre_completo" class="form-control" value="">
                 @endunless
                 @auth
-                <input type="text" id="nombre_completo" name="nombre_completo" class="form-control"
-                    value="{{Auth::user()->nombre_completo}}">
+                <input type="text" id="nombre_completo" name="nombre_completo" class="form-control" value="{{Auth::user()->nombre_completo}}">
                 @endauth
             </div>
 
@@ -32,8 +30,7 @@
                 <input type="text" id="nombre_completo" name="nombre_completo" class="form-control" value="">
                 @endunless
                 @auth
-                <input type="text" id="nombre_completo" name="nombre_completo" class="form-control"
-                    value="{{Auth::user()->direccion}}">
+                <input type="text" id="nombre_completo" name="nombre_completo" class="form-control" value="{{Auth::user()->direccion}}">
                 @endauth
             </div>
             <div class="form-group">
@@ -42,12 +39,9 @@
                 <input type="text" id="nombre_completo" name="nombre_completo" class="form-control" value="">
                 @endunless
                 @auth
-                <input type="number" id="nombre_completo" name="nombre_completo" class="form-control"
-                    value="{{Auth::user()->telefono}}">
+                <input type="number" id="nombre_completo" name="nombre_completo" class="form-control" value="{{Auth::user()->telefono}}">
                 @endauth
             </div>
-
-
         </div>
         @if($errors->any())
         <div class="col col-md-6">
@@ -77,21 +71,19 @@
         </ul>
     </div>
     <div class="col ml-2">
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
-                Generar pedido
-            </button>
-            <button type="reset" class="btn btn-outline-dark">Restablecer</button>
-            <a href="/cart" class="btn btn-outline-info">Volver</a>
-        </div>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+            Generar pedido
+        </button>
+        <button type="reset" class="btn btn-outline-dark">Restablecer</button>
+        <a href="/cart" class="btn btn-outline-info">Volver</a>
+    </div>
     {{ Form::close() }}
 </div>
-
 <div class="row">
     <div class="col-md-6">
 
         <!-- Modal -->
-        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
-            aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
