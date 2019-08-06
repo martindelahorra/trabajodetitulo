@@ -6,7 +6,7 @@
     </div>
 </div>
 <!-- Carrusel Horizontal -->
-<div class="row mt-2 mb-2">
+<div class="row mt-2 mb-2" >
     <div class="col">
         <div id="carouselHorizontal" class="carousel slide" data-ride="carousel">
             <ol class="carousel-indicators">

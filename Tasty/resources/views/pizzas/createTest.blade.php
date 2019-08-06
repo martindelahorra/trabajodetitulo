@@ -7,17 +7,52 @@
     </div>
 </div>
 <div class="row">
-    <div class="col col-md-6">
+    <div class="col" style="max-width: 32rem;">
         <div class="card">
             <div class="card-header">Arma tu Pizza</div>
             <div class="card-body">
                 <form action="{{ route('cart.store') }}" method="POST">
                     {{ csrf_field() }}
-                    @foreach($ingredientes as $ing)
-                    <div class="form-group">
-                        <input type="checkbox" value="{{$ing->cod_ingrediente}}" name="{{$ing->cod_ingrediente}}" />{{$ing->nombre}}
+                    <div class="row">
+                        <div class="card text-white border-danger p-0 m-2 col-sm-6 col-md-5">
+                            <div class="card-header bg-danger">Carnes</div>
+                            <div class="card-body text-dark">
+                                @foreach($ingredientes as $ing)
+                                <div class="form-group">
+                                    @if( $ing->categoria =='C' )
+                                    <input type="checkbox" value="{{$ing->cod_ingrediente}}" name="{{$ing->cod_ingrediente}}" /> {{$ing->nombre}}
+                                    @endif
+                                </div>
+                                @endforeach
+                            </div>
+                        </div>
+                        <div class="card text-white border-success p-0 m-2 col-sm-6 col-md-5">
+                            <div class="card-header bg-success">Vegetales</div>
+                            <div class="card-body text-dark">
+                                @foreach($ingredientes as $ing)
+                                <div class="form-group">
+                                    @if( $ing->categoria =='V' )
+                                    <input type="checkbox" value="{{$ing->cod_ingrediente}}" name="{{$ing->cod_ingrediente}}" /> {{$ing->nombre}}
+                                    @endif
+                                </div>
+                                @endforeach
+                            </div>
+                        </div>
                     </div>
-                    @endforeach
+                    <div class="row">
+                        <div class="card text-white border-warning p-0 m-2 col-sm-6 col-md-5">
+                            <div class="card-header bg-warning">Otros</div>
+                            <div class="card-body text-dark">
+                                @foreach($ingredientes as $ing)
+                                <div class="form-group">
+                                    @if( $ing->categoria =='O' )
+                                    <input type="checkbox" value="{{$ing->cod_ingrediente}}" name="{{$ing->cod_ingrediente}}" /> {{$ing->nombre}}
+                                    @endif
+                                </div>
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
                     <div class="form-group">
                         <input type="hidden" value="{{ substr($tamano->nombre, 0, 2) }}" name="tamano" id="tamano">
                     </div>

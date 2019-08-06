@@ -14,7 +14,7 @@
                 {{ Form::open(array('url'=>'pizzas')) }}
                 @foreach($ingredientes as $ing)
                 <div class="form-group">
-                    <input type="checkbox" value="{{$ing->cod_ingrediente}}" name="{{$ing->cod_ingrediente}}" />{{$ing->nombre}}
+                    <input type="checkbox" value="{{$ing->cod_ingrediente}}" name="{{$ing->cod_ingrediente}}">{{$ing->nombre}}
                 </div>
                 @endforeach
                 <div class="form-group">
