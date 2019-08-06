@@ -11,6 +11,7 @@ use App\Pizza;
 use App\Ingrediente;
 use App\PizzaIngrediente;
 use App\PizzaTamano;
+use Illuminate\Support\Facades\Auth;
 
 class PedidosController extends Controller
 {
@@ -21,9 +22,14 @@ class PedidosController extends Controller
      */
     public function index()
     {
-        $usuario = Usuario::all();
+        if (Auth::User()->rol=='administrador'){
+            
         $tamanos = PizzaTamano::all();
-        return view('pedidos.index', compact('usuario','tamanos'));
+        return view('pedidos.index');
+        // return view('pedidos.index', compact('usuario','tamanos'));
+        }else{
+            return view('pedidos.index', compact('usuario','tamanos'));
+        }
 
     }
 
@@ -34,7 +40,7 @@ class PedidosController extends Controller
      */
     public function create()
     {
-        //
+        return view('pedidos.create');
     }
 
     /**

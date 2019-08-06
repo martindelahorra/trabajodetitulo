@@ -55,8 +55,7 @@ class TamanosController extends Controller
     {
         $tamaño = new PizzaTamano();
         $tamaño->nombre = $request->nombre;
-        $tamaño->precio = $request->precio;
-        
+        $tamaño->precio = $request->precio;        
         if ($request->file('imagen')) {
             $path = Storage::disk('public')->put('image', $request->file('imagen'));
             $tamaño->fill(['imagen'=> asset($path)])->save();
@@ -96,9 +95,7 @@ class TamanosController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request,  $pizzaTamano)
-    {
-        
-        
+    {   
         $pizzaTamano = PizzaTamano::withTrashed()->get()->find($pizzaTamano);
         $pizzaTamano->nombre = $request->nombre;
         $pizzaTamano->precio = $request->precio;
