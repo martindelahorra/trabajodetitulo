@@ -37,6 +37,7 @@ Route::resource('ingredientes', 'IngredientesController');
 Route::get('/login',['as'=>'login','uses'=>'LoginController@login']);
 Route::post('/login','LoginController@autenticar');
 Route::get('/logout','LoginController@logout');
+Route::get('/usuarios/ver','UsuariosController@ver');
 Route::resource('usuarios', 'UsuariosController');
 
 // Tamaños

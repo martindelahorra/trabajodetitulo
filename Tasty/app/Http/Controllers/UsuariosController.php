@@ -6,6 +6,7 @@ use App\Usuario;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\UsuarioRequest;
+use Illuminate\Support\Facades\Auth;
 
 class UsuariosController extends Controller
 {
@@ -16,7 +17,8 @@ class UsuariosController extends Controller
      */
     public function index()
     {
-        //
+        $usuarios = Usuario::all();
+        return view('usuarios.index',compact('usuarios'));
     }
 
     /**
@@ -52,9 +54,15 @@ class UsuariosController extends Controller
      * @param  \App\Usuario  $usuario
      * @return \Illuminate\Http\Response
      */
-    public function show(Usuario $usuario)
+    public function show($id_usuario)
     {
-        //
+        
+        
+    }
+    public function ver()
+    {   
+       return view('usuarios.ver');
+        
     }
 
     /**
@@ -79,6 +87,7 @@ class UsuariosController extends Controller
     {
         //
     }
+    
 
     /**
      * Remove the specified resource from storage.

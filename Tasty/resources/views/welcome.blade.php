@@ -16,13 +16,13 @@
             </ol>
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <img class="d-block w-100" src="images/hori1.jpg" alt="First slide" height="300">
+                    <img class="d-block w-100" src="images/carrusel1.png" alt="First slide" height="300">
                 </div>
                 <div class="carousel-item">
-                    <img class="d-block w-100" src="images/hori2.jpg" alt="Second slide" height="300">
+                    <img class="d-block w-100" src="images/carrusel2.jpg" alt="Second slide" height="300">
                 </div>
                 <div class="carousel-item">
-                    <img class="d-block w-100" src="images/hori3.jpg" alt="Third slide" height="300">
+                    <img class="d-block w-100" src="images/carrusel3.jpg" alt="Third slide" height="300">
                 </div>
             </div>
             <a class="carousel-control-prev" href="#carouselHorizontal" role="button" data-slide="prev">
