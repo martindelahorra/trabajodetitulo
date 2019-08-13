@@ -39,7 +39,7 @@ class PizzasController extends Controller
                 }
             }
             $ingredientes = Ingrediente::all();
-            return view('pizzas.createTest', compact('ingredientes', 'tamano'));
+            return view('pizzas.create', compact('ingredientes', 'tamano'));
         } else {
             return redirect('/pizzas');
         }

@@ -14,7 +14,7 @@ class IngredientesController extends Controller
      */
     public function index()
     {
-        $ingredientes = Ingrediente::withTrashed()->get();
+        $ingredientes = Ingrediente::withTrashed()->get()->sortBy('nombre');
         return view('ingredientes.index', compact('ingredientes'));
     }
 
@@ -23,7 +23,7 @@ class IngredientesController extends Controller
         $ingredientes = Ingrediente::withTrashed()->get();
         foreach ($ingredientes as $ing)
             $ing->restore();
-        return redirect('/ingredientes');        
+        return redirect('/ingredientes');
     }
 
     public function notDisponibleAll()
@@ -31,7 +31,7 @@ class IngredientesController extends Controller
         $ingredientes = Ingrediente::withTrashed()->get();
         foreach ($ingredientes as $ing)
             $ing->delete();
-        return redirect('/ingredientes');        
+        return redirect('/ingredientes');
     }
 
     /**
@@ -52,9 +52,13 @@ class IngredientesController extends Controller
      */
     public function store(Request $request)
     {
-        $ingrediente = request(['nombre', 'precio', 'categoria']);
-        Ingrediente::create($ingrediente);
-        return redirect('/ingredientes');
+        if (empty(Ingrediente::where('nombre', '=', $request->nombre)->first())) {
+            $ingrediente = request(['nombre', 'precio', 'categoria']);
+            Ingrediente::create($ingrediente);
+            return redirect('/ingredientes');
+        } else {
+            return redirect()->back()->withErrors(['Este ingrediente ya existe']);
+        }
     }
 
     /**

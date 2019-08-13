@@ -15,7 +15,7 @@
 </div>
 <div class="row mt-2">
     <div class="col">
-        <table class="col-sm-4 col-md-12 table table-bordered table-striped table-hover">
+        <table class="col-sm-4 col-md-12 table table-bordered table-striped table-hover" id="admiVentas">
             <thead class="text-center">
                 <tr>
                     <th>Id</th>
@@ -69,5 +69,14 @@
         <a href="/" class="btn btn-outline-info">Volver al inicio</a>
     </div>
 </div>
-
+<script>
+    $(document).ready(function() {
+        $('#admiVentas').DataTable({
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
+            },
+            "responsive": true
+        });
+    });
+</script>
 @endsection
