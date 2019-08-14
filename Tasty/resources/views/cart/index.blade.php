@@ -54,7 +54,7 @@
                     </form>
                 </div>
                 <div class="col-sm-2">
-                    <select name="" id="">
+                    <select name="" id="" class="quantity">
                         <option value="">1</option>
                         <option value="">2</option>
                         <option value="">3</option>
@@ -97,4 +97,17 @@
         @endif
     </div>
 </div>
+
+<script src="{{ asset('js/app.js') }}">
+</script>
+<script>
+    ( function(){
+            const classname = document.querySelectorAll('.quantity')
+            Array.from(classname).forEach(function(element){
+                element.addEventListener('change', function(){
+                    alert('changed');
+                })
+            })
+        })();
+</script>
 @endsection
