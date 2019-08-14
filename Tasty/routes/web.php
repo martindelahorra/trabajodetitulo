@@ -55,4 +55,5 @@ Route::get('empty', function () {
 });
 
 //Pedidos
+
 Route::resource('pedidos', 'PedidosController');

@@ -34,8 +34,8 @@
         </div>
         <div class="form-group">
           <label for="rut">RUT</label>
-          <input type="text" name="rut" class="form-control" value="{{old('rut')}}">
-          <p>Ej: 199584367</p>
+          <input type="text" name="rut" class="form-control" value="{{old('rut')}}" placeholder="19.958.436-7">
+          
         </div>
         <div class="form-group">
           <label for="password">Contraseña</label>

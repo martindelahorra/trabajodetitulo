@@ -92,10 +92,11 @@
                         </button>
                     </div>
                     <div class="modal-body">
+                        <h5>¿Desea Confirmar el Pedido?</h5>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                        <button type="button" class="btn btn-success">Aceptar</button>
+                        <a href="/pedidos" type="button" class="btn btn-success" >Aceptar</a>
                     </div>
                 </div>
             </div>

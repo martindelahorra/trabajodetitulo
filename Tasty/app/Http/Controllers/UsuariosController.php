@@ -41,8 +41,9 @@ class UsuariosController extends Controller
      */
      public function store(UsuarioRequest $request)
        {
-
+         
          $usuario = request(['username','rut','nombre_completo','rol','telefono', 'direccion']);
+         
          $usuario['password'] = Hash::make($request->password);
          Usuario::create($usuario);
          return redirect('/login');
