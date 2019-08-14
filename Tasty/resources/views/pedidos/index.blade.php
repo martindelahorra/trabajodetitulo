@@ -9,7 +9,7 @@
 @if(Auth::user()->rol=='administrador')
 <div class="row mt-2">
     <div class="col">
-        <table class="col-sm-4 col-md-12 table table-bordered table-striped table-hover">
+        <table class="col-sm-4 col-md-12 table table-bordered table-striped table-hover" id="tabPEdidos">
             <thead class="text-center">
                 <tr>
                     <th>Nombre Usuario</th>
@@ -139,6 +139,15 @@
         </div>
     </div>
 </div>
-
+<script>
+    $(document).ready(function() {
+        $('#tabPEdidos').DataTable({
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
+            },
+            "responsive": true
+        });
+    });
+</script>
 
 @endsection
