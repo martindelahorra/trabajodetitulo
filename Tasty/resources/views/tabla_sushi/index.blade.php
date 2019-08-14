@@ -13,7 +13,7 @@
             <div class="row no-gutters">
 
                 <div class="col ">
-                    <img src="{{($tabla->imagen)}}" class="card-img" alt="Imagen no disponible">
+                    <img src="{{($tabla->imagen)}}" class="card-img" alt="Imagen no disponible" width="450" height="400">
                 </div>
             </div>
             <div class="row">

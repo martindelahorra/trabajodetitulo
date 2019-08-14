@@ -24,6 +24,7 @@ class CartController extends Controller
         // }
         $tamanos = PizzaTamano::all();
         return view('cart.index', compact('tamanos'));
+        
     }
 
     /**

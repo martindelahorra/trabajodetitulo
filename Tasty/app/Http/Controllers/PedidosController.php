@@ -20,15 +20,22 @@ class PedidosController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+  {
+    $this->middleware('auth')->except(['create']);
+  }
     public function index()
+
     {
+        
         if (Auth::User()->rol=='administrador'){
             
         $tamanos = PizzaTamano::all();
         return view('pedidos.index');
         // return view('pedidos.index', compact('usuario','tamanos'));
         }else{
-            return view('pedidos.index', compact('usuario','tamanos'));
+            Cart::destroy();
+            return view('pedidos.index')->with('msg','Su Pedido fue generado con exito');;
         }
 
     }
@@ -52,6 +59,10 @@ class PedidosController extends Controller
     public function store(Request $request)
     {
         //
+    }
+    public function generarPedido()
+    {
+        
     }
 
     /**

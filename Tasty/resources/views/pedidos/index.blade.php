@@ -1,13 +1,12 @@
 @extends('layouts.master')
 @section('contenido')
-
-
 <div class="row mt-4">
     <div class="col">
         <h2>Pedidos Activos</h2>
         <hr />
     </div>
 </div>
+@if(Auth::user()->rol=='administrador')
 <div class="row mt-2">
     <div class="col">
         <table class="col-sm-4 col-md-12 table table-bordered table-striped table-hover">
@@ -86,6 +85,37 @@
         <a href="/" class="btn btn-outline-info">Volver al inicio</a>
     </div>
 </div>
+@else
+@if(!empty($msg))
+  <div class="alert alert-success"> {{ $msg }}</div>
+@endif
+<div class="row mt-2">
+        <div class="col">
+            <table class="col-sm-4 col-md-12 table table-bordered table-striped table-hover">
+                <thead class="text-center">
+                    <tr>
+                        <th>Estado Pedido</th>
+                        <th>Dirección</th>
+                        <th>Monto</th>
+                        <th>Detalle</th>
+                    </tr>
+                </thead>
+                <tbody class="text-center">
+                    <tr>
+                        <td>
+                            En preparación
+                        </td>
+                        <td>Calle Las Margaritas #354, Mirador Reñaca</td>
+                        <td>$14.500</td>
+                        <td>
+                            <button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#exampleModalCenter">Detalle pedido</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+@endif
 <!-- Modal -->
 <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
