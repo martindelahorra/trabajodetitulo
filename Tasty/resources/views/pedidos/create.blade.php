@@ -27,20 +27,24 @@
             <div class="form-group">
                 <label for="direccion">Direccion</label>
                 @unless (Auth::check())
-                <input type="text" id="nombre_completo" name="nombre_completo" class="form-control" value="">
+                <input type="text" id="direccion" name="direccion" class="form-control" value="">
                 @endunless
                 @auth
-                <input type="text" id="nombre_completo" name="nombre_completo" class="form-control" value="{{Auth::user()->direccion}}">
+                <input type="text" id="direccion" name="direccion" class="form-control" value="{{Auth::user()->direccion}}">
                 @endauth
             </div>
             <div class="form-group">
                 <label for="telefono">Telefono</label>
                 @unless (Auth::check())
-                <input type="text" id="nombre_completo" name="nombre_completo" class="form-control" value="">
+                <input type="text" id="telefono" name="telefono" class="form-control" value="">
                 @endunless
                 @auth
-                <input type="number" id="nombre_completo" name="nombre_completo" class="form-control" value="{{Auth::user()->telefono}}">
+                <input type="text" id="telefono" name="telefono" class="form-control" value="{{Auth::user()->telefono}}">
                 @endauth
+            </div>
+            <div class="form-group">
+                <label for="descripcion">Notas del Pedido (Opcional)</label>
+                <textarea type="text" id="descripcion" name="descripcion" class="form-control" value="" rows="5"></textarea>
             </div>
         </div>
         @if($errors->any())
@@ -69,38 +73,13 @@
             </li>
             @endforeach
         </ul>
+        <h5>Precio Total: <b>${{Cart::total(0,',','.')}}</b></h5>
     </div>
-    <div class="col ml-2">
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
-            Generar pedido
-        </button>
-        <button type="reset" class="btn btn-outline-dark">Restablecer</button>
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Generar Pedido</button>
         <a href="/cart" class="btn btn-outline-info">Volver</a>
     </div>
     {{ Form::close() }}
 </div>
-<div class="row">
-    <div class="col-md-6">
-        <!-- Modal -->
-        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLongTitle">Generar Pedido</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <h5>¿Desea Confirmar el Pedido?</h5>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                        <a href="/pedidos" type="button" class="btn btn-success" >Aceptar</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+
 @endsection

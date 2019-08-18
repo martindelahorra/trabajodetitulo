@@ -13,6 +13,11 @@ class Usuario extends Authenticable
   protected $primaryKey = 'id_usuario';
   protected $fillable = ['username','rut','nombre_completo','password','rol', 'telefono', 'direccion']; 
 
+  public function pedido()
+  {
+    return $this->belongsTo('App\Pedido');
 
+
+  }
   
 }

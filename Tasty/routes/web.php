@@ -56,5 +56,5 @@ Route::get('empty', function () {
 });
 
 //Pedidos
-
+Route::get('/pedido/generar', 'PedidosController@generarPedido');
 Route::resource('pedidos', 'PedidosController');

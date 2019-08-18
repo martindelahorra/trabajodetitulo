@@ -77,7 +77,7 @@
                 <p><b>Total</b> </p>
             </div>
             <div class="col">
-                <p><b>${{Cart::subtotal(0,',','.')}}</b></p>
+                <p><b>${{Cart::total(0,',','.')}}</b></p>
             </div>
         </div>
         <hr>

@@ -11,7 +11,11 @@ use App\Pizza;
 use App\Ingrediente;
 use App\PizzaIngrediente;
 use App\PizzaTamano;
+use App\Tabla_pedido;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
+use App\Pizza_pedido;
+
 
 class PedidosController extends Controller
 {
@@ -21,23 +25,22 @@ class PedidosController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function __construct()
-  {
-    $this->middleware('auth')->except(['create']);
-  }
+    {
+        $this->middleware('auth')->except(['create']);
+    }
     public function index()
 
     {
-        
-        if (Auth::User()->rol=='administrador'){
-            
-        $tamanos = PizzaTamano::all();
-        return view('pedidos.index');
-        // return view('pedidos.index', compact('usuario','tamanos'));
-        }else{
-            Cart::destroy();
-            return view('pedidos.index')->with('msg','Su Pedido fue generado con exito');;
-        }
 
+        if (Auth::User()->rol == 'administrador') {
+
+            $tamanos = PizzaTamano::all();
+            return view('pedidos.index');
+            // return view('pedidos.index', compact('usuario','tamanos'));
+        } else {
+            Cart::destroy();
+            return view('pedidos.index')->with('msg', 'Su Pedido fue generado con exito');;
+        }
     }
 
     /**
@@ -47,6 +50,7 @@ class PedidosController extends Controller
      */
     public function create()
     {
+
         return view('pedidos.create');
     }
 
@@ -58,12 +62,40 @@ class PedidosController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //Insertar en pedido
+
+        $pedido = new Pedido();
+        $pedido->id_usuario = Auth::user()->id_usuario;
+        $pedido->estado_pedido = 'P';
+        $pedido->descripcion = $request->descripcion;
+        $pedido->direccion = $request->direccion;
+        $pedido->total_pedido = Cart::total(0, ',', '');
+        $pedido->fecha = Carbon::now('GMT-4');
+        $pedido->telefono = $request->telefono;
+        $pedido->nombre_completo = $request->nombre_completo;
+        $pedido->save();
+        //insertar en interseccion
+        foreach (Cart::content() as $item) {
+            if ($item->associatedModel == "App\Pizza") {
+                Pizza_pedido::create([
+                    'cod_pedido' => $pedido->cod_pedido,
+                    'cod_pizza' => $item->model->cod_pizza,
+                    'cantidad' => $item->qty
+                ]);
+            } elseif ($item->associatedModel == "App\TablaSushi") {
+                Tabla_pedido::create([
+                    'cod_pedido' => $pedido->cod_pedido,
+                    'cod_tabla' => $item->model->cod_tabla,
+                    'cantidad' => $item->qty
+                ]);
+            }
+        }
+        //destruir carrito
+        Cart::destroy();
+        return redirect('/pedidos');
     }
     public function generarPedido()
-    {
-        
-    }
+    { }
 
     /**
      * Display the specified resource.
