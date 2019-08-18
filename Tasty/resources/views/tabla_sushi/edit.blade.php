@@ -25,7 +25,7 @@
 
         @foreach($sushi as $s)
         <div class="form-group">
-            <input type="checkbox" value="{{$s->cod_sushi}}" name="{{$s->cod_sushi}}" />{{$s->envoltura}}
+            <input type="checkbox" value="{{$s->cod_sushi}}" name="{{$s->cod_sushi}}" @if(in_array($s->cod_sushi,$aux))checked @endif />{{$s->envoltura}}
         </div>
         @endforeach
 
