@@ -81,7 +81,11 @@ class TablaSushiController extends Controller
     {
         $tabla = TablaSushi::find($tabla);
         $sushi = Sushi::all();
-        return view('tabla_sushi.edit',compact('tabla', 'sushi'));
+        $tsushi = TsushiSushi::where('cod_tabla', $tabla->cod_tabla)->get();
+        $aux = array(count($tsushi));
+        foreach($tsushi as $index => $t)
+            $aux[$index] = $t->cod_sushi;
+        return view('tabla_sushi.edit',compact('tabla', 'sushi', 'aux'));
     }
 
     /**

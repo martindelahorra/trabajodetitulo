@@ -26,7 +26,7 @@
     </div>
     <div class="form-group">
       <label for="precio">Precio</label>
-      <input type="number" id="precio" name="precio" class="form-control" value="{{old('precio')}}" min="1">
+      <input type="number" id="precio" name="precio" class="form-control" value="{{old('precio')}}" min="">
     </div>
     <div class="form-group">
       <label for="categoria">Categoría</label>

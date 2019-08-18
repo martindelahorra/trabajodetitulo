@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Sushi;
+use Carbon\Carbon;
 use App\TablaSushi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -70,7 +71,7 @@ class SushisController extends Controller
      */
     public function edit(Sushi $sushi)
     {
-        //
+        return view('sushis.edit', compact('sushi'));
     }
 
     /**

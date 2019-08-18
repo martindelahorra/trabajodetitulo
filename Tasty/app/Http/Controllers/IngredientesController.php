@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\IngredienteEditRequest;
+use App\Http\Requests\IngredienteRequest;
 use App\Ingrediente;
 use Illuminate\Http\Request;
 
@@ -50,7 +52,7 @@ class IngredientesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(IngredienteRequest $request)
     {
         if (empty(Ingrediente::where('nombre', '=', $request->nombre)->first())) {
             $ingrediente = request(['nombre', 'precio', 'categoria']);
@@ -91,7 +93,7 @@ class IngredientesController extends Controller
      * @param  \App\Ingrediente  $ingrediente
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,  $ingrediente)
+    public function update(IngredienteEditRequest $request,  $ingrediente)
     {
         $ingrediente = Ingrediente::withTrashed()->get()->find($ingrediente);
         $ingrediente->update(request(['nombre', 'precio', 'categoria']));
