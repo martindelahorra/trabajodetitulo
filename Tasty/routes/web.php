@@ -49,6 +49,7 @@ Route::resource('pizza_tamanos', 'TamanosController');
 //Cart
 Route::get('/cart','CartController@index')->name('cart.index');
 Route::post('/cart','CartController@store')->name('cart.store');
+Route::patch('/cart/{id}','CartController@update')->name('cart.update');
 Route::delete('/cart/{id}','CartController@destroy')->name('cart.destroy');
 Route::get('empty', function () {
     Cart::destroy();

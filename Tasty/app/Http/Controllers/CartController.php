@@ -22,6 +22,8 @@ class CartController extends Controller
         // foreach (Cart::content() as $item) {
         //     $item->model->primaryKey; cod_tabla o cod_pizza
         // }
+
+        //dd(Cart::content());
         $tamanos = PizzaTamano::all();
         return view('cart.index', compact('tamanos'));
         
@@ -118,7 +120,12 @@ class CartController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+         Cart::update($id, $request->quantity);
+         session()->flash('success_message', 'Cantidad actualizada! :)');
+         return response()->json(['success' => true]);
+
+        
+        //return $request->all();
     }
 
     /**

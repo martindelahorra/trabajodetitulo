@@ -61,10 +61,10 @@
         <ul>
             @foreach (Cart::content() as $item)
             <li>
-                <h4>{{$item->name}}</h4>
+                <h4>{{$item->name}} (x{{$item->qty}})</h4>
                 <div class="row">
                     <p class="col-6">({{ ($item->model->primaryKey=='cod_tabla')?'Tabla de Sushi':'Pizza' }})</p>
-                    <p class="col-6">${{ number_format($item->model->precio,0,",",".") }}</p>
+                    <p class="col-6">${{ number_format($item->subtotal,0,",",".") }}</p>
                 </div>
             </li>
             @endforeach
