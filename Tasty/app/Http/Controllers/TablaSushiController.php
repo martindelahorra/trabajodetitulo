@@ -97,6 +97,7 @@ class TablaSushiController extends Controller
      */
     public function update(Request $request,  $tabla)
     {
+        
         $tabla = TablaSushi::find($tabla);
         $tabla->nombre = $request->nombre;
         $tabla->precio = $request->precio;
@@ -105,7 +106,11 @@ class TablaSushiController extends Controller
             $path = Storage::disk('public')->put('image', $request->file('imagen'));
             $tabla->fill(['imagen'=> asset($path)])->save();
         }
+
+        
         $tabla->save();
+        $roll = $request->except(['_token', 'nombre','precio', '_method']);
+        dd($roll);
         return redirect('/tabla_sushis/list');
     }
 
