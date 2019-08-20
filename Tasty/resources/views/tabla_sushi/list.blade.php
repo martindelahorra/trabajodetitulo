@@ -37,7 +37,7 @@
                     <td>
                         {{ Form::open(array('url'=>'tabla_sushis/'.$tabla->cod_tabla,'method'=>'delete')) }}
                         <a href="/tabla_sushis/{{$tabla->cod_tabla}}/edit" class="btn btn-outline-dark">Editar</a>
-
+                        <button type="submit" class="btn btn-outline-danger">Borrar</button>
                         {{ Form::close() }}
                     </td>
                 </tr>

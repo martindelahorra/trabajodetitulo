@@ -10,6 +10,7 @@ class TsushiSushi extends Model
     protected $table = 'tsushi_sushis';
     public $primaryKey = 'cod_inter';
     protected $fillable = ['cod_tabla', 'cod_sushi'];
+    public $timestamps = false;
 
     public function tabla()
     {

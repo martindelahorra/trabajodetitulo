@@ -31,7 +31,9 @@ class TablaSushiController extends Controller
      */
     public function create()
     {
-        return view('tabla_sushi.create');
+        $sushi = Sushi::all();
+
+        return view('tabla_sushi.create', compact('sushi'));
     }
     public function list()
     {
@@ -50,13 +52,21 @@ class TablaSushiController extends Controller
         $tabla = new TablaSushi();
         $tabla->nombre = $request->nombre;
         $tabla->precio = $request->precio;
-        
-        
+
+
         if ($request->file('imagen')) {
             $path = Storage::disk('public')->put('image', $request->file('imagen'));
-            $tabla->fill(['imagen'=> asset($path)])->save();
+            $tabla->fill(['imagen' => asset($path)])->save();
         }
         $tabla->save();
+        $roll = $request->except(['_token', 'nombre', 'precio', '_method', 'imagen']);
+
+        foreach ($roll as $r) {
+            TsushiSushi::create([
+                'cod_tabla' => $tabla->cod_tabla,
+                'cod_sushi' => $r
+            ]);
+        }
         return redirect('/tabla_sushis');
     }
 
@@ -83,9 +93,9 @@ class TablaSushiController extends Controller
         $sushi = Sushi::all();
         $tsushi = TsushiSushi::where('cod_tabla', $tabla->cod_tabla)->get();
         $aux = array(count($tsushi));
-        foreach($tsushi as $index => $t)
+        foreach ($tsushi as $index => $t)
             $aux[$index] = $t->cod_sushi;
-        return view('tabla_sushi.edit',compact('tabla', 'sushi', 'aux'));
+        return view('tabla_sushi.edit', compact('tabla', 'sushi', 'aux'));
     }
 
     /**
@@ -97,20 +107,34 @@ class TablaSushiController extends Controller
      */
     public function update(Request $request,  $tabla)
     {
-        
+
         $tabla = TablaSushi::find($tabla);
         $tabla->nombre = $request->nombre;
         $tabla->precio = $request->precio;
-        
+
         if ($request->file('imagen')) {
             $path = Storage::disk('public')->put('image', $request->file('imagen'));
-            $tabla->fill(['imagen'=> asset($path)])->save();
+            $tabla->fill(['imagen' => asset($path)])->save();
         }
 
-        
+
         $tabla->save();
-        $roll = $request->except(['_token', 'nombre','precio', '_method']);
-        dd($roll);
+        $roll = $request->except(['_token', 'nombre', 'precio', '_method']);
+        $f = TsushiSushi::where('cod_tabla', $tabla->cod_tabla)->first();
+
+        while (!is_null($f)) {
+            $f->delete();
+            $f = TsushiSushi::where('cod_tabla', $tabla->cod_tabla)->first();
+        }
+
+        foreach ($roll as $r) {
+
+            TsushiSushi::create([
+                'cod_tabla' => $tabla->cod_tabla,
+                'cod_sushi' => $r
+            ]);
+        }
+
         return redirect('/tabla_sushis/list');
     }
 
@@ -122,6 +146,8 @@ class TablaSushiController extends Controller
      */
     public function destroy(TablaSushi $tablaSushi)
     {
-        //
+        
+        TablaSushi::destroy($tablaSushi->cod_tabla);
+        return redirect('/tabla_sushis/list');
     }
 }

@@ -22,6 +22,11 @@
             <label for="imagen">Imagen</label>
             <input type="file" id="imagen" name="imagen" class="form-control" value="{{old('imagen')}}">
         </div>
+        @foreach($sushi as $s)
+        <div class="form-group">
+            <input type="checkbox" value="{{$s->cod_sushi}}" name="{{$s->cod_sushi}}" />{{$s->envoltura}}
+        </div>
+        @endforeach
 
         <div class="form-group">
             <button type="submit" class="btn btn-primary">Agregar Tabla</button>
