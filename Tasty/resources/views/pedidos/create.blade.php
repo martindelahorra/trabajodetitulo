@@ -65,9 +65,14 @@
         <ul>
             @foreach (Cart::content() as $item)
             <li>
-                <h4>{{$item->name}} (x{{$item->qty}})</h4>
+                <h4>{{(($item->model->primaryKey=='cod_sushi')?'Roll:  '.$item->name:$item->name)}} (x{{$item->qty}})</h4>
                 <div class="row">
-                    <p class="col-6">({{ ($item->model->primaryKey=='cod_tabla')?'Tabla de Sushi':'Pizza' }})</p>
+                    <p class="col-6">@if ($item->model->primaryKey=='cod_sushi') ({{$item->model->descripcion}})
+                        @elseif($item->model->primaryKey=='cod_tabla')
+                        (Tabla de Sushi)
+                        @elseif($item->model->primaryKey=='cod_pizza')
+                        (Pizza)
+                        @endif</p>
                     <p class="col-6">${{ number_format($item->subtotal,0,",",".") }}</p>
                 </div>
             </li>

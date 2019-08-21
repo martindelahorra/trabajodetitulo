@@ -15,6 +15,8 @@ use App\Tabla_pedido;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use App\Pizza_pedido;
+use App\Sushi_pedido;
+use App\Sushi;
 
 
 class PedidosController extends Controller
@@ -86,6 +88,12 @@ class PedidosController extends Controller
                 Tabla_pedido::create([
                     'cod_pedido' => $pedido->cod_pedido,
                     'cod_tabla' => $item->model->cod_tabla,
+                    'cantidad' => $item->qty
+                ]);
+            }elseif ($item->associatedModel == "App\Sushi") {
+                Sushi_pedido::create([
+                    'cod_pedido' => $pedido->cod_pedido,
+                    'cod_sushi' => $item->model->cod_sushi,
                     'cantidad' => $item->qty
                 ]);
             }

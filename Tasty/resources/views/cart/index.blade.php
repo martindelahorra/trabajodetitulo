@@ -31,7 +31,9 @@
         @foreach (Cart::content() as $item)
         <div class="row">
             <div class="col-sm-2">
-                <img src="@if ($item->model->primaryKey=="cod_tabla") {{ ($item->model->imagen) }} @else @foreach ($tamanos as $tam) @if (substr($tam->nombre, 0, 2)==$item->model->tamaño)
+                <img src="@if ($item->model->primaryKey=="cod_tabla" || $item->model->primaryKey=="cod_sushi")
+                {{ ($item->model->imagen) }} @else @foreach ($tamanos as $tam) @if (substr($tam->nombre, 0,
+                2)==$item->model->tamaño)
                 {{ $tam->imagen }}
                 @endif
                 @endforeach
@@ -39,26 +41,31 @@
                 alt="Imagen no disponible" width="150px" height="100px">
             </div>
             <div class="col-sm-5">
-                <h4>{{$item->name}}</h4>
-                <p>({{ ($item->model->primaryKey=='cod_tabla')?'Tabla de Sushi':'Pizza' }})</p>
+                <h4>{{(($item->model->primaryKey=='cod_sushi')?'Roll:  '.$item->name:$item->name)}}</h4>
+                <p> @if ($item->model->primaryKey=='cod_sushi') ({{$item->model->descripcion}})
+                    @elseif($item->model->primaryKey=='cod_tabla')
+                    (Tabla de Sushi)
+                    @elseif($item->model->primaryKey=='cod_pizza')
+                    (Pizza)
+                    @endif </p>
             </div>
             <div class="col-sm-4 col-md-1">
                 <form action="{{ route('cart.destroy', $item->rowId) }}" method="post">
                     {{ csrf_field() }}
                     {{ method_field('DELETE') }}
-                    <button class="btn btn-sm" type="submit" style="text-align: right"><span style="color:red;">Quitar</span></button>
+                    <button class="btn btn-sm" type="submit" style="text-align: right"><span
+                            style="color:red;">Quitar</span></button>
                 </form>
             </div>
             <div class="col-sm-2">
                 <select class="quantity" data-id="{{ $item->rowId }}">
-                    @for ($i = 1; $i < 6; $i++)
-                    <option {{$item->qty==$i ? 'selected' : '' }}>{{ $i }}</option>
-                    @endfor
-                    
-                    {{-- <option {{$item->qty=='2' ? 'selected' : '' }}>2</option>
-                    <option {{$item->qty=='3' ? 'selected' : '' }}>3</option>
-                    <option {{$item->qty=='4' ? 'selected' : '' }}>4</option>
-                    <option {{$item->qty=='5' ? 'selected' : '' }}>5</option> --}}
+                    @for ($i = 1; $i < 6; $i++) <option {{$item->qty==$i ? 'selected' : '' }}>{{ $i }}</option>
+                        @endfor
+
+                        {{-- <option {{$item->qty=='2' ? 'selected' : '' }}>2</option>
+                        <option {{$item->qty=='3' ? 'selected' : '' }}>3</option>
+                        <option {{$item->qty=='4' ? 'selected' : '' }}>4</option>
+                        <option {{$item->qty=='5' ? 'selected' : '' }}>5</option> --}}
                 </select>
             </div>
             <div class="col-sm-2">

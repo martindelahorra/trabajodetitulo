@@ -28,10 +28,24 @@
                         Cortes: {{$s->cortes}}
                     </div>
                     <div class="col-xs-6 col-sm-2">
-                        <h5>Precio: $13.300 </h5>
+                        <h5>${{number_format($s->precio,0,",",".")}} </h5>
                     </div>
                     <div class="ml-1 col-xs-1 p-2">
-                    <a href="/sushis/{{$s->cod_sushi}}/edit" class="btn btn-outline-dark">Editar</a>
+                        @can('isAdmin', App\Usuario::class)
+                        <a href="/sushis/{{$s->cod_sushi}}/edit" class="btn btn-outline-dark">Editar</a>
+                        @endcan
+                   
+                    <form action="{{ route('cart.store') }}" method="POST">
+                        {{ csrf_field() }}
+                         <button type="submit" class="btn btn-success ">Añadir
+                                al carro <i class="fas fa-cart-plus"></i></button></p>
+                        <input type="hidden" name="id" value="{{ $s->cod_sushi }}">
+                        <input type="hidden" name="nombre" value="{{ $s->envoltura }}">
+                        <input type="hidden" name="precio" value="{{ $s->precio }}">
+                        <input type="hidden" name="descripcion" value="{{ $s->descripcion }}">
+                        <input type="hidden" name="cortes" value="{{ $s->cortes }}">
+                        <input type="hidden" name="tipo" value="sushi">
+                    </form>
                     </div>
                 </div>
             </div>

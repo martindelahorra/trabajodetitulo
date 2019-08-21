@@ -23,6 +23,10 @@
             <input type="number" id="cortes" name="cortes" class="form-control" value="{{old('cortes')}}">
         </div>
         <div class="form-group">
+            <label for="precio">Precio</label>
+            <input type="number" id="precio" name="precio" class="form-control" value="{{old('precio')}}">
+        </div>
+        <div class="form-group">
             <label for="imagen">Imagen</label>
             <input type="file" id="imagen" name="imagen" class="form-control" value="{{old('imagen')}}">
         </div>
