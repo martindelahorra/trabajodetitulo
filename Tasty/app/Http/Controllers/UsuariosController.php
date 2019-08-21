@@ -86,7 +86,8 @@ class UsuariosController extends Controller
      */
     public function update(Request $request, Usuario $usuario)
     {
-        //
+        $usuario->update(request(['username','nombre_completo','telefono','direccion','rut']));
+        return redirect('usuarios/ver')->with('success_message', 'Datos guardados con éxito! :)');
     }
     
 
