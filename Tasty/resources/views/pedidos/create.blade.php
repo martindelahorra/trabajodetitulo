@@ -20,7 +20,8 @@
                 <input type="text" id="nombre_completo" name="nombre_completo" class="form-control" value="">
                 @endunless
                 @auth
-                <input type="text" id="nombre_completo" name="nombre_completo" class="form-control" value="{{Auth::user()->nombre_completo}}">
+                <input type="text" id="nombre_completo" name="nombre_completo" class="form-control"
+                    value="{{Auth::user()->nombre_completo}}">
                 @endauth
             </div>
 
@@ -30,7 +31,8 @@
                 <input type="text" id="direccion" name="direccion" class="form-control" value="">
                 @endunless
                 @auth
-                <input type="text" id="direccion" name="direccion" class="form-control" value="{{Auth::user()->direccion}}">
+                <input type="text" id="direccion" name="direccion" class="form-control"
+                    value="{{Auth::user()->direccion}}">
                 @endauth
             </div>
             <div class="form-group">
@@ -39,12 +41,14 @@
                 <input type="text" id="telefono" name="telefono" class="form-control" value="">
                 @endunless
                 @auth
-                <input type="text" id="telefono" name="telefono" class="form-control" value="{{Auth::user()->telefono}}">
+                <input type="text" id="telefono" name="telefono" class="form-control"
+                    value="{{Auth::user()->telefono}}">
                 @endauth
             </div>
             <div class="form-group">
                 <label for="descripcion">Notas del Pedido (Opcional)</label>
-                <textarea type="text" id="descripcion" name="descripcion" class="form-control" value="" rows="5"></textarea>
+                <textarea type="text" id="descripcion" name="descripcion" class="form-control" value=""
+                    rows="5"></textarea>
             </div>
         </div>
         @if($errors->any())
@@ -65,16 +69,26 @@
         <ul>
             @foreach (Cart::content() as $item)
             <li>
-                <h4>{{$item->name}} (x{{$item->qty}})</h4>
+                <h4>{{(($item->model->primaryKey=='cod_sushi')?'Roll:  '.$item->name:$item->name)}} (x{{$item->qty}})
+                </h4>
                 <div class="row">
-                    <p class="col-6">({{ ($item->model->primaryKey=='cod_tabla')?'Tabla de Sushi':'Pizza' }})</p>
-                    <p class="col-6">${{ number_format($item->subtotal,0,",",".") }}</p>
+                    <p class="col-8">@if ($item->model->primaryKey=='cod_sushi') ({{$item->model->descripcion}})
+                        @elseif($item->model->primaryKey=='cod_tabla')
+                        (Tabla de Sushi)
+                        @elseif($item->model->primaryKey=='cod_pizza')
+                        (Pizza)
+                        @endif</p>
+                    <p class="col-2">${{ number_format($item->subtotal,0,",",".") }}</p>
                 </div>
             </li>
             @endforeach
         </ul>
-        <h5>Precio Total: <b>${{Cart::total(0,',','.')}}</b></h5>
+        <hr>
+        <div style="float: right;">
+            <h5>Precio Total: <b>${{Cart::total(0,',','.')}}</b></h5>
+        </div>
     </div>
+
     <div class="form-group">
         <button type="submit" class="btn btn-primary">Generar Pedido</button>
         <a href="/cart" class="btn btn-outline-info">Volver</a>

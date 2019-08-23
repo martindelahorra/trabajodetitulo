@@ -43,6 +43,7 @@ class SushisController extends Controller
         $sushi->envoltura = $request->envoltura;
         $sushi->descripcion = $request->descripcion;
         $sushi->cortes = $request->cortes;
+        $sushi->precio = $request->precio;
         
         if ($request->file('imagen')) {
             $path = Storage::disk('public')->put('image', $request->file('imagen'));
@@ -81,9 +82,23 @@ class SushisController extends Controller
      * @param  \App\Sushi  $sushi
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Sushi $sushi)
+    public function update(Request $request,  $sushi)
     {
-        //
+        
+        $sushi = Sushi::find($sushi);
+        $sushi->envoltura = $request->envoltura;
+        $sushi->descripcion = $request->descripcion;
+        $sushi->cortes = $request->cortes;
+        $sushi->precio = $request->precio;
+
+        if ($request->file('imagen')) {
+            $path = Storage::disk('public')->put('image', $request->file('imagen'));
+            $sushi->fill(['imagen' => asset($path)])->save();
+        }
+
+
+        $sushi->save();
+        return redirect('/sushis');
     }
 
     /**

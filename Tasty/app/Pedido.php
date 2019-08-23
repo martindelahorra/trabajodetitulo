@@ -19,11 +19,15 @@ class Pedido extends Model
 
     public function tabla_sushi()
     {
-        return $this->belongsToMany('App\Tabla_sushi')->withPivot('cantidad');
+        return $this->belongsToMany('App\Tabla_pedido')->withPivot('cantidad');
     }
     public function pizza_pedido()
     {
         return $this->belongsToMany('App\Pizza_pedido')->withPivot('cantidad');
 
+    }
+    public function sushi_pedido()
+    {
+        return $this->belongsToMany('App\Sushi_pedido')->withPivot('cantidad');
     }
 }

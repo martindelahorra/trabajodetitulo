@@ -46,6 +46,7 @@ class CartController extends Controller
      */
     public function store(Request $request)
     {
+        
         if ($request->tipo == 'tabla') {
             $tipo = 'App\TablaSushi';
             Cart::add($request->id, $request->nombre, 1, $request->precio)->associate($tipo);
@@ -95,6 +96,10 @@ class CartController extends Controller
             }
             $nombre = substr($nombre, 0, -2);
             Cart::add($regpizza->cod_pizza, $request->nombre . ' : ' . $nombre, 1, $regpizza->precio)->associate($tipo);
+            return redirect()->route('cart.index')->with('success_message', 'Producto agregado al carrito! :)');
+        }elseif ($request->tipo == 'sushi') {
+            $tipo = 'App\Sushi';
+            Cart::add($request->id, $request->nombre, 1, $request->precio)->associate($tipo);
             return redirect()->route('cart.index')->with('success_message', 'Producto agregado al carrito! :)');
         }
     }
