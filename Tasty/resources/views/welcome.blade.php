@@ -126,7 +126,7 @@
             </div>
             <div class="card-body">
                 <h5 class="card-title">Promos</h5>
-                <a href="#" class="btn btn-secondary">Ver Detalles</a>
+                <a href="/agregado" class="btn btn-secondary">Ver Detalles</a>
             </div>
         </div>
     </div>

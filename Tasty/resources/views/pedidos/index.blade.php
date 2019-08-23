@@ -6,13 +6,15 @@
         <hr />
     </div>
 </div>
-@if(Auth::user()->rol=='administrador')
 <div class="row mt-2">
     <div class="col">
-        <table class="col-sm-4 col-md-12 table table-bordered table-striped table-hover" id="tabPEdidos">
+        <table class="col-sm-4 col-md-12 table table-bordered table-striped table-hover table-responsive-lg" id="tabPEdidos">
             <thead class="text-center">
                 <tr>
+                    @if(Auth::user()->rol=='administrador')
+                    <th>Codigo</th>
                     <th>Nombre Usuario</th>
+                    @endif
                     <th>Estado Pedido</th>
                     <th>Dirección</th>
                     <th>Monto</th>
@@ -20,125 +22,111 @@
                 </tr>
             </thead>
             <tbody class="text-center">
+                @foreach ($pedidos as $p)
                 <tr>
-                    <td>Juan Carlos Avendaño</td>
-                    <td>
-                        <select>
-                            <option value="P">En preparación</option>
-                            <option value="E">Enviado</option>
-                        </select>
+                    @if(Auth::user()->rol=='administrador')
+                        <td>{{ $p->cod_pedido }}</td>
+                        <td>{{ $p->nombre_completo }}</td>
+                    @endif
+                    <td><h4>
+                        @if ($p->estado_pedido=='P')
+                            <span>En preparación</span>
+                        @elseif($p->estado_pedido=='E')
+                            <span>En camino</span>
+                        @endif
+                    </h4>
                     </td>
-                    <td>Calle Las Margaritas #354, Mirador Reñaca</td>
-                    <td>$14.500</td>
+                    <td>{{$p->direccion}}</td>
+                    <td>${{number_format($p->total_pedido,0,',','.')}}</td>
                     <td>
-                        <button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#exampleModalCenter">Detalle pedido</button>
+                        <button type="button" class="btn btn-outline-info btn-fix" data-toggle="modal"
+                            data-target="#Modal{{$p->cod_pedido}}">Detalle pedido</button>
                     </td>
                 </tr>
-                <tr>
-                    <td>José Aguirre</td>
-                    <td>
-                        <select>
-                            <option value="P">En preparación</option>
-                            <option value="E">Enviado</option>
-                        </select>
-                    </td>
-                    <td>Pasaje 1 #14, Villa Rukan</td>
-                    <td>$7.000</td>
-                    <td>
-                        <button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#exampleModalCenter">Detalle pedido</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Claudio Pizarro</td>
-                    <td>
-                        <select>
-                            <option value="P">En preparación</option>
-                            <option value="E">Enviado</option>
-                        </select>
-                    </td>
-                    <td>Calle 5 #12, Achupallas</td>
-                    <td>$8.400</td>
-                    <td>
-                        <button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#exampleModalCenter">Detalle pedido</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Ximena Gomez</td>
-                    <td>
-                        <select>
-                            <option value="P">En preparación</option>
-                            <option value="E">Enviado</option>
-                        </select>
-                    </td>
-                    <td>Calle Las Magnolias #167, Sta. Julia</td>
-                    <td>$17.000</td>
-                    <td>
-                        <button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#exampleModalCenter">Detalle pedido</button>
-                    </td>
-                </tr>
+                @endforeach
             </tbody>
         </table>
     </div>
 </div>
-<div class="row">
-    <div class="col">
-        <a href="/" class="btn btn-outline-info">Volver al inicio</a>
-    </div>
-</div>
-@else
-@if(!empty($msg))
-  <div class="alert alert-success"> {{ $msg }}</div>
-@endif
-<div class="row mt-2">
-        <div class="col">
-            <table class="col-sm-4 col-md-12 table table-bordered table-striped table-hover">
-                <thead class="text-center">
-                    <tr>
-                        <th>Estado Pedido</th>
-                        <th>Dirección</th>
-                        <th>Monto</th>
-                        <th>Detalle</th>
-                    </tr>
-                </thead>
-                <tbody class="text-center">
-                    <tr>
-                        <td>
-                            En preparación
-                        </td>
-                        <td>Calle Las Margaritas #354, Mirador Reñaca</td>
-                        <td>$14.500</td>
-                        <td>
-                            <button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#exampleModalCenter">Detalle pedido</button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-@endif
+@foreach ($pedidos as $p)
 <!-- Modal -->
-<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
+<div class="modal fade" id="Modal{{$p->cod_pedido}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalCenterTitle">Detalle del Pedido</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Pedido N°: {{$p->cod_pedido}}</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
                 <ul>
-                    <li>Pizza Familiar <span class="text-muted texto-info">(Jamón, Cebolla Morada, Extra Queso, Piña)</span></li>
-                    <li>Tabla 24 Piezas <span class="text-muted texto-info">(Sesamo, Panko frito)</span></li>
-                    <li>Pizza Familiar <span class="text-muted texto-info">(Champiñón, Choclo, Palmito, Extra Queso, Tomate)</span></li>
+                    {{-- $r es el registro de intersección de pizzas --}}
+                    @foreach ($reg_p as $r)
+                        @if ($r->cod_pedido == $p->cod_pedido)
+                            @foreach ($pizzas as $pi)
+                                {{-- $pi es el registro de la tabla pizzas --}}
+                                @if ($r->cod_pizza == $pi->cod_pizza)
+                                    @foreach ($tamanos as $ta)
+                                        {{-- $ta es el registro de la tabla tamanos --}}
+                                        @if ($pi->tamaño == substr($ta->nombre,0,2))
+                                            <li>Pizza {{ $ta->nombre }}
+                                                    <span class="text-muted texto-info">(</span>
+                                                    @foreach ($reg_ing as $ing1)
+                                                        @if ($pi->cod_pizza==$ing1->cod_pizza)
+                                                            @foreach ($ingredientes as $ing2)
+                                                                @if ($ing2->cod_ingrediente==$ing1->cod_ingrediente)
+                                                                <span class="texto-coma text-muted texto-info">{{$ing2->nombre.' |'}}</span>
+                                                                @endif
+                                                            @endforeach
+                                                        @endif
+                                                    @endforeach                                                
+                                                <span class="text-muted texto-info">)</span>
+                                            </li>
+                                        @endif
+                                    @endforeach
+                                @endif
+                            @endforeach
+                        @endif
+                    @endforeach
+                    {{-- $reg_t es la colección de tablas manejadas con el puntero $t --}}
+                    @foreach ($reg_t as $t)
+                        @if ($t->cod_pedido == $p->cod_pedido)
+                            @foreach ($tablas as $ta)
+                                @if ($t->cod_tabla == $ta->cod_tabla)
+                                    <li>{{$ta->nombre}}
+                                        <span class="text-muted texto-info">(</span>
+                                            @foreach ($tsushis as $ts)
+                                                @if ($ts->cod_tabla == $ta->cod_tabla)
+                                                    <span class="texto-coma text-muted texto-info">
+                                                        @foreach ($sushis as $s)
+                                                            @if ($s->cod_sushi == $ts->cod_sushi)
+                                                            {{$s->envoltura.' |'}}
+                                                            @endif
+                                                        @endforeach
+                                                    </span>
+                                                @endif
+                                            @endforeach
+                                        <span class="text-muted texto-info">)</span>
+                                    </li>
+                                @endif
+                            @endforeach
+                        @endif
+                    @endforeach
+                    {{-- <li>Pizza Familiar <span class="text-muted texto-info">(Jamón, Cebolla Morada, Extra Queso,
+                            Piña)</span></li>
+                    <li>Tabla 24 Piezas <span class="text-muted texto-info">(Sesamo, Panko frito)</span></li> --}}
                 </ul>
             </div>
             <div class="modal-footer">
-            <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
 </div>
+@endforeach
+@if(Auth::user()->rol=='administrador')
 <script>
     $(document).ready(function() {
         $('#tabPEdidos').DataTable({
@@ -149,5 +137,13 @@
         });
     });
 </script>
+@endif
 
+{{-- <script>
+    $('.btn-fix').click(function(){
+        var aux = $('.texto-coma').text();
+        console.log($.trim(aux));
+        console.log(aux.replace(', )',')'));
+    });
+</script> --}}
 @endsection

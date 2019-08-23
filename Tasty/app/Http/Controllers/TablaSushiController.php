@@ -111,13 +111,10 @@ class TablaSushiController extends Controller
         $tabla = TablaSushi::find($tabla);
         $tabla->nombre = $request->nombre;
         $tabla->precio = $request->precio;
-
         if ($request->file('imagen')) {
             $path = Storage::disk('public')->put('image', $request->file('imagen'));
             $tabla->fill(['imagen' => asset($path)])->save();
         }
-
-
         $tabla->save();
         $roll = $request->except(['_token', 'nombre', 'precio', '_method']);
         $f = TsushiSushi::where('cod_tabla', $tabla->cod_tabla)->first();

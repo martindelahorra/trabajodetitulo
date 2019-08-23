@@ -11,8 +11,7 @@ class Sushi extends Model
     public $fillable = ['envoltura', 'descripcion', 'cortes','imagen'];
     public $timestamps = false;
 
-    public function tsushisushis()
-    {
+    public function tsushisushis(){
        return $this->hasMany('App\TsushiSushi', 'cod_sushi');
     }
 }

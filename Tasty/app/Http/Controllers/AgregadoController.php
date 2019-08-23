@@ -2,15 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Pizza;
-use App\Ingrediente;
-use App\PizzaTamano;
+use App\Agregado;
 use Illuminate\Http\Request;
 
-use Session;
-use function Psy\info;
-
-class PizzasController extends Controller
+class AgregadoController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,8 +14,8 @@ class PizzasController extends Controller
      */
     public function index()
     {
-        $pizzas = PizzaTamano::all();
-        return view('pizzas.index', compact('pizzas'));
+        $agregados = Agregado::all();
+        return view('agregado.list',compact('agregados'));
     }
 
     /**
@@ -28,23 +23,9 @@ class PizzasController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function ArmaPizza($tamano)
+    public function create()
     {
-        $tamaños = PizzaTamano::all();
-        foreach($tamaños as $t){
-        $aux[]=substr($t->nombre, 0, 2);}
-        if (in_array($tamano,$aux)) {
-            // $primero = Ingrediente::where('disponible','0')->first();
-            foreach ($tamaños as $tam) {
-                if ($tamano == substr($tam->nombre, 0, 2)) {
-                    $tamano=$tam;
-                }
-            }
-            $ingredientes = Ingrediente::all();
-            return view('pizzas.create', compact('ingredientes', 'tamano'));
-        } else {
-            return redirect('/pizzas');
-        }
+        //
     }
 
     /**
@@ -61,10 +42,10 @@ class PizzasController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Pizza  $pizza
+     * @param  \App\Agregado  $agregado
      * @return \Illuminate\Http\Response
      */
-    public function show(Pizza $pizza)
+    public function show(Agregado $agregado)
     {
         //
     }
@@ -72,10 +53,10 @@ class PizzasController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Pizza  $pizza
+     * @param  \App\Agregado  $agregado
      * @return \Illuminate\Http\Response
      */
-    public function edit(Pizza $pizza)
+    public function edit(Agregado $agregado)
     {
         //
     }
@@ -84,10 +65,10 @@ class PizzasController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Pizza  $pizza
+     * @param  \App\Agregado  $agregado
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Pizza $pizza)
+    public function update(Request $request, Agregado $agregado)
     {
         //
     }
@@ -95,10 +76,10 @@ class PizzasController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Pizza  $pizza
+     * @param  \App\Agregado  $agregado
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Pizza $pizza)
+    public function destroy(Agregado $agregado)
     {
         //
     }

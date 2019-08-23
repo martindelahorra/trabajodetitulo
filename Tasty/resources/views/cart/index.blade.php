@@ -36,7 +36,7 @@
                 @endif
                 @endforeach
                 @endif"
-                alt="Imagen no disponible" width="150px" height="100px">
+                alt="Imagen no disponible" width="100%" height="100px">
             </div>
             <div class="col-sm-5">
                 <h4>{{$item->name}}</h4>
