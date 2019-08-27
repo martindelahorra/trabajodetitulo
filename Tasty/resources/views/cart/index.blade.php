@@ -38,9 +38,9 @@
                 @endif
                 @endforeach
                 @endif"
-                alt="Imagen no disponible" width="100%" height="100px">
+                alt="Imagen no disponible" style="max-width: 200px; width: 100%; height: auto; max-height:100px;">
             </div>
-            <div class="col-sm-5">
+            <div class="col-sm-4">
                 <h4>{{(($item->model->primaryKey=='cod_sushi')?'Roll:  '.$item->name:$item->name)}}</h4>
                 <p> @if ($item->model->primaryKey=='cod_sushi') ({{$item->model->descripcion}})
                     @elseif($item->model->primaryKey=='cod_tabla')

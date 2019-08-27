@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use App\Pizza_pedido;
 use App\Sushi;
+use Alert;
 use App\TsushiSushi;
 use App\Sushi_pedido;
 
@@ -106,6 +107,7 @@ class PedidosController extends Controller
         }
         //destruir carrito
         Cart::destroy();
+        alert()->success( 'Pedido generado con exito!');
         return redirect('/pedidos');
     }
     public function generarPedido()

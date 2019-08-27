@@ -14,6 +14,7 @@ class AgregadoController extends Controller
      */
     public function index()
     {
+        
         $agregados = Agregado::all();
         return view('agregado.list',compact('agregados'));
     }
@@ -75,7 +76,7 @@ class AgregadoController extends Controller
      */
     public function update(Request $request, Agregado $agregado)
     {
-        //
+        ///
     }
 
     /**

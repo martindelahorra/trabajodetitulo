@@ -2,7 +2,11 @@
 @section('contenido')
 <div class="row mt-4">
     <div class="col">
+<<<<<<< HEAD
         <h2>Agregar nuevo Roll</h2>
+=======
+        <h2>Agregar Promocion</h2>
+>>>>>>> b37978179fdeedd000db787a4a090cd62ff4a178
         <hr />
     </div>
 </div>

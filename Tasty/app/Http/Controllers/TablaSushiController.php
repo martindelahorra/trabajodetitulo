@@ -143,6 +143,7 @@ class TablaSushiController extends Controller
     public function destroy(TablaSushi $tablaSushi)
     {        
         TablaSushi::destroy($tablaSushi->cod_tabla);
+        alert()->info('Producto borrado con exito', '');
         return redirect('/tabla_sushis/list');
     }
 }

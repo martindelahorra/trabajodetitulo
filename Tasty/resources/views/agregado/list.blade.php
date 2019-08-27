@@ -8,7 +8,7 @@
 </div>
 <div class="row">
     <div class="col">
-        <a href="agregado/create" class="btn btn-outline-primary izquierda">Agregar promoción</a>
+        <a href="/agregado/create" class="btn btn-outline-primary izquierda">Agregar promoción</a>
     </div>
 </div>
 <div class="row mt-2">
