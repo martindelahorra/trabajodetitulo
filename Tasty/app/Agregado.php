@@ -9,5 +9,5 @@ class Agregado extends Model
     protected $table = 'agregados';
     public $timestamps = false;
     protected $primaryKey = 'cod_agre';
-    public $fillable = ['cod_ingrediente','nom_agre','precio','descripcion','tipo','sugerido'];
+    public $fillable = ['nom_agre','precio','descripcion','tipo','sugerido','imagen'];
 }

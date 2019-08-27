@@ -38,7 +38,10 @@
                     <td>
                         {{ Form::open(array('url'=>'tabla_sushis/'.$tabla->cod_tabla,'method'=>'delete')) }}
                         <a href="/tabla_sushis/{{$tabla->cod_tabla}}/edit" class="btn btn-outline-dark">Editar</a>
-                        <button type="submit" class="btn btn-outline-danger" >Borrar</button>
+                        <button type="button" class="btn btn-outline-danger" data-toggle="modal"
+                            data-target="#exampleModal{{$tabla->cod_tabla}}">
+                            Borrar
+                        </button>
                         {{ Form::close() }}
                     </td>
                 </tr>
@@ -52,6 +55,32 @@
         <a href="/tabla_sushis" class="btn btn-outline-info">Volver al inicio</a>
     </div>
 </div>
+@foreach ($tabla_sushi as $tabla)
 
+
+<!-- Modal -->
+<div class="modal modal-danger fade" id="exampleModal{{$tabla->cod_tabla}}" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Esta seguro de que quiere borrar?</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                {{$tabla->nombre}}
+            </div>
+            <div class="modal-footer">
+                {{ Form::open(array('url'=>'tabla_sushis/'.$tabla->cod_tabla,'method'=>'delete')) }}
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <button type="submit" class="btn btn-danger">Borrar</button>
+                {{ Form::close() }}
+            </div>
+        </div>
+    </div>
+</div>
+@endforeach
 
 @endsection

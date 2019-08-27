@@ -14,6 +14,7 @@ class AgregadoController extends Controller
      */
     public function index()
     {
+        
         $agregados = Agregado::all();
         return view('agregado.list',compact('agregados'));
     }
@@ -25,7 +26,8 @@ class AgregadoController extends Controller
      */
     public function create()
     {
-        //
+        $agregados = Agregado::all();
+        return view('agregado.create',compact('agregados'));
     }
 
     /**
