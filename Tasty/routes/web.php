@@ -60,4 +60,5 @@ Route::get('/pedido/generar', 'PedidosController@generarPedido');
 Route::resource('pedidos', 'PedidosController');
 
 //Agregado
+Route::get('/agregado/list','AgregadoController@list');
 Route::resource('agregado', 'AgregadoController');

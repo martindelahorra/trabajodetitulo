@@ -2,13 +2,13 @@
 @section('contenido')
 <div class="row mt-4">
     <div class="col">
-        <h2>Ingredientes</h2>
+        <h2>Agregados y promociones</h2>
         <hr />
     </div>
 </div>
 <div class="row">
     <div class="col">
-        <a href="" class="btn btn-outline-primary izquierda">Agregar promoción</a>
+        <a href="agregado/create" class="btn btn-outline-primary izquierda">Agregar promoción</a>
     </div>
 </div>
 <div class="row mt-2">
@@ -30,11 +30,13 @@
                     <td>{{$a->cod_agre}}</td>
                     <td>{{$a->nom_agre}}</td>
                     <td>{{$a->precio}}</td>
-                    <td><select class="form-control">
-                        <option value="C"@if($a->tipo=='A') selected @endif>Agregado</option>
-                        <option value="V"@if($a->tipo=='P') selected @endif>Pizza</option>
-                        <option value="O"@if($a->tipo=='S') selected @endif>Handroll</option>
-                    </select></td>
+                    <td>
+                        <select class="form-control">
+                            <option value="C" @if($a->tipo=='A') selected @endif>Agregado</option>
+                            <option value="V" @if($a->tipo=='P') selected @endif>Pizza</option>
+                            <option value="O" @if($a->tipo=='S') selected @endif>Handroll</option>
+                        </select>
+                    </td>
                     <td>
                         <input type="checkbox" @if($a->sugerido==true)checked @endif name="" id="">
                     </td>

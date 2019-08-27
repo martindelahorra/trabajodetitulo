@@ -18,6 +18,11 @@ class AgregadoController extends Controller
         return view('agregado.list',compact('agregados'));
     }
 
+    public function list(){
+        $agregados = Agregado::all();
+        return view('agregado.list',compact('agregados'));
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -25,7 +30,7 @@ class AgregadoController extends Controller
      */
     public function create()
     {
-        //
+        return view('agregado.create');
     }
 
     /**

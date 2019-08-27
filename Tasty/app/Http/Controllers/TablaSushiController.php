@@ -107,7 +107,6 @@ class TablaSushiController extends Controller
      */
     public function update(Request $request,  $tabla)
     {
-
         $tabla = TablaSushi::find($tabla);
         $tabla->nombre = $request->nombre;
         $tabla->precio = $request->precio;
@@ -142,8 +141,7 @@ class TablaSushiController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy(TablaSushi $tablaSushi)
-    {
-        
+    {        
         TablaSushi::destroy($tablaSushi->cod_tabla);
         return redirect('/tabla_sushis/list');
     }

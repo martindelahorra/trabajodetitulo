@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Pedido;
-use App\Usuario;
 use Illuminate\Http\Request;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use App\TablaSushi;
