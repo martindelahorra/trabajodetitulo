@@ -30,14 +30,15 @@
                 @foreach($tabla_sushi as $tabla)
                 <tr>
                     <td>{{ $tabla->cod_tabla }}</td>
-                    <td style="width: 200px;"><img src="{{($tabla->imagen)}}" class="card-img" alt="Imagen no disponible" width="150px" height="100px"></td>
+                    <td style="width: 200px;"><img src="{{($tabla->imagen)}}" class="card-img"
+                            alt="Imagen no disponible" width="150px" height="100px"></td>
                     <td>{{ $tabla->nombre }}</td>
                     <td>${{ number_format($tabla->precio,0,",",".") }}</td>
 
                     <td>
                         {{ Form::open(array('url'=>'tabla_sushis/'.$tabla->cod_tabla,'method'=>'delete')) }}
                         <a href="/tabla_sushis/{{$tabla->cod_tabla}}/edit" class="btn btn-outline-dark">Editar</a>
-                        <button type="submit" class="btn btn-outline-danger">Borrar</button>
+                        <button type="submit" class="btn btn-outline-danger" >Borrar</button>
                         {{ Form::close() }}
                     </td>
                 </tr>
@@ -51,5 +52,6 @@
         <a href="/tabla_sushis" class="btn btn-outline-info">Volver al inicio</a>
     </div>
 </div>
+
 
 @endsection
