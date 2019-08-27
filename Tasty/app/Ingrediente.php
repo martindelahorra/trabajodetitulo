@@ -12,8 +12,7 @@ class Ingrediente extends Model
     protected $dates =['deleted_at'];
     protected $primaryKey = 'cod_ingrediente';
     protected $fillable = ['cod_ingrediente','nombre','precio','categoria'];
-    public function pizzaingredientes()
-    {
+    public function pizzaingredientes()    {
        return $this->hasMany('App\PizzaIngrediente', 'cod_ingrediente');
     }
 }

@@ -15,9 +15,10 @@ use App\Tabla_pedido;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use App\Pizza_pedido;
-use App\Sushi_pedido;
 use App\Sushi;
 use Alert;
+use App\TsushiSushi;
+use App\Sushi_pedido;
 
 
 class PedidosController extends Controller
@@ -32,17 +33,23 @@ class PedidosController extends Controller
         $this->middleware('auth')->except(['create']);
     }
     public function index()
-
     {
-
+        $pedidos = Pedido::all();
+        $reg_p = Pizza_pedido::all();
+        $reg_t = Tabla_pedido::all();
+        $pizzas = Pizza::all();
+        $tamanos = PizzaTamano::all();
+        $ingredientes = Ingrediente::all();
+        $reg_ing = PizzaIngrediente::all();
+        $tablas = TablaSushi::all();
+        $tsushis = TsushiSushi::all();
+        $sushis = Sushi::all();
         if (Auth::User()->rol == 'administrador') {
-
-            $tamanos = PizzaTamano::all();
-            return view('pedidos.index');
-            // return view('pedidos.index', compact('usuario','tamanos'));
+            return view('pedidos.index', compact('pedidos', 'reg_p', 'reg_t', 'pizzas', 'tamanos', 'ingredientes', 'reg_ing', 'tablas', 'tsushis', 'sushis'));
         } else {
             Cart::destroy();
-            return view('pedidos.index')->with('msg', 'Su Pedido fue generado con exito');;
+            $pedidos = Pedido::where('id_usuario', Auth::user()->id_usuario)->get();
+            return view('pedidos.index', compact('pedidos', 'reg_p', 'reg_t', 'pizzas', 'tamanos', 'ingredientes', 'reg_ing', 'tablas', 'tsushis', 'sushis'))->with('msg', 'Su Pedido fue generado con exito');;
         }
     }
 

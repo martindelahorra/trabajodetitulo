@@ -51,6 +51,9 @@
                     <li class="nav-item @if(\Request::is('sushis')) active @endif">
                         <a class="nav-link" href="/sushis">Rolls Sushi</a>
                     </li>
+                    <li class="nav-item @if(\Request::is('agregado')) active @endif">
+                        <a class="nav-link" href="/agreado">Promo</a>
+                    </li>
                     {{-- <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

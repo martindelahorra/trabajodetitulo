@@ -26,7 +26,6 @@ class CartController extends Controller
         //dd(Cart::content());
         $tamanos = PizzaTamano::all();
         return view('cart.index', compact('tamanos'));
-        
     }
 
     /**
@@ -52,8 +51,7 @@ class CartController extends Controller
             $tipo = 'App\TablaSushi';
             Cart::add($request->id, $request->nombre, 1, $request->precio)->associate($tipo);
             return redirect()->route('cart.index')->with('success_message', 'Producto agregado al carrito! :)');
-
-        }  elseif ($request->tipo == 'pizza') {
+        } elseif ($request->tipo == 'pizza') {
             // Se define el modelo para asociar
             $tipo = 'App\Pizza';
             // se crea la pizza
@@ -66,26 +64,38 @@ class CartController extends Controller
                     $regpizza->precio = $tam->precio;
                 }
             }
-            // Se guarda la pizza
-            $regpizza->save();
-            $ing = $request->except(['_token', 'tamano','nombre','precio','tipo']);
+            $ing = $request->except(['_token', 'tamano', 'nombre', 'precio', 'tipo']);
             // El arreglo $ing contiene los ingredientes seleccionados
             // Por cada ingrediente llamado como $i se crea un nuevo registro en PizzaIngrediente
-            $nombre ='';
-            $value=0;
+            // Se calcula el valor adicional para la pizza x ing
+            $value = 0;
+            $precio_add=0;
             foreach ($ing as $i) {
-                if($value<=3){
-                    $aux = Ingrediente::find($i);
-                    $nombre .= ($aux->nombre).', ';
+                $aux = Ingrediente::find($i);
+                $value++;
+                if ($value>3){
+                    $precio_add +=$aux->precio; 
                 }
+            }
+            $regpizza->precio+=$precio_add;
+            // Se guarda la pizza
+            $regpizza->save();
+            $nombre = '';
+            $value = 0;
+            foreach ($ing as $i) {
+                $aux = Ingrediente::find($i);
+                $nombre .= ($aux->nombre) . ', ';
                 $registro = new PizzaIngrediente();
                 $registro->cod_pizza = $regpizza->cod_pizza;
                 $registro->cod_ingrediente = $i;
                 $registro->save();
                 $value++;
+                if ($value>3){
+                    $precio_add +=$aux->precio; 
+                }
             }
-            $nombre = substr($nombre,0,-2);
-            Cart::add($regpizza->cod_pizza, $request->nombre.' : '.$nombre, 1, $request->precio)->associate($tipo);
+            $nombre = substr($nombre, 0, -2);
+            Cart::add($regpizza->cod_pizza, $request->nombre . ' : ' . $nombre, 1, $regpizza->precio)->associate($tipo);
             return redirect()->route('cart.index')->with('success_message', 'Producto agregado al carrito! :)');
         }elseif ($request->tipo == 'sushi') {
             $tipo = 'App\Sushi';
@@ -125,11 +135,11 @@ class CartController extends Controller
      */
     public function update(Request $request, $id)
     {
-         Cart::update($id, $request->quantity);
-         session()->flash('success_message', 'Cantidad actualizada! :)');
-         return response()->json(['success' => true]);
+        Cart::update($id, $request->quantity);
+        session()->flash('success_message', 'Cantidad actualizada! :)');
+        return response()->json(['success' => true]);
 
-        
+
         //return $request->all();
     }
 
