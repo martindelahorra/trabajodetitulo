@@ -110,19 +110,24 @@ class TablaSushiController extends Controller
         $tabla = TablaSushi::find($tabla);
         $tabla->nombre = $request->nombre;
         $tabla->precio = $request->precio;
+        $count = 1;
+        $aux = str_replace('http://localhost:8000/','',$tabla->imagen, $count);
         if ($request->file('imagen')) {
+            //eliminar imagen anterior del producto
+            Storage::disk('public')->delete($aux);
+            //inserción de la imagen nueva
             $path = Storage::disk('public')->put('image', $request->file('imagen'));
             $tabla->fill(['imagen' => asset($path)])->save();
         }
         $tabla->save();
-        $roll = $request->except(['_token', 'nombre', 'precio', '_method']);
-        $f = TsushiSushi::where('cod_tabla', $tabla->cod_tabla)->first();
 
+        $f = TsushiSushi::where('cod_tabla', $tabla->cod_tabla)->first();
         while (!is_null($f)) {
             $f->delete();
             $f = TsushiSushi::where('cod_tabla', $tabla->cod_tabla)->first();
         }
 
+        $roll = $request->except(['_token', 'nombre', 'precio', '_method','imagen']);
         foreach ($roll as $r) {
 
             TsushiSushi::create([
