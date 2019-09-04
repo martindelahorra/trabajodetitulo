@@ -18,6 +18,8 @@
                         </h5>
                         <p class="card-text">Pizza con 3 ingredientes.</p>
                         <p>*+500 por ingrediente extra.</p>
+                        <a href="pizzas/crear/{{ substr($p->nombre,0,2) }}"><button class="btn btn-success derecha">
+                            Elegir ingredientes <i class="fas fa-pizza-slice"></i></button></a>
                     </div>
                 </div>
             </div>

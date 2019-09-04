@@ -31,7 +31,7 @@
         @foreach (Cart::content() as $item)
         <div class="row">
             <div class="col-sm-2">
-                <img src="@if ($item->model->primaryKey=="cod_tabla" || $item->model->primaryKey=="cod_sushi")
+                <img src="@if ($item->model->primaryKey==" cod_tabla" || $item->model->primaryKey=="cod_sushi")
                 {{ ($item->model->imagen) }} @else @foreach ($tamanos as $tam) @if (substr($tam->nombre, 0,
                 2)==$item->model->tamaño)
                 {{ $tam->imagen }}
@@ -76,9 +76,11 @@
         @endforeach
         <div class="row">
             <div class="col-6">
-                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iste obcaecati voluptates eos placeat earum
+                <p>Recuerde que en caso de elegir como medio de pago "efectivo", debe indicar en las notas del pedido
+                    con cuanto cancela para una atención mas rápida</p>
+                {{-- <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iste obcaecati voluptates eos placeat earum
                     quia inventore deserunt, mollitia quidem animi quod officiis officia, sint sed odio aperiam saepe
-                    perferendis consectetur!</p>
+                    perferendis consectetur!</p> --}}
             </div>
             <div class="col">
                 <p><b>Total</b> </p>

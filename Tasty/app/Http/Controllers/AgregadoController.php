@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Storage;
 use App\Agregado;
 use Illuminate\Http\Request;
 
@@ -13,8 +14,12 @@ class AgregadoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        
+    {        
+        $agregados = Agregado::all();
+        return view('agregado.index',compact('agregados'));
+    }
+
+    public function list(){
         $agregados = Agregado::all();
         return view('agregado.list',compact('agregados'));
     }
@@ -26,8 +31,7 @@ class AgregadoController extends Controller
      */
     public function create()
     {
-        $agregados = Agregado::all();
-        return view('agregado.create',compact('agregados'));
+        return view('agregado.create');
     }
 
     /**
@@ -38,7 +42,21 @@ class AgregadoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if(empty($request->sugerido)){
+            $request->sugerido = 0;
+        }
+        $agre = new Agregado();
+        $agre->nom_agre = $request->nombre;
+        $agre->precio = $request->precio;
+        $agre->descripcion = $request->descripcion;
+        $agre->tipo = $request->tipo;
+        $agre->sugerido = $request->sugerido;
+        if ($request->file('imagen')) {
+            $path = Storage::disk('public')->put('image', $request->file('imagen'));
+            $agre->fill(['imagen' => asset($path)])->save();
+        }
+        $agre->save();
+        return redirect('/agregado/list');
     }
 
     /**
@@ -60,7 +78,8 @@ class AgregadoController extends Controller
      */
     public function edit(Agregado $agregado)
     {
-        //
+        //dd($agregado);
+        return view('agregado.edit',compact('agregado'));
     }
 
     /**
@@ -72,7 +91,25 @@ class AgregadoController extends Controller
      */
     public function update(Request $request, Agregado $agregado)
     {
-        //
+        if(empty($request->sugerido)){
+            $request->sugerido = 0;
+        }
+        $agregado->nom_agre = $request->nombre;
+        $agregado->precio = $request->precio;
+        $agregado->descripcion = $request->descripcion;
+        $agregado->tipo = $request->tipo;
+        $agregado->sugerido = $request->sugerido;
+        $count = 1;
+        $aux = str_replace('http://localhost:8000/','',$agregado->imagen, $count);
+        if ($request->file('imagen')) {
+            //eliminar imagen anterior del producto
+            Storage::disk('public')->delete($aux);            
+            //inserción de la imagen nueva
+            $path = Storage::disk('public')->put('image', $request->file('imagen'));
+            $agregado->fill(['imagen' => asset($path)])->save();
+        }
+        $agregado->save();
+        return redirect('/agregado/list');
     }
 
     /**

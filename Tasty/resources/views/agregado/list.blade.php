@@ -2,7 +2,7 @@
 @section('contenido')
 <div class="row mt-4">
     <div class="col">
-        <h2>Ingredientes</h2>
+        <h2>Agregados y promociones</h2>
         <hr />
     </div>
 </div>
@@ -13,7 +13,8 @@
 </div>
 <div class="row mt-2">
     <div class="col">
-        <table class="col-sm-4 col-md-12 table table-bordered table-striped table-hover" id="tabIngre">
+        <table class="col-sm-4 col-md-12 table table-bordered table-striped table-hover table-responsive-lg"
+            id="tabAgre">
             <thead class="text-center">
                 <tr>
                     <th>Código</th>
@@ -22,6 +23,7 @@
                     <th>Tipo</th>
                     <th>Sugerido</th>
                     <th>Descripción</th>
+                    <th>Opciones</th>
                 </tr>
             </thead>
             <tbody class="text-center">
@@ -30,16 +32,21 @@
                     <td>{{$a->cod_agre}}</td>
                     <td>{{$a->nom_agre}}</td>
                     <td>{{$a->precio}}</td>
-                    <td><select class="form-control">
-                        <option value="C"@if($a->tipo=='A') selected @endif>Agregado</option>
-                        <option value="V"@if($a->tipo=='P') selected @endif>Pizza</option>
-                        <option value="O"@if($a->tipo=='S') selected @endif>Handroll</option>
-                    </select></td>
+                    <td>
+                        @if ($a->tipo=='P')
+                        Promoción
+                        @else
+                        Agregado
+                        @endif
+                    </td>
                     <td>
                         <input type="checkbox" @if($a->sugerido==true)checked @endif name="" id="">
                     </td>
                     <td>
                         {{ $a->descripcion }}
+                    </td>
+                    <td>
+                        <a href="/agregado/{{$a->cod_agre}}/edit" class="btn btn-outline-dark">Editar</a>
                     </td>
                 </tr>
                 @endforeach
@@ -81,7 +88,7 @@
 </div>
 <script>
     $(document).ready(function() {
-        $('#tabIngre').DataTable({
+        $('#tabAgre').DataTable({
             "language": {
                 "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
             },
