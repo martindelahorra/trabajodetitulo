@@ -18,7 +18,7 @@ class UsuariosController extends Controller
     public function index()
     {
         $usuarios = Usuario::all();
-        return view('usuarios.index',compact('usuarios'));
+        return view('usuarios.index', compact('usuarios'));
     }
 
     /**
@@ -28,8 +28,8 @@ class UsuariosController extends Controller
      */
     public function create()
     {
-        
-        
+
+
         return view('usuarios.create');
     }
 
@@ -39,15 +39,23 @@ class UsuariosController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-     public function store(UsuarioRequest $request)
-       {
-         
-         $usuario = request(['username','rut','nombre_completo','rol','telefono', 'direccion']);
-         
-         $usuario['password'] = Hash::make($request->password);
-         Usuario::create($usuario);
-         return redirect('/login');
-       }
+    public function store(UsuarioRequest $request)
+    {
+        $usuario = new Usuario();
+        $value = str_replace("-","",$request->rut);
+        $value = str_replace(".","",$value);
+        //$usuario = request(['username', 'nombre_completo', 'rol', 'telefono', 'direccion']);
+        $usuario->username = $request->username;
+        $usuario->nombre_completo = $request->nombre_completo;
+        $usuario->rut = $value;
+        $usuario->rol = 'cliente';
+        $usuario->telefono = $request->telefono;
+        $usuario->direccion = $request->direccion;
+        $usuario['password'] = Hash::make($request->password);
+        $usuario->save();
+        //Usuario::create($usuario);
+        return redirect('/login');
+    }
 
     /**
      * Display the specified resource.
@@ -56,14 +64,10 @@ class UsuariosController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id_usuario)
-    {
-        
-        
-    }
+    { }
     public function ver()
-    {   
-       return view('usuarios.ver');
-        
+    {
+        return view('usuarios.ver');
     }
 
     /**
@@ -86,10 +90,10 @@ class UsuariosController extends Controller
      */
     public function update(Request $request, Usuario $usuario)
     {
-        $usuario->update(request(['username','nombre_completo','telefono','direccion','rut']));
+        $usuario->update(request(['username', 'nombre_completo', 'telefono', 'direccion', 'rut']));
         return redirect('usuarios/ver')->with('success_message', 'Datos guardados con éxito! :)');
     }
-    
+
 
     /**
      * Remove the specified resource from storage.

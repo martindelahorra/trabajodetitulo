@@ -1,4 +1,4 @@
-@extends('layouts.master') 
+@extends('layouts.master')
 @section('contenido')
 <div class="row mt-2">
   <div class="col">
@@ -26,6 +26,7 @@
         </div>
         <div class="form-group">
           <button type="submit" class="btn btn-secondary">Iniciar sesión</button>
+          <a href="/usuarios/create" class="btn btn-info derecha">Registrarse</a>
         </div>
       </div>
     </div>

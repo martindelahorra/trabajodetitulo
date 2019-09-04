@@ -29,7 +29,9 @@ class PedidosController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function __construct()
+    
     {
+        //sacar el except
         $this->middleware('auth')->except(['create']);
     }
     public function index()
