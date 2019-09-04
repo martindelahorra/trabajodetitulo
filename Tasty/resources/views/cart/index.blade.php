@@ -31,7 +31,7 @@
         @foreach (Cart::content() as $item)
         <div class="row">
             <div class="col-sm-2">
-                <img src="@if ($item->model->primaryKey==" cod_tabla" || $item->model->primaryKey=="cod_sushi")
+                <img src="@if ($item->model->primaryKey=="cod_tabla" || $item->model->primaryKey=="cod_sushi")
                 {{ ($item->model->imagen) }} @else @foreach ($tamanos as $tam) @if (substr($tam->nombre, 0,
                 2)==$item->model->tamaño)
                 {{ $tam->imagen }}

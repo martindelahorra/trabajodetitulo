@@ -50,6 +50,17 @@
                 <textarea type="text" id="descripcion" name="descripcion" class="form-control" value=""
                     rows="5"></textarea>
             </div>
+            <div class="form-group">
+
+                <label for="metodo_pago">Metodo de pago</label>
+
+                <select id="metodo_pago" name="metodo_pago" class="form-control">
+                    @foreach ($metodo as $m)
+                    <option value="{{$m->id_metodo}}">{{$m->nombre_metodo}}</option>
+                    @endforeach
+                </select>
+
+            </div>
         </div>
         <div class="form-check form-check-inline">
             <input class="form-check-input" type="radio" name="inlineRadioOptions" id="radio1" value="option1">
