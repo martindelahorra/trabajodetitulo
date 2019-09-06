@@ -57,6 +57,8 @@ Route::get('empty', function () {
 
 //Pedidos
 Route::get('/pedido/generar', 'PedidosController@generarPedido');
+Route::patch('/pedido/{cod_pedido}','PedidosController@update')->name('pedido.update');
+Route::get('/pedidos/completados', 'PedidosController@pedidosCompletados')->name('pedidos.completados');
 Route::resource('pedidos', 'PedidosController');
 
 //Agregado
