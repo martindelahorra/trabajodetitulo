@@ -18,6 +18,7 @@ use App\Sushi;
 use Alert;
 use App\TsushiSushi;
 use App\Sushi_pedido;
+use App\MetodoPago;
 
 
 class PedidosController extends Controller
@@ -60,9 +61,10 @@ class PedidosController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
 
-        return view('pedidos.create');
+    {
+        $metodo = MetodoPago::all();
+        return view('pedidos.create', compact('metodo'));
     }
 
     /**
@@ -74,9 +76,9 @@ class PedidosController extends Controller
     public function store(Request $request)
     {
         //Insertar en pedido
-
         $pedido = new Pedido();
         $pedido->id_usuario = Auth::user()->id_usuario;
+        $pedido->id_metodo = $request->metodo_pago;
         $pedido->estado_pedido = 'P';
         $pedido->descripcion = $request->descripcion;
         $pedido->direccion = $request->direccion;

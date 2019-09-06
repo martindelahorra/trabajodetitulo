@@ -30,4 +30,8 @@ class Pedido extends Model
     {
         return $this->belongsToMany('App\Sushi_pedido')->withPivot('cantidad');
     }
+    public function metodo_pago()
+    {
+        return $this->belongsTo('App\MetodoPago');
+    }
 }
