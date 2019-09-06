@@ -30,20 +30,13 @@ class PizzasController extends Controller
      */
     public function ArmaPizza($tamano)
     {
-        $tamaños = PizzaTamano::all();
-        foreach($tamaños as $t){
-        $aux[]=substr($t->nombre, 0, 2);}
-        if (in_array($tamano,$aux)) {
+        $tamano = PizzaTamano::find($tamano);
+        if (!empty($tamano)) {
             // $primero = Ingrediente::where('disponible','0')->first();
-            foreach ($tamaños as $tam) {
-                if ($tamano == substr($tam->nombre, 0, 2)) {
-                    $tamano=$tam;
-                }
-            }
             $ingredientes = Ingrediente::all();
             return view('pizzas.create', compact('ingredientes', 'tamano'));
         } else {
-            return redirect('/pizzas');
+            return redirect('/pizzas')->withErrors('Debe seleccionar un tamaño válido');
         }
     }
 

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Storage;
 use App\Agregado;
+use App\Ingrediente;
+use App\PizzaTamano;
 use Illuminate\Http\Request;
 
 class AgregadoController extends Controller
@@ -14,14 +16,15 @@ class AgregadoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {        
+    {
         $agregados = Agregado::all();
-        return view('agregado.index',compact('agregados'));
+        return view('agregado.index', compact('agregados'));
     }
 
-    public function list(){
+    public function list()
+    {
         $agregados = Agregado::all();
-        return view('agregado.list',compact('agregados'));
+        return view('agregado.list', compact('agregados'));
     }
 
     /**
@@ -31,7 +34,8 @@ class AgregadoController extends Controller
      */
     public function create()
     {
-        return view('agregado.create');
+        $tamaño = PizzaTamano::all();
+        return view('agregado.create', compact('tamaño'));
     }
 
     /**
@@ -42,7 +46,7 @@ class AgregadoController extends Controller
      */
     public function store(Request $request)
     {
-        if(empty($request->sugerido)){
+        if (empty($request->sugerido)) {
             $request->sugerido = 0;
         }
         $agre = new Agregado();
@@ -51,6 +55,11 @@ class AgregadoController extends Controller
         $agre->descripcion = $request->descripcion;
         $agre->tipo = $request->tipo;
         $agre->sugerido = $request->sugerido;
+        if ($request->tamaño==0){
+            $agre->cod_tamaño = null;
+        }else{
+            $agre->cod_tamaño = $request->tamaño;
+        }
         if ($request->file('imagen')) {
             $path = Storage::disk('public')->put('image', $request->file('imagen'));
             $agre->fill(['imagen' => asset($path)])->save();
@@ -67,7 +76,16 @@ class AgregadoController extends Controller
      */
     public function show(Agregado $agregado)
     {
-        //
+        $ingredientes = Ingrediente::all();
+        if ($agregado->tipo == "P") {
+            return view('agregado.ingre', compact('ingredientes','agregado'));
+        } else {
+            if ($agregado->tipo == "B") {
+                dd('soy una bebida');
+            } else {
+                return redirect('/agregado');
+            }
+        }
     }
 
     /**
@@ -79,7 +97,7 @@ class AgregadoController extends Controller
     public function edit(Agregado $agregado)
     {
         //dd($agregado);
-        return view('agregado.edit',compact('agregado'));
+        return view('agregado.edit', compact('agregado'));
     }
 
     /**
@@ -91,7 +109,7 @@ class AgregadoController extends Controller
      */
     public function update(Request $request, Agregado $agregado)
     {
-        if(empty($request->sugerido)){
+        if (empty($request->sugerido)) {
             $request->sugerido = 0;
         }
         $agregado->nom_agre = $request->nombre;
@@ -99,11 +117,12 @@ class AgregadoController extends Controller
         $agregado->descripcion = $request->descripcion;
         $agregado->tipo = $request->tipo;
         $agregado->sugerido = $request->sugerido;
+
         $count = 1;
-        $aux = str_replace('http://localhost:8000/','',$agregado->imagen, $count);
+        $aux = str_replace('http://localhost:8000/', '', $agregado->imagen, $count);
         if ($request->file('imagen')) {
             //eliminar imagen anterior del producto
-            Storage::disk('public')->delete($aux);            
+            Storage::disk('public')->delete($aux);
             //inserción de la imagen nueva
             $path = Storage::disk('public')->put('image', $request->file('imagen'));
             $agregado->fill(['imagen' => asset($path)])->save();

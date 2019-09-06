@@ -31,9 +31,12 @@
         @foreach (Cart::content() as $item)
         <div class="row">
             <div class="col-sm-2">
-                <img src="@if ($item->model->primaryKey==" cod_tabla" || $item->model->primaryKey=="cod_sushi")
-                {{ ($item->model->imagen) }} @else @foreach ($tamanos as $tam) @if (substr($tam->nombre, 0,
-                2)==$item->model->tamaño)
+                <img src="
+                @if ($item->model->primaryKey != "cod_pizza")
+                {{ ($item->model->imagen) }}
+                @else
+                @foreach ($tamanos as $tam)
+                @if ($tam->cod_tamaño==$item->model->cod_tamaño)
                 {{ $tam->imagen }}
                 @endif
                 @endforeach
@@ -61,11 +64,6 @@
                 <select class="quantity" data-id="{{ $item->rowId }}">
                     @for ($i = 1; $i < 6; $i++) <option {{$item->qty==$i ? 'selected' : '' }}>{{ $i }}</option>
                         @endfor
-
-                        {{-- <option {{$item->qty=='2' ? 'selected' : '' }}>2</option>
-                        <option {{$item->qty=='3' ? 'selected' : '' }}>3</option>
-                        <option {{$item->qty=='4' ? 'selected' : '' }}>4</option>
-                        <option {{$item->qty=='5' ? 'selected' : '' }}>5</option> --}}
                 </select>
             </div>
             <div class="col-sm-2">
@@ -116,7 +114,6 @@
                         quantity: this.value
                     })
                     .then(function(response) {
-                        //console.log(response);
                         window.location.href = '{{ route('cart.index') }}'
                     })
                     .catch(function(error) {

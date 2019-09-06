@@ -1,13 +1,24 @@
 @extends('layouts.master')
 
 @section('contenido')
-<div class="row mt-4">
+@if($errors->any())
+<div class="col col-md-6 offset-md-3 mt-3">
+    <div class="alert alert-danger">
+        <ul>
+            @foreach($errors->all() as $error)
+            <li>{{$error}}</li>
+            @endforeach
+        </ul>
+    </div>
+</div>
+@endif
+<div class="row mt-2">
     @foreach ($pizzas as $p)
     <div class="col-md-6">
         <div class="card mb-3">
             <div class="row no-gutters">
                 <div class="col-md-8">
-                    <a href="pizzas/crear/{{ substr($p->nombre,0,2) }}">
+                    <a href="pizzas/crear/{{ $p->cod_tamaño }}">
                         <img src="{{$p->imagen}}" class="card-img m-1" alt="Imagen no disponible">
                     </a>
                 </div>
@@ -18,8 +29,8 @@
                         </h5>
                         <p class="card-text">Pizza con 3 ingredientes.</p>
                         <p>*+500 por ingrediente extra.</p>
-                        <a href="pizzas/crear/{{ substr($p->nombre,0,2) }}"><button class="btn btn-success derecha">
-                            Elegir ingredientes <i class="fas fa-pizza-slice"></i></button></a>
+                        <a href="pizzas/crear/{{ $p->cod_tamaño }}"><button class="btn btn-success derecha">
+                                Elegir ingredientes <i class="fas fa-pizza-slice"></i></button></a>
                     </div>
                 </div>
             </div>
