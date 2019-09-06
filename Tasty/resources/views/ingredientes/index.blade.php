@@ -46,7 +46,6 @@
                         @else
                         No Disponible
                         @endif
-
                     </td>
                     <td>
                         {{ Form::open(array('url'=>'ingredientes/'.$ing->cod_ingrediente,'method'=>'delete')) }}

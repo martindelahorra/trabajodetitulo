@@ -31,10 +31,22 @@
         </div>
         <div class="form-group">
             <label for="tipo">Tipo</label>
-            <select class="form-control" name="tipo">
+            <select class="form-control" name="tipo" id="tipo">
                 <option value="0" selected>Seleccione</option>
-                <option value="P">Promoción</option>
                 <option value="A">Agregado</option>
+                <option value="B">Bebida</option>
+                <option value="P">Pizza</option>
+                <option value="T">Tabla</option>
+                <option value="S">Roll</option>
+            </select>
+        </div>
+        <div class="form-group" hidden id="delete">
+            <label for="tamaño">Tamaño</label>
+            <select class="form-control" name="tamaño">
+                <option value="0" selected>Seleccione</option>
+                @foreach ($tamaño as $t)
+                    <option value="{{$t->cod_tamaño}}">{{$t->nombre}}</option>
+                @endforeach
             </select>
         </div>
         <div class="form-group">
@@ -60,4 +72,14 @@
     </div>
     @endif
 </div>
+
+<script>
+    $('#tipo').change(function(){
+        if($('#tipo').val()=="P"){
+            $("#delete").attr("hidden",false);
+        }else{
+            $("#delete").attr("hidden",true);
+        }
+});
+</script>
 @endsection

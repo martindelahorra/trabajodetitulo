@@ -2,7 +2,7 @@
 @section('contenido')
 <div class="row">
     <div class="col">
-        <h3 class='text-center'>Arma tu Pizza {{$tamano->nombre}}</h3>
+        <h3 class='text-center'>Elige tus ingredientes</h3>
         <hr>
     </div>
 </div>
@@ -20,7 +20,9 @@
                                 @foreach($ingredientes as $ing)
                                 <div class="form-group">
                                     @if( $ing->categoria =='C' )
-                                    <input type="checkbox" class="chb" value="{{$ing->cod_ingrediente}}" name="{{$ing->cod_ingrediente}}" data-precio="{{$ing->precio}}" /> {{$ing->nombre}}
+                                    <input type="checkbox" class="chb" value="{{$ing->cod_ingrediente}}"
+                                        name="{{$ing->cod_ingrediente}}" data-precio="{{$ing->precio}}" />
+                                    {{$ing->nombre}}
                                     @endif
                                 </div>
                                 @endforeach
@@ -32,7 +34,9 @@
                                 @foreach($ingredientes as $ing)
                                 <div class="form-group">
                                     @if( $ing->categoria =='V' )
-                                    <input type="checkbox" class="chb" value="{{$ing->cod_ingrediente}}" name="{{$ing->cod_ingrediente}}" data-precio="{{$ing->precio}}" /> {{$ing->nombre}}
+                                    <input type="checkbox" class="chb" value="{{$ing->cod_ingrediente}}"
+                                        name="{{$ing->cod_ingrediente}}" data-precio="{{$ing->precio}}" />
+                                    {{$ing->nombre}}
                                     @endif
                                 </div>
                                 @endforeach
@@ -46,7 +50,9 @@
                                 @foreach($ingredientes as $ing)
                                 <div class="form-group">
                                     @if( $ing->categoria =='O' )
-                                    <input type="checkbox" class="chb" value="{{$ing->cod_ingrediente}}" name="{{$ing->cod_ingrediente}}" data-precio="{{$ing->precio}}" /> {{$ing->nombre}}
+                                    <input type="checkbox" class="chb" value="{{$ing->cod_ingrediente}}"
+                                        name="{{$ing->cod_ingrediente}}" data-precio="{{$ing->precio}}" />
+                                    {{$ing->nombre}}
                                     @endif
                                 </div>
                                 @endforeach
@@ -54,15 +60,15 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <input type="hidden" value="{{ $tamano->cod_tamaño }}" name="tamano" id="tamano">
+                        <input type="hidden" value="{{$agregado->cod_agre}}" name="cod_agregado" id="cod_agregado">
+                        <input type="hidden" name="tipo" value="promo pizza">
                     </div>
                     <div class="form-group">
-                        <button type="submit" class="btn btn-success derecha">Añadir al carro <i class="fas fa-cart-plus"></i></button>
-                        <a href="/pizzas" class="btn btn-info">Volver</a>
+                        <button type="submit" class="btn btn-success derecha">Añadir al carro <i
+                                class="fas fa-cart-plus"></i></button>
+                        <a href="/agregado" class="btn btn-info">Volver</a>
                     </div>
-                    <input type="hidden" name="nombre" value="{{ $tamano->nombre }}">
-                    <input type="hidden" name="precio" value="{{ $tamano->precio }}">
-                    <input type="hidden" name="tipo" value="pizza">
+                    
                 </form>
             </div>
         </div>

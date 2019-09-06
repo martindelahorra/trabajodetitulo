@@ -40,7 +40,7 @@
                         @endif
                     </td>
                     <td>
-                        <input type="checkbox" @if($a->sugerido==true)checked @endif name="" id="">
+                        @if($a->sugerido==true)Si @else No @endif
                     </td>
                     <td>
                         {{ $a->descripcion }}

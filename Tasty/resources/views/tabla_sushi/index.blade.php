@@ -4,16 +4,13 @@
 <a href="/tabla_sushis/list" class="btn btn-outline-primary izquierda">Listado Tablas</a>
 <br>
 <div class="row mt-4">
-
-
     @foreach ($tabla_sushi as $tabla)
     <div class="col-md-6">
-
         <div class="card mb-3">
             <div class="row no-gutters">
-
                 <div class="col ">
-                    <img src="{{($tabla->imagen)}}" class="card-img" alt="Imagen no disponible" width="450" height="400">
+                    <img src="{{($tabla->imagen)}}" class="card-img" alt="Imagen no disponible" width="450"
+                        height="400">
                 </div>
             </div>
             <div class="row">

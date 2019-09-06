@@ -61,8 +61,8 @@
     </div>
     @endif
     <div class="col-md-6">
-            <img class="img-thumbnail border" height="800" width="600" alt="{{$agregado->nombre}}" src="{{$agregado->imagen}}"
-                title="{{$agregado->nombre}}" />
-        </div>
+        <img class="img-thumbnail border" height="800" width="600" alt="{{$agregado->nombre}}"
+            src="{{$agregado->imagen}}" title="{{$agregado->nombre}}" />
+    </div>
 </div>
 @endsection
