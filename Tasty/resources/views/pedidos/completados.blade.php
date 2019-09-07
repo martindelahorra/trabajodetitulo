@@ -22,24 +22,12 @@
             </ul>
         </div>
         @endif
-        <div class="row">
-            <div class="col">
-                <a href="/pedidos" class="btn btn-primary "><i class="fas fa-long-arrow-alt-left"></i> Pedidos
-                    Totales</a>
-            </div>
-            <div class="col" style="text-align: right">
-                <label for="">Buscar: </label>
-            </div>
-            <div class="col-4">
-                <input type="text" name="search" id="search" class="form-control" />
-            </div>
-        </div>
-        <br>
+        
 
 
 
-        <table class="col-sm-4 col-md-12 table table-bordered table-striped table-hover table-responsive-lg"
-            id="tabla_pedidos">
+        <table class="col-sm-4 col-md-12 table table-bordered table-striped table-hover table-responsive-lg "
+            id="tabPedidos">
             <thead class="text-center">
                 <tr>
                     @if(Auth::user()->rol=='administrador')
@@ -162,58 +150,17 @@
 
 </div>
 @endforeach
-@if(Auth::user()->rol=='administrador')
 
 <script>
-    $(document).ready(function () {
-        $('#search').keyup(function () {
-            search_table($(this).val());
+    $(document).ready(function() {
+        $('#tabPedidos').DataTable({
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
+            },
+            "responsive": true
         });
-        function search_table(value) {
-            $('#tabla_pedidos .registros').each(function () {
-                var found = 'false';
-                $(this).each(function () {
-                    if ($(this).text().toLowerCase().indexOf(value.toLowerCase()) >= 0) {
-                        found = 'true';
-                    }
-                });
-                if (found == 'true') {
-                    $(this).show();
-                }
-                else {
-                    $(this).hide();
-                }
-            });
-        }
-    });  
+    });
 </script>
-
-<script src="{{ asset('js/app.js') }}">
-</script>
-<script>
-    (function() {
-            const classname = document.querySelectorAll('.estado_pedido')
-            Array.from(classname).forEach(function(element) {
-                element.addEventListener('change', function() {
-                    const url = 'pedido/'+element.getAttribute('data-id')
-                    console.log(url);
-                    axios.patch(url, {
-                            estado_pedido: this.value
-                        })
-                        .then(function(response) {
-                            console.log(response);
-                            window.location.href = '/pedidos'
-                        })
-                        .catch(function(error) {
-                            console.log(error);
-                        });
-                })
-            })
-        })();
-</script>
-
-
-@endif
 
 {{-- <script>
     $('.btn-fix').click(function(){

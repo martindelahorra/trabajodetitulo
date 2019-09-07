@@ -25,6 +25,7 @@ Route::resource('pizzas', 'PizzasController');
 Route::get('/tabla_sushis/list','TablaSushiController@list');
 Route::resource('tabla_sushis', 'TablaSushiController');
 // Sushi
+Route::get('/sushis/list','SushisController@list');
 Route::resource('sushis', 'SushisController');
 
 // Ingredientes
