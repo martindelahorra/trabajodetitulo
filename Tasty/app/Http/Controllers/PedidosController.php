@@ -36,6 +36,7 @@ class PedidosController extends Controller
     }
     public function index()
     {
+        
         $pedidos = Pedido::where('estado_pedido', 'P')->orWhere('estado_pedido', 'E')->orderBy('fecha')->get();
         $reg_p = Pizza_pedido::all();
         $reg_t = Tabla_pedido::all();

@@ -44,12 +44,19 @@
                 alt="Imagen no disponible" style="max-width: 200px; width: 100%; height: auto; max-height:100px;">
             </div>
             <div class="col-sm-4">
-                <h4>{{(($item->model->primaryKey=='cod_sushi')?'Roll:  '.$item->name:$item->name)}}</h4>
+                <h4>
+                    {{(($item->model->primaryKey=='cod_sushi')?'Roll:  '.$item->name:$item->name)}}
+                    @if ($item->model->primaryKey=='cod_agre')
+                        asd{{$item->options->ingredientes}}
+                    @endif
+                </h4>
                 <p> @if ($item->model->primaryKey=='cod_sushi') ({{$item->model->descripcion}})
                     @elseif($item->model->primaryKey=='cod_tabla')
                     (Tabla de Sushi)
                     @elseif($item->model->primaryKey=='cod_pizza')
                     (Pizza)
+                    @elseif($item->model->tipo="P")
+                    (Promo Pizza)
                     @endif </p>
             </div>
             <div class="col-sm-4 col-md-1">
