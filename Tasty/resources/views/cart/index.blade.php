@@ -47,7 +47,7 @@
                 <h4>
                     {{(($item->model->primaryKey=='cod_sushi')?'Roll:  '.$item->name:$item->name)}}
                     @if ($item->model->primaryKey=='cod_agre')
-                        asd{{$item->options->ingredientes}}
+                        : {{$item->options->ingredientes}}
                     @endif
                 </h4>
                 <p> @if ($item->model->primaryKey=='cod_sushi') ({{$item->model->descripcion}})

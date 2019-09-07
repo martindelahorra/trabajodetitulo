@@ -105,32 +105,32 @@
                 <ul>
                     {{-- $r es el registro de intersección de pizzas --}}
                     @foreach ($reg_p as $r)
-                    @if ($r->cod_pedido == $p->cod_pedido)
-                    @foreach ($pizzas as $pi)
-                    {{-- $pi es el registro de la tabla pizzas --}}
-                    @if ($r->cod_pizza == $pi->cod_pizza)
-                    @foreach ($tamanos as $ta)
-                    {{-- $ta es el registro de la tabla tamanos --}}
-                    @if ($pi->tamaño == substr($ta->nombre,0,2))
-                    <li>Pizza {{ $ta->nombre }}
-                        <span class="text-muted texto-info">(</span>
-                        @foreach ($reg_ing as $ing1)
-                        @if ($pi->cod_pizza==$ing1->cod_pizza)
-                        @foreach ($ingredientes as $ing2)
-                        @if ($ing2->cod_ingrediente==$ing1->cod_ingrediente)
-                        <span class="texto-coma text-muted texto-info">{{$ing2->nombre.' |'}}</span>
+                        @if ($r->cod_pedido == $p->cod_pedido)
+                            @foreach ($pizzas as $pi)
+                            {{-- $pi es el registro de las pizzas --}}
+                                @if ($r->cod_pizza == $pi->cod_pizza)
+                                    @foreach ($tamanos as $ta)
+                                    {{-- $ta es el registro de la tabla tamanos --}}
+                                        @if ($pi->cod_tamaño == $ta->cod_tamaño)
+                                        <li>Pizza {{ $ta->nombre }}
+                                            <span class="text-muted texto-info">(</span>
+                                            @foreach ($reg_ing as $ing1)
+                                                @if ($pi->cod_pizza==$ing1->cod_pizza)
+                                                    @foreach ($ingredientes as $ing2)
+                                                        @if ($ing2->cod_ingrediente==$ing1->cod_ingrediente)
+                                                            <span class="texto-coma text-muted texto-info">{{$ing2->nombre.' |'}}</span>
+                                                        @endif
+                                                    @endforeach
+                                                @endif
+                                            @endforeach
+                                            <span class="text-muted texto-info">)</span>
+                                            (x {{$r->cantidad}})
+                                        </li>
+                                        @endif
+                                    @endforeach
+                                @endif
+                            @endforeach
                         @endif
-                        @endforeach
-                        @endif
-                        @endforeach
-                        <span class="text-muted texto-info">)</span>
-                        (x {{$r->cantidad}})
-                    </li>
-                    @endif
-                    @endforeach
-                    @endif
-                    @endforeach
-                    @endif
                     @endforeach
                     {{-- $reg_t es la colección de tablas manejadas con el puntero $t --}}
                     @foreach ($reg_t as $t)
