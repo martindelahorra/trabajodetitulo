@@ -19,7 +19,7 @@ class TablaSushiController extends Controller
     public function index()
 
     {
-        $inter = TsushiSushi::all();
+        $inter = TsushiSushi::all()->has('sushi');
         $tabla_sushi = TablaSushi::all();
         return view('tabla_sushi.index', compact('tabla_sushi', 'inter'));
     }
