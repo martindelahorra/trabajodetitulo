@@ -43,7 +43,7 @@ class PedidosController extends Controller
         $tamanos = PizzaTamano::all();
         $ingredientes = Ingrediente::all();
         $reg_ing = PizzaIngrediente::all();
-        $tablas = TablaSushi::all();
+        $tablas = TablaSushi::withTrashed()->get();
         $tsushis = TsushiSushi::all();
         $sushis = Sushi::all();
         if (Auth::User()->rol == 'administrador') {

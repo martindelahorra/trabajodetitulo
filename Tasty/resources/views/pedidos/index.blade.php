@@ -124,6 +124,7 @@
                         @endif
                         @endforeach
                         <span class="text-muted texto-info">)</span>
+                        (x {{$r->cantidad}})
                     </li>
                     @endif
                     @endforeach
@@ -143,17 +144,22 @@
                         <span class="texto-coma text-muted texto-info">
                             @foreach ($sushis as $s)
                             @if ($s->cod_sushi == $ts->cod_sushi)
-                            {{$s->envoltura.' |'}}
+                            {{$s->envoltura.' |'}} 
                             @endif
+
                             @endforeach
                         </span>
                         @endif
+
                         @endforeach
-                        <span class="text-muted texto-info">)</span>
+
+                        <span class="text-muted texto-info">) </span>
+                        (x {{$t->cantidad}})
                     </li>
                     @endif
                     @endforeach
                     @endif
+                    
                     @endforeach
                     {{-- <li>Pizza Familiar <span class="text-muted texto-info">(Jamón, Cebolla Morada, Extra Queso,
                             Piña)</span></li>
@@ -185,7 +191,8 @@
             <div class="modal-footer">
                 {{ Form::open(array('url'=>'pedido/'.$p->cod_pedido,'method'=>'patch')) }}
                 <input type="text" value="C" hidden name="estado_pedido" id="estado_pedido">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal" onClick="window.location.reload();">Cancelar</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal"
+                    onClick="window.location.reload();">Cancelar</button>
                 <button type="submit" class="btn btn-success">Completar</button>
                 {{ Form::close() }}
             </div>
