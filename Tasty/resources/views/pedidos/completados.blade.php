@@ -22,23 +22,12 @@
             </ul>
         </div>
         @endif
-        <div class="row">
-            <div class="col">
-                <a href="/pedidos/completados" class="btn btn-outline-success ">Pedidos completados</a>
-            </div>
-            <div class="col" style="text-align: right">
-                <label for="">Buscar: </label>
-            </div>
-            <div class="col-4">
-                <input type="text" name="search" id="search" class="form-control" />
-            </div>
-        </div>
-        <br>
+        
 
 
 
-        <table class="col-sm-4 col-md-12 table table-bordered table-striped table-hover table-responsive-lg"
-            id="tabla_pedidos">
+        <table class="col-sm-4 col-md-12 table table-bordered table-striped table-hover table-responsive-lg "
+            id="tabPedidos">
             <thead class="text-center">
                 <tr>
                     @if(Auth::user()->rol=='administrador')
@@ -61,17 +50,9 @@
                     <td>{{ $p->nombre_completo }}</td>
                     @endif
                     <td>
-                        <select class="estado_pedido" data-id="{{$p->cod_pedido}}">
-                            <option value="P" @if ($p->estado_pedido=='P')
-                                selected
-                                @endif>En Preparacion</option>
-                            <option value="E" @if ($p->estado_pedido=='E')
-                                selected
-                                @endif>En Camino</option>
-                            <option value="C" @if ($p->estado_pedido=='C')
-                                selected data-target="#exampleModal{{$p->cod_pedido}}" data-toggle="modal"
-                                @endif>Completado</option>
-                        </select>
+
+                        <h4>Completado</h4>
+
 
                     </td>
 
@@ -79,6 +60,7 @@
                     <td>{{$p->direccion}}</td>
                     <td>${{number_format($p->total_pedido,0,',','.')}}</td>
                     <td>{{date('d/m/Y h:i A', strtotime($p->fecha))}}</td>
+
                     <td>
                         <button type="button" class="btn btn-outline-info btn-fix" data-toggle="modal"
                             data-target="#Modal{{$p->cod_pedido}}">Detalle pedido</button>
@@ -167,91 +149,18 @@
     </div>
 
 </div>
-{{-- modal update --}}
-<div class="modal modal-danger fade" id="exampleModal{{$p->cod_pedido}}" tabindex="-1" role="dialog"
-    aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Completar</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <p>Desea completar pedido? N° {{$p->cod_pedido}}</p>
-                <p>De fecha: {{date('d/m/Y h:i A', strtotime($p->fecha))}}</p>
-            </div>
-            <div class="modal-footer">
-                {{ Form::open(array('url'=>'pedido/'.$p->cod_pedido,'method'=>'patch')) }}
-                <input type="text" value="C" hidden name="estado_pedido" id="estado_pedido">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal" onClick="window.location.reload();">Cancelar</button>
-                <button type="submit" class="btn btn-success">Completar</button>
-                {{ Form::close() }}
-            </div>
-        </div>
-    </div>
-</div>
 @endforeach
-@if(Auth::user()->rol=='administrador')
 
 <script>
-    $(document).ready(function () {
-        $('#search').keyup(function () {
-            search_table($(this).val());
+    $(document).ready(function() {
+        $('#tabPedidos').DataTable({
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
+            },
+            "responsive": true
         });
-        function search_table(value) {
-            $('#tabla_pedidos .registros').each(function () {
-                var found = 'false';
-                $(this).each(function () {
-                    if ($(this).text().toLowerCase().indexOf(value.toLowerCase()) >= 0) {
-                        found = 'true';
-                    }
-                });
-                if (found == 'true') {
-                    $(this).show();
-                }
-                else {
-                    $(this).hide();
-                }
-            });
-        }
-    });  
+    });
 </script>
-
-<script src="{{ asset('js/app.js') }}">
-</script>
-<script>
-    (function() {
-            const classname = document.querySelectorAll('.estado_pedido')
-            Array.from(classname).forEach(function(element) {
-                element.addEventListener('change', function() {
-                    const url = 'pedido/'+element.getAttribute('data-id')
-                    console.log(url);
-                    if (this.value=='E' || this.value=='P') {
-                        axios.patch(url, {
-                            estado_pedido: this.value
-                        })
-                        .then(function(response) {
-                            console.log(response);
-                            
-                            window.location.href = '/pedidos'
-
-                        })
-                        .catch(function(error) {
-                            console.log(error);
-                        });
-                    }else{
-                        $('#exampleModal'+element.getAttribute('data-id')).modal('show');
-                    }
-                    
-                })
-            })
-        })();
-</script>
-
-
-@endif
 
 {{-- <script>
     $('.btn-fix').click(function(){

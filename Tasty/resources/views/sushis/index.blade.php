@@ -8,7 +8,7 @@
 </div>
 <div class="row">
     <div class="col">
-        <a href="/sushis/create" class="btn btn-outline-primary ">Agregar Roll</a>
+        <a href="/sushis/list" class="btn btn-outline-primary ">Listado de Roll's</a>
     </div>
 </div>
 <div class="row mt-4">

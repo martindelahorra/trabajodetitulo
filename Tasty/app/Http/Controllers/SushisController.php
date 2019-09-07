@@ -91,16 +91,25 @@ class SushisController extends Controller
         $sushi->cortes = $request->cortes;
         $sushi->precio = $request->precio;
 
+        $count = 1;
+        $aux = str_replace('http://localhost:8000/','',$sushi->imagen, $count);
         if ($request->file('imagen')) {
+            //eliminar imagen anterior del producto
+            Storage::disk('public')->delete($aux);
+            //inserción de la imagen nueva
             $path = Storage::disk('public')->put('image', $request->file('imagen'));
             $sushi->fill(['imagen' => asset($path)])->save();
         }
-
 
         $sushi->save();
         return redirect('/sushis');
     }
 
+    public function list()
+    {
+        $sushi = Sushi::all();
+        return view('sushis.list', compact('sushi'));
+    }
     /**
      * Remove the specified resource from storage.
      *
@@ -109,6 +118,8 @@ class SushisController extends Controller
      */
     public function destroy(Sushi $sushi)
     {
-        //
+        Sushi::destroy($sushi->cod_sushi);
+        alert()->info('Producto borrado con exito', '');
+        return redirect('/sushis/list');
     }
 }

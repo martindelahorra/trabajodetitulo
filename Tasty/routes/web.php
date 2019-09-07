@@ -25,6 +25,7 @@ Route::resource('pizzas', 'PizzasController');
 Route::get('/tabla_sushis/list','TablaSushiController@list');
 Route::resource('tabla_sushis', 'TablaSushiController');
 // Sushi
+Route::get('/sushis/list','SushisController@list');
 Route::resource('sushis', 'SushisController');
 
 // Ingredientes
@@ -57,6 +58,8 @@ Route::get('empty', function () {
 
 //Pedidos
 Route::get('/pedido/generar', 'PedidosController@generarPedido');
+Route::patch('/pedido/{cod_pedido}','PedidosController@update')->name('pedido.update');
+Route::get('/pedidos/completados', 'PedidosController@pedidosCompletados')->name('pedidos.completados');
 Route::resource('pedidos', 'PedidosController');
 
 //Agregado

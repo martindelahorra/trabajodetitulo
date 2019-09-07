@@ -29,14 +29,14 @@ class PedidosController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function __construct()
-    
+
     {
         //sacar el except
         $this->middleware('auth')->except(['create']);
     }
     public function index()
     {
-        $pedidos = Pedido::all();
+        $pedidos = Pedido::where('estado_pedido', 'P')->orWhere('estado_pedido', 'E')->orderBy('fecha')->get();
         $reg_p = Pizza_pedido::all();
         $reg_t = Tabla_pedido::all();
         $pizzas = Pizza::all();
@@ -52,6 +52,27 @@ class PedidosController extends Controller
             Cart::destroy();
             $pedidos = Pedido::where('id_usuario', Auth::user()->id_usuario)->get();
             return view('pedidos.index', compact('pedidos', 'reg_p', 'reg_t', 'pizzas', 'tamanos', 'ingredientes', 'reg_ing', 'tablas', 'tsushis', 'sushis'))->with('msg', 'Su Pedido fue generado con exito');;
+        }
+    }
+
+    public function pedidosCompletados()
+    {
+        $pedidos = Pedido::where('estado_pedido', 'C')->get();
+        $reg_p = Pizza_pedido::all();
+        $reg_t = Tabla_pedido::all();
+        $pizzas = Pizza::all();
+        $tamanos = PizzaTamano::all();
+        $ingredientes = Ingrediente::all();
+        $reg_ing = PizzaIngrediente::all();
+        $tablas = TablaSushi::all();
+        $tsushis = TsushiSushi::all();
+        $sushis = Sushi::all();
+        if (Auth::User()->rol == 'administrador') {
+            return view('pedidos.completados', compact('pedidos', 'reg_p', 'reg_t', 'pizzas', 'tamanos', 'ingredientes', 'reg_ing', 'tablas', 'tsushis', 'sushis'));
+        } else {
+            Cart::destroy();
+            $pedidos = Pedido::where('id_usuario', Auth::user()->id_usuario)->get();
+            return view('pedidos.completados', compact('pedidos', 'reg_p', 'reg_t', 'pizzas', 'tamanos', 'ingredientes', 'reg_ing', 'tablas', 'tsushis', 'sushis'))->with('msg', 'Su Pedido fue generado con exito');;
         }
     }
 
@@ -101,7 +122,7 @@ class PedidosController extends Controller
                     'cod_tabla' => $item->model->cod_tabla,
                     'cantidad' => $item->qty
                 ]);
-            }elseif ($item->associatedModel == "App\Sushi") {
+            } elseif ($item->associatedModel == "App\Sushi") {
                 Sushi_pedido::create([
                     'cod_pedido' => $pedido->cod_pedido,
                     'cod_sushi' => $item->model->cod_sushi,
@@ -111,7 +132,7 @@ class PedidosController extends Controller
         }
         //destruir carrito
         Cart::destroy();
-        alert()->success( 'Pedido generado con exito!');
+        alert()->success('Pedido generado con exito!');
         return redirect('/pedidos');
     }
     public function generarPedido()
@@ -146,9 +167,24 @@ class PedidosController extends Controller
      * @param  \App\Pedido  $pedido
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Pedido $pedido)
+    public function update(Request $request, $cod_pedido)
     {
-        //
+        if ($request->estado_pedido != 'C') {
+            $pedido = Pedido::find($cod_pedido);
+
+            $pedido->estado_pedido = $request->estado_pedido;
+
+            $pedido->save();
+            session()->flash('success_message', 'Estado actualizado! :)');
+            return response()->json(['success' => true]);
+        } else {
+            $pedido = Pedido::find($cod_pedido);
+
+            $pedido->estado_pedido = $request->estado_pedido;
+
+            $pedido->save();
+            return redirect()->route('pedidos.completados')->with('success_message', 'Pedido completado');
+        }
     }
 
     /**
