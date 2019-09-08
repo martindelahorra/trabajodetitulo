@@ -45,13 +45,26 @@
             <select class="form-control" name="tamaño">
                 <option value="0" selected>Seleccione</option>
                 @foreach ($tamaño as $t)
-                    <option value="{{$t->cod_tamaño}}">{{$t->nombre}}</option>
+                <option value="{{$t->cod_tamaño}}">{{$t->nombre}}</option>
                 @endforeach
             </select>
         </div>
         <div class="form-group">
             <label for="sugerido">Sugerido</label>
             <input type="checkbox" value="1" name="sugerido" />
+        </div>
+        <div class="form-group">
+            <label for="incluye">Incluye bebida</label>
+            <input type="checkbox" value="1" name="incluye" id="incluye" />
+        </div>
+        <div class="form-group" hidden id="bebidaOculto">
+            <label for="bebida">Tamaño bebida</label>
+            <select class="form-control" name="bebida">
+                <option value="0" selected>Seleccione</option>
+                @foreach ($bebidas as $b)
+                <option value="{{$b->tamaño}}">{{$b->tamaño}}</option>
+                @endforeach
+            </select>
         </div>
         <div class="form-group">
             <button type="submit" class="btn btn-primary">Agregar</button>
@@ -77,8 +90,20 @@
     $('#tipo').change(function(){
         if($('#tipo').val()=="P"){
             $("#delete").attr("hidden",false);
+            $("#bebidaOculto").attr("hidden",true);
+        }else if(($('#tipo').val()=="B")){            
+            $("#bebidaOculto").attr("hidden",false);
+            $("#delete").attr("hidden",true);
         }else{
             $("#delete").attr("hidden",true);
+            $("#bebidaOculto").attr("hidden",true);
+        }
+});
+$('#incluye').click(function(){
+        if ($(this).is(":checked")) {
+            $("#bebidaOculto").attr("hidden",false);
+        }else{
+            $("#bebidaOculto").attr("hidden",true);
         }
 });
 </script>

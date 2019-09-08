@@ -48,6 +48,7 @@ Route::get('/pizza_tamanos/{cod_ingrediente}/restore','TamanosController@restore
 Route::resource('pizza_tamanos', 'TamanosController');
 
 //Cart
+Route::get('/cart/content','CartController@content');
 Route::get('/cart','CartController@index')->name('cart.index');
 Route::post('/cart','CartController@store')->name('cart.store');
 Route::patch('/cart/{id}','CartController@update')->name('cart.update');

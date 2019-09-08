@@ -31,9 +31,21 @@
         </div>
         <div class="form-group">
             <label for="tipo">Tipo</label>
-            <select class="form-control" name="tipo">
-                <option @if ($agregado->tio=='P')selected @endif value="P">Promoción</option>
+            <select class="form-control" name="tipo" id="tipo">
                 <option @if ($agregado->tipo=='A')selected @endif value="A">Agregado</option>
+                <option @if ($agregado->tipo=='B')selected @endif value="B">Bebida</option>
+                <option @if ($agregado->tipo=='P')selected @endif value="P">Pizza</option>
+                <option @if ($agregado->tipo=='T')selected @endif value="T">Tabla</option>
+                <option @if ($agregado->tipo=='S')selected @endif value="S">Roll</option>
+            </select>
+        </div>
+        <div class="form-group" hidden id="delete">
+            <label for="tamaño">Tamaño</label>
+            <select class="form-control" name="tamaño">
+                <option value="0" selected>Seleccione</option>
+                @foreach ($tamaño as $t)
+                    <option value="{{$t->cod_tamaño}}">{{$t->nombre}}</option>
+                @endforeach
             </select>
         </div>
         <div class="form-group">
@@ -65,4 +77,13 @@
             src="{{$agregado->imagen}}" title="{{$agregado->nombre}}" />
     </div>
 </div>
+<script>
+    $('#tipo').change(function(){
+        if($('#tipo').val()=="P"){
+            $("#delete").attr("hidden",false);
+        }else{
+            $("#delete").attr("hidden",true);
+        }
+});
+</script>
 @endsection

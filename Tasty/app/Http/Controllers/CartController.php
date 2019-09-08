@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Agre_ingrediente;
 use App\Agregado;
+use App\Bebida;
 use App\TablaSushi;
 use App\Pizza;
 use App\Ingrediente;
@@ -23,9 +24,13 @@ class CartController extends Controller
     {
         // foreach (Cart::content() as $item) {
         //     $item->model->primaryKey; cod_tabla o cod_pizza
-        // }
         $tamanos = PizzaTamano::all();
-        return view('cart.index', compact('tamanos'));
+        $bebidas = Bebida::all();
+        return view('cart.index', compact('tamanos', 'bebidas'));
+    }
+    public function content()
+    {
+        dd(cart::content());
     }
 
     /**
@@ -46,7 +51,7 @@ class CartController extends Controller
      */
     public function store(Request $request)
     {
-
+        // dd($request->tipo);
         if ($request->tipo == 'tabla') {
             $tipo = 'App\TablaSushi';
             Cart::add($request->id, $request->nombre, 1, $request->precio)->associate($tipo);
@@ -123,8 +128,18 @@ class CartController extends Controller
                     }
                 }
                 $nombre = substr($nombre, 0, -2);
-                $precio=($agre->precio+$precio_add);
-                Cart::add($agre->cod_agre, $agre->nom_agre, 1, $precio, ['ingredientes' => $nombre])->associate($tipo);
+
+                $precio = ($agre->precio + $precio_add);
+                Cart::add($agre->cod_agre, $agre->nom_agre, 1, $precio, ['ingredientes' => $nombre, 'bebida' => $agre->bebida_l])->associate($tipo);
+                return redirect()->route('cart.index')->with('success_message', 'Producto agregado al carrito! :)');
+            } else {
+                return redirect('/');
+            }
+        } else if ($request->tipo == "bebida") {
+            $tipo = 'App\Agregado';
+            $agre = Agregado::find($request->id);
+            if ($agre->tipo == "B") { 
+                Cart::add($agre->cod_agre, $agre->nom_agre, 1, $agre->precio, ['bebida' => $agre->bebida_l])->associate($tipo);
                 return redirect()->route('cart.index')->with('success_message', 'Producto agregado al carrito! :)');
             } else {
                 return redirect('/');
@@ -163,12 +178,17 @@ class CartController extends Controller
      */
     public function update(Request $request, $id)
     {
-        Cart::update($id, $request->quantity);
-        session()->flash('success_message', 'Cantidad actualizada! :)');
-        return response()->json(['success' => true]);
-
-
-        //return $request->all();
+        if (!empty($request->bebida)) {
+            $item = Cart::get($id);
+            Cart::update($id, ['options' => ['ingredientes' => $item->options->ingredientes, 'bebida' => $item->options->bebida,'sabor'=>$request->bebida]]);
+            return redirect('/cart');
+        } elseif (!empty($request->quantity)) {
+            Cart::update($id, $request->quantity);
+            session()->flash('success_message', 'Cantidad actualizada! :)');
+            return response()->json(['success' => true]);
+        } else {
+            return redirect('/cart');
+        }
     }
 
     /**

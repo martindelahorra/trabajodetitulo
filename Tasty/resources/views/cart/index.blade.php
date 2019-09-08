@@ -1,9 +1,12 @@
 @extends('layouts.master')
 @section('contenido')
 <div class="row mt-4">
-    <div class="col">
+    <div class="col-10">
         <h2><i class="fas fa-shopping-cart"></i> Carrito</h2>
         <hr />
+    </div>
+    <div class="col-2">
+        <a href="/cart/content" class="btn btn-info">Cart Content<i class="fas fa-arrow-right"></i></a>
     </div>
 </div>
 
@@ -32,11 +35,8 @@
         <div class="row">
             <div class="col-sm-2">
                 <img src="
-                @if ($item->model->primaryKey != "cod_pizza")
-                {{ ($item->model->imagen) }}
-                @else
-                @foreach ($tamanos as $tam)
-                @if ($tam->cod_tamaño==$item->model->cod_tamaño)
+                @if ($item->model->primaryKey != " cod_pizza") {{ ($item->model->imagen) }} @else @foreach ($tamanos as
+                    $tam) @if ($tam->cod_tamaño==$item->model->cod_tamaño)
                 {{ $tam->imagen }}
                 @endif
                 @endforeach
@@ -46,20 +46,25 @@
             <div class="col-sm-4">
                 <h4>
                     {{(($item->model->primaryKey=='cod_sushi')?'Roll:  '.$item->name:$item->name)}}
-                    @if ($item->model->primaryKey=='cod_agre')
-                        : {{$item->options->ingredientes}}
+                    @if ($item->model->tipo=='P')
+                    : {{$item->options->ingredientes}}
                     @endif
                 </h4>
-                <p> @if ($item->model->primaryKey=='cod_sushi') ({{$item->model->descripcion}})
+                <p> @if ($item->model->primaryKey=='cod_sushi')
+                    ({{$item->model->descripcion}})
                     @elseif($item->model->primaryKey=='cod_tabla')
                     (Tabla de Sushi)
                     @elseif($item->model->primaryKey=='cod_pizza')
                     (Pizza)
-                    @elseif($item->model->tipo="P")
+                    @elseif($item->model->primaryKey=='cod_agre')
+                    @if ($item->model->tipo=="P")
                     (Promo Pizza)
+                    @elseif($item->model->tipo=="B")
+                    (Bebida)
+                    @endif
                     @endif </p>
             </div>
-            <div class="col-sm-4 col-md-1">
+            <div class="col-sm-1">
                 <form action="{{ route('cart.destroy', $item->rowId) }}" method="post">
                     {{ csrf_field() }}
                     {{ method_field('DELETE') }}
@@ -67,13 +72,21 @@
                             style="color:red;">Quitar</span></button>
                 </form>
             </div>
-            <div class="col-sm-2">
+            <div class="col-sm-1">
                 <select class="quantity" data-id="{{ $item->rowId }}">
                     @for ($i = 1; $i < 6; $i++) <option {{$item->qty==$i ? 'selected' : '' }}>{{ $i }}</option>
                         @endfor
                 </select>
             </div>
             <div class="col-sm-2">
+                @if ($item->options->bebida!=null)
+                <button type="button" class="btn btn-primary btn-sm" data-toggle="modal"
+                    data-target="#modalBebida{{$item->rowId}}">
+                    Sabor bebida
+                </button>
+                @endif
+            </div>
+            <div class="col-sm-1 offset-md-1">
                 <p>${{ number_format($item->subtotal,0,",",".") }}</p>
             </div>
         </div>
@@ -83,9 +96,6 @@
             <div class="col-6">
                 <p>Recuerde que en caso de elegir como medio de pago "efectivo", debe indicar en las notas del pedido
                     con cuanto cancela para una atención mas rápida</p>
-                {{-- <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iste obcaecati voluptates eos placeat earum
-                    quia inventore deserunt, mollitia quidem animi quod officiis officia, sint sed odio aperiam saepe
-                    perferendis consectetur!</p> --}}
             </div>
             <div class="col">
                 <p><b>Total</b> </p>
@@ -96,11 +106,42 @@
         </div>
         <hr>
         <div class="row">
-            <div class="col-8">
+            <div class="col-10">
                 <button type="button" class="btn btn-outline-secondary btn-lg">Continuar en la tienda</button>
             </div>
-            <div class="col">
+            <div class="col-2">
                 <a href="/pedidos/create" class="btn btn-info btn-lg">Pedir <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+        <!-- Modal -->
+        <div class="modal fade" id="modalBebida{{$item->rowId}}" tabindex="-1" role="dialog"
+            aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">¿Que sabor desea para su bebida?</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    {{ Form::open(array('url'=>'cart/'.$item->rowId,'method'=>'PATCH')) }}
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <select class="form-control" name="bebida" id="bebida">
+                                @foreach ($bebidas as $b)
+                                @if ($b->tamaño == $item->options->bebida)
+                                <option value="{{$b->cod_bebida}}">{{$b->nombre}}</option>
+                                @endif
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                        <button type="submit" class="btn btn-info">Elegir</button>
+                    </div>
+                    {{ Form::close() }}
+                </div>
             </div>
         </div>
         @else
@@ -121,7 +162,8 @@
                         quantity: this.value
                     })
                     .then(function(response) {
-                        window.location.href = '{{ route('cart.index') }}'
+                        console.log(response);
+                        // window.location.href = '{{ route('cart.index') }}'
                     })
                     .catch(function(error) {
                         console.log(error);

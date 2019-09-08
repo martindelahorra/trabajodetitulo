@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Storage;
 use App\Agregado;
+use App\Bebida;
 use App\Ingrediente;
 use App\PizzaTamano;
 use Illuminate\Http\Request;
@@ -35,7 +36,8 @@ class AgregadoController extends Controller
     public function create()
     {
         $tamaño = PizzaTamano::all();
-        return view('agregado.create', compact('tamaño'));
+        $bebidas = Bebida::select('tamaño')->distinct()->get();
+        return view('agregado.create', compact('tamaño', 'bebidas'));
     }
 
     /**
@@ -50,16 +52,16 @@ class AgregadoController extends Controller
             $request->sugerido = 0;
         }
         $agre = new Agregado();
+        if ($request->tipo == "B" || $request->incluye == 1) {
+            $agre->bebida_l = $request->bebida;
+        } else {
+            $agre->bebida_l = null;
+        }
         $agre->nom_agre = $request->nombre;
         $agre->precio = $request->precio;
         $agre->descripcion = $request->descripcion;
         $agre->tipo = $request->tipo;
         $agre->sugerido = $request->sugerido;
-        if ($request->tamaño==0){
-            $agre->cod_tamaño = null;
-        }else{
-            $agre->cod_tamaño = $request->tamaño;
-        }
         if ($request->file('imagen')) {
             $path = Storage::disk('public')->put('image', $request->file('imagen'));
             $agre->fill(['imagen' => asset($path)])->save();
@@ -78,7 +80,7 @@ class AgregadoController extends Controller
     {
         $ingredientes = Ingrediente::all();
         if ($agregado->tipo == "P") {
-            return view('agregado.ingre', compact('ingredientes','agregado'));
+            return view('agregado.ingre', compact('ingredientes', 'agregado'));
         } else {
             if ($agregado->tipo == "B") {
                 dd('soy una bebida');
@@ -97,7 +99,8 @@ class AgregadoController extends Controller
     public function edit(Agregado $agregado)
     {
         //dd($agregado);
-        return view('agregado.edit', compact('agregado'));
+        $tamaño = PizzaTamano::all();
+        return view('agregado.edit', compact('tamaño', 'agregado'));
     }
 
     /**
