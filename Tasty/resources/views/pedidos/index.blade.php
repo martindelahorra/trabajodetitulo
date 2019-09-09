@@ -23,9 +23,12 @@
         </div>
         @endif
         <div class="row">
+            @can('isAdmin', App\Usuario::class)
             <div class="col">
                 <a href="/pedidos/completados" class="btn btn-outline-success ">Pedidos completados</a>
             </div>
+            @endcan
+
             <div class="col" style="text-align: right">
                 <label for="">Buscar: </label>
             </div>
@@ -49,6 +52,10 @@
                     <th>Dirección</th>
                     <th>Monto</th>
                     <th>Fecha</th>
+                    <th>Descripcion</th>
+                    <th>Telefono</th>
+                    <th>Metodo de pago</th>
+                    <th>Envio/Retiro</th>
                     <th>Detalle</th>
 
                 </tr>
@@ -61,6 +68,7 @@
                     <td>{{ $p->nombre_completo }}</td>
                     @endif
                     <td>
+                        @if(Auth::user()->rol=='administrador')
                         <select class="estado_pedido" data-id="{{$p->cod_pedido}}">
                             <option value="P" @if ($p->estado_pedido=='P')
                                 selected
@@ -72,6 +80,17 @@
                                 selected data-target="#exampleModal{{$p->cod_pedido}}" data-toggle="modal"
                                 @endif>Completado</option>
                         </select>
+                        @else
+                        @if ($p->estado_pedido=='P')
+                        <h5><span class="badge badge-secondary">En Preparacion</span></h5>
+                        @endif
+                        @if ($p->estado_pedido=='E')
+                        <h5><span class="badge badge-primary">En Camino</span></h5>
+                        @endif
+                        @if ($p->estado_pedido=='C')
+                        <h5><span class="badge badge-success">Completado</span></h5>
+                        @endif
+                        @endif
 
                     </td>
 
@@ -79,6 +98,15 @@
                     <td>{{$p->direccion}}</td>
                     <td>${{number_format($p->total_pedido,0,',','.')}}</td>
                     <td>{{date('d/m/Y h:i A', strtotime($p->fecha))}}</td>
+                    <td><textarea name="" id="" cols="25" rows="5" readonly style="resize: none;">{{$p->descripcion}}</textarea></td>
+
+                    <td>{{$p->telefono}}</td>
+                    <td>{{$p->metodo_pago->nombre_metodo}}</td>
+                    <td>@if ($p->delivery == 0)
+                        Envio
+                        @else
+                        Retiro en local
+                        @endif</td>
                     <td>
                         <button type="button" class="btn btn-outline-info btn-fix" data-toggle="modal"
                             data-target="#Modal{{$p->cod_pedido}}">Detalle pedido</button>
@@ -105,32 +133,32 @@
                 <ul>
                     {{-- $r es el registro de intersección de pizzas --}}
                     @foreach ($reg_p as $r)
-                        @if ($r->cod_pedido == $p->cod_pedido)
-                            @foreach ($pizzas as $pi)
-                            {{-- $pi es el registro de las pizzas --}}
-                                @if ($r->cod_pizza == $pi->cod_pizza)
-                                    @foreach ($tamanos as $ta)
-                                    {{-- $ta es el registro de la tabla tamanos --}}
-                                        @if ($pi->cod_tamaño == $ta->cod_tamaño)
-                                        <li>Pizza {{ $ta->nombre }}
-                                            <span class="text-muted texto-info">(</span>
-                                            @foreach ($reg_ing as $ing1)
-                                                @if ($pi->cod_pizza==$ing1->cod_pizza)
-                                                    @foreach ($ingredientes as $ing2)
-                                                        @if ($ing2->cod_ingrediente==$ing1->cod_ingrediente)
-                                                            <span class="texto-coma text-muted texto-info">{{$ing2->nombre.' |'}}</span>
-                                                        @endif
-                                                    @endforeach
-                                                @endif
-                                            @endforeach
-                                            <span class="text-muted texto-info">)</span>
-                                            (x {{$r->cantidad}})
-                                        </li>
-                                        @endif
-                                    @endforeach
-                                @endif
-                            @endforeach
+                    @if ($r->cod_pedido == $p->cod_pedido)
+                    @foreach ($pizzas as $pi)
+                    {{-- $pi es el registro de las pizzas --}}
+                    @if ($r->cod_pizza == $pi->cod_pizza)
+                    @foreach ($tamanos as $ta)
+                    {{-- $ta es el registro de la tabla tamanos --}}
+                    @if ($pi->cod_tamaño == $ta->cod_tamaño)
+                    <li>Pizza {{ $ta->nombre }}
+                        <span class="text-muted texto-info">(</span>
+                        @foreach ($reg_ing as $ing1)
+                        @if ($pi->cod_pizza==$ing1->cod_pizza)
+                        @foreach ($ingredientes as $ing2)
+                        @if ($ing2->cod_ingrediente==$ing1->cod_ingrediente)
+                        <span class="texto-coma text-muted texto-info">{{$ing2->nombre.' |'}}</span>
                         @endif
+                        @endforeach
+                        @endif
+                        @endforeach
+                        <span class="text-muted texto-info">)</span>
+                        (x {{$r->cantidad}})
+                    </li>
+                    @endif
+                    @endforeach
+                    @endif
+                    @endforeach
+                    @endif
                     @endforeach
                     {{-- $reg_t es la colección de tablas manejadas con el puntero $t --}}
                     @foreach ($reg_t as $t)
@@ -144,7 +172,7 @@
                         <span class="texto-coma text-muted texto-info">
                             @foreach ($sushis as $s)
                             @if ($s->cod_sushi == $ts->cod_sushi)
-                            {{$s->envoltura.' |'}} 
+                            {{$s->envoltura.' |'}}
                             @endif
 
                             @endforeach
@@ -159,7 +187,7 @@
                     @endif
                     @endforeach
                     @endif
-                    
+
                     @endforeach
                     {{-- <li>Pizza Familiar <span class="text-muted texto-info">(Jamón, Cebolla Morada, Extra Queso,
                             Piña)</span></li>

@@ -32,7 +32,7 @@ class PedidosController extends Controller
 
     {
         //sacar el except
-        $this->middleware('auth')->except(['create']);
+        $this->middleware('auth')->except(['']);
     }
     public function index()
     {
@@ -47,12 +47,13 @@ class PedidosController extends Controller
         $tablas = TablaSushi::withTrashed()->get();
         $tsushis = TsushiSushi::all();
         $sushis = Sushi::all();
+        $metodo = MetodoPago::all();
         if (Auth::User()->rol == 'administrador') {
-            return view('pedidos.index', compact('pedidos', 'reg_p', 'reg_t', 'pizzas', 'tamanos', 'ingredientes', 'reg_ing', 'tablas', 'tsushis', 'sushis'));
+            return view('pedidos.index', compact('pedidos', 'reg_p', 'reg_t', 'pizzas', 'tamanos', 'ingredientes', 'reg_ing', 'tablas', 'tsushis', 'sushis', 'metodo'));
         } else {
             Cart::destroy();
             $pedidos = Pedido::where('id_usuario', Auth::user()->id_usuario)->get();
-            return view('pedidos.index', compact('pedidos', 'reg_p', 'reg_t', 'pizzas', 'tamanos', 'ingredientes', 'reg_ing', 'tablas', 'tsushis', 'sushis'))->with('msg', 'Su Pedido fue generado con exito');;
+            return view('pedidos.index', compact('pedidos', 'reg_p', 'reg_t', 'pizzas', 'tamanos', 'ingredientes', 'reg_ing', 'tablas', 'tsushis', 'sushis', 'metodo'))->with('msg', 'Su Pedido fue generado con exito');;
         }
     }
 
@@ -108,6 +109,7 @@ class PedidosController extends Controller
         $pedido->fecha = Carbon::now('GMT-4');
         $pedido->telefono = $request->telefono;
         $pedido->nombre_completo = $request->nombre_completo;
+        $pedido->delivery = $request->delivery;
         $pedido->save();
         //insertar en interseccion
         foreach (Cart::content() as $item) {

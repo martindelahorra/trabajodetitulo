@@ -32,7 +32,7 @@
                 <tr>
                     <td>{{ $s->cod_sushi }}</td>
                     <td style="width: 200px;"><img src="{{($s->imagen)}}" class="card-img"
-                            alt="Imagen no disponible" width="150px" height="150px"></td>
+                            alt="Imagen no disponible" width="150px" height="120px"></td>
                     <td>{{ $s->envoltura }}</td>
                     <td>{{ $s->descripcion}}</td>
                     <td>${{ number_format($s->precio,0,",",".") }}</td>

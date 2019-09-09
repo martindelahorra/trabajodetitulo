@@ -22,7 +22,7 @@
             </ul>
         </div>
         @endif
-        
+
 
 
 
@@ -38,6 +38,9 @@
                     <th>Dirección</th>
                     <th>Monto</th>
                     <th>Fecha</th>
+                    <th>Telefono</th>
+                    <th>Metodo Pago</th>
+                    <th>Envio/Retiro</th>
                     <th>Detalle</th>
 
                 </tr>
@@ -50,17 +53,20 @@
                     <td>{{ $p->nombre_completo }}</td>
                     @endif
                     <td>
-
-                        <h4>Completado</h4>
-
-
+                        <span class="badge badge-success">Completado</span>
                     </td>
 
 
                     <td>{{$p->direccion}}</td>
                     <td>${{number_format($p->total_pedido,0,',','.')}}</td>
                     <td>{{date('d/m/Y h:i A', strtotime($p->fecha))}}</td>
-
+                    <td>{{$p->telefono}}</td>
+                    <td>{{$p->metodo_pago->nombre_metodo}}</td>
+                    <td>@if ($p->delivery == 0)
+                        Envio
+                        @else
+                        Retiro en local
+                        @endif</td>
                     <td>
                         <button type="button" class="btn btn-outline-info btn-fix" data-toggle="modal"
                             data-target="#Modal{{$p->cod_pedido}}">Detalle pedido</button>

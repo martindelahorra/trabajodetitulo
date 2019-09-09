@@ -163,7 +163,7 @@
                     })
                     .then(function(response) {
                         console.log(response);
-                        // window.location.href = '{{ route('cart.index') }}'
+                        window.location.href = '{{ route('cart.index') }}'
                     })
                     .catch(function(error) {
                         console.log(error);

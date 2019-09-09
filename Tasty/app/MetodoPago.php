@@ -17,6 +17,6 @@ class MetodoPago extends Model
 
     public function pedido()
     {
-        return $this->belongsTo('App\Pedido');
+        return $this->hasMany('App\Pedido');
     }
 }
