@@ -27,7 +27,7 @@
                             </div>
                         </div>
                         <div class="card text-white border-success p-0 m-2 col-sm-6 col-md-5">
-                            <div class="card-header bg-success">Vegetales</div>
+                            <div class="card-header bg-success">Verduras</div>
                             <div class="card-body text-dark">
                                 @foreach($ingredientes as $ing)
                                 <div class="form-group">

@@ -106,7 +106,7 @@ class PedidosController extends Controller
         $pedido = new Pedido();
         $pedido->id_usuario = Auth::user()->id_usuario;
         $pedido->id_metodo = $request->metodo_pago;
-        $pedido->estado_pedido = 'P';
+        $pedido->estado_pedido = 'M';
         $text = '';
         foreach (Cart::content() as $item) {
             if ($item->associatedModel == "App\Agregado") {
@@ -120,7 +120,7 @@ class PedidosController extends Controller
                 }
             }
         }
-        $pedido->descripcion = $request->descripcion . ';' . $text;
+        $pedido->descripcion = $request->descripcion . '|' . $text;
         $pedido->direccion = $request->direccion;
         $pedido->total_pedido = Cart::total(0, ',', '');
         $pedido->fecha = Carbon::now('GMT-4');
@@ -151,7 +151,7 @@ class PedidosController extends Controller
             } elseif ($item->associatedModel == "App\Agregado") {
                 Agregado_pedido::create([
                     'cod_pedido' => $pedido->cod_pedido,
-                    'cod_agregado' => $item->model->cod_agre,
+                    'cod_agre' => $item->model->cod_agre,
                     'cantidad' => $item->qty
                 ]);
             }

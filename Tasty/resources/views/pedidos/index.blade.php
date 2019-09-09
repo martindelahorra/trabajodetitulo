@@ -37,7 +37,7 @@
             </div>
         </div>
         <br>
-        <table class="col-sm-4 col-md-12 table table-bordered table-striped table-hover table-responsive-lg"
+        <table class="col-sm-4 col-md-12 table table-bordered table-striped table-hover table-responsive-lg "
             id="tabla_pedidos">
             <thead class="text-center">
                 <tr>
@@ -61,12 +61,15 @@
                 @foreach ($pedidos as $p)
                 <tr class="registros">
                     @if(Auth::user()->rol=='administrador')
-                    <td>{{ $p->cod_pedido }}</td>
+                    <td>N° {{ $p->cod_pedido }}</td>
                     <td>{{ $p->nombre_completo }}</td>
                     @endif
                     <td>
                         @if(Auth::user()->rol=='administrador')
                         <select class="estado_pedido" data-id="{{$p->cod_pedido}}">
+                            <option value="M" @if ($p->estado_pedido=='M')
+                                selected
+                                @endif>En Espera</option>
                             <option value="P" @if ($p->estado_pedido=='P')
                                 selected
                                 @endif>En Preparacion</option>
@@ -78,8 +81,11 @@
                                 @endif>Completado</option>
                         </select>
                         @else
+                        @if ($p->estado_pedido=='M')
+                        <h5><span class="badge badge-secondary">En Espera</span></h5>
+                        @endif
                         @if ($p->estado_pedido=='P')
-                        <h5><span class="badge badge-secondary">En Preparacion</span></h5>
+                        <h5><span class="badge badge-info">En Preparacion</span></h5>
                         @endif
                         @if ($p->estado_pedido=='E')
                         <h5><span class="badge badge-primary">En Camino</span></h5>
