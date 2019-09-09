@@ -37,9 +37,6 @@
             </div>
         </div>
         <br>
-
-
-
         <table class="col-sm-4 col-md-12 table table-bordered table-striped table-hover table-responsive-lg"
             id="tabla_pedidos">
             <thead class="text-center">
@@ -93,8 +90,6 @@
                         @endif
 
                     </td>
-
-
                     <td>{{$p->direccion}}</td>
                     <td>${{number_format($p->total_pedido,0,',','.')}}</td>
                     <td>{{date('d/m/Y h:i A', strtotime($p->fecha))}}</td>
@@ -178,24 +173,18 @@
                             @endforeach
                         </span>
                         @endif
-
                         @endforeach
-
                         <span class="text-muted texto-info">) </span>
                         (x {{$t->cantidad}})
                     </li>
                     @endif
                     @endforeach
                     @endif
-
                     @endforeach
-                    {{-- <li>Pizza Familiar <span class="text-muted texto-info">(Jamón, Cebolla Morada, Extra Queso,
-                            Piña)</span></li>
-                    <li>Tabla 24 Piezas <span class="text-muted texto-info">(Sesamo, Panko frito)</span></li> --}}
                 </ul>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
             </div>
         </div>
     </div>

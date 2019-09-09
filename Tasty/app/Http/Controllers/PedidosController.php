@@ -16,6 +16,8 @@ use Carbon\Carbon;
 use App\Pizza_pedido;
 use App\Sushi;
 use Alert;
+use App\Agregado_pedido;
+use App\Bebida;
 use App\TsushiSushi;
 use App\Sushi_pedido;
 use App\MetodoPago;
@@ -36,7 +38,7 @@ class PedidosController extends Controller
     }
     public function index()
     {
-        
+
         $pedidos = Pedido::where('estado_pedido', 'P')->orWhere('estado_pedido', 'E')->orderBy('fecha')->get();
         $reg_p = Pizza_pedido::all();
         $reg_t = Tabla_pedido::all();
@@ -103,7 +105,20 @@ class PedidosController extends Controller
         $pedido->id_usuario = Auth::user()->id_usuario;
         $pedido->id_metodo = $request->metodo_pago;
         $pedido->estado_pedido = 'P';
-        $pedido->descripcion = $request->descripcion;
+        $text = '';
+        foreach (Cart::content() as $item) {
+            if ($item->associatedModel == "App\Agregado") {
+                if ($item->model->tipo == "B") {
+                    $b = Bebida::find($item->options->sabor);
+                    $text = $text . $item->options->bebida . ': ' . $b->nombre . ';';
+                } elseif ($item->model->tipo == "P") {
+                    $b = Bebida::find($item->options->sabor);
+                    $text = $text . $item->options->bebida . ': ' . $b->nombre . ';';
+                    $text = $text . 'ingredientes: ' . $item->options->ingredientes . ';';
+                }
+            }
+        }
+        $pedido->descripcion = $request->descripcion . ';' . $text;
         $pedido->direccion = $request->direccion;
         $pedido->total_pedido = Cart::total(0, ',', '');
         $pedido->fecha = Carbon::now('GMT-4');
@@ -131,10 +146,16 @@ class PedidosController extends Controller
                     'cod_sushi' => $item->model->cod_sushi,
                     'cantidad' => $item->qty
                 ]);
+            } elseif ($item->associatedModel == "App\Agregado") {
+                Agregado_pedido::create([
+                    'cod_pedido' => $pedido->cod_pedido,
+                    'cod_agregado' => $item->model->cod_agre,
+                    'cantidad' => $item->qty
+                ]);
             }
         }
         //destruir carrito
-        Cart::destroy();
+        //Cart::destroy();
         alert()->success('Pedido generado con exito!');
         return redirect('/pedidos');
     }
