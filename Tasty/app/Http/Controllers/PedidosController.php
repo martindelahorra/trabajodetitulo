@@ -43,19 +43,19 @@ class PedidosController extends Controller
         $reg_p = Pizza_pedido::all();
         $reg_t = Tabla_pedido::all();
         $pizzas = Pizza::all();
-        $tamanos = PizzaTamano::all();
-        $ingredientes = Ingrediente::all();
+        $tamanos = PizzaTamano::withTrashed()->get();
+        $ingredientes = Ingrediente::withTrashed()->get();
         $reg_ing = PizzaIngrediente::all();
         $tablas = TablaSushi::withTrashed()->get();
         $tsushis = TsushiSushi::all();
-        $sushis = Sushi::all();
-        $metodo = MetodoPago::all();
+        $sushis = Sushi::withTrashed()->get();
+        
         if (Auth::User()->rol == 'administrador') {
-            return view('pedidos.index', compact('pedidos', 'reg_p', 'reg_t', 'pizzas', 'tamanos', 'ingredientes', 'reg_ing', 'tablas', 'tsushis', 'sushis', 'metodo'));
+            return view('pedidos.index', compact('pedidos', 'reg_p', 'reg_t', 'pizzas', 'tamanos', 'ingredientes', 'reg_ing', 'tablas', 'tsushis', 'sushis'));
         } else {
             Cart::destroy();
             $pedidos = Pedido::where('id_usuario', Auth::user()->id_usuario)->get();
-            return view('pedidos.index', compact('pedidos', 'reg_p', 'reg_t', 'pizzas', 'tamanos', 'ingredientes', 'reg_ing', 'tablas', 'tsushis', 'sushis', 'metodo'))->with('msg', 'Su Pedido fue generado con exito');;
+            return view('pedidos.index', compact('pedidos', 'reg_p', 'reg_t', 'pizzas', 'tamanos', 'ingredientes', 'reg_ing', 'tablas', 'tsushis', 'sushis'))->with('msg', 'Su Pedido fue generado con exito');;
         }
     }
 
@@ -65,12 +65,12 @@ class PedidosController extends Controller
         $reg_p = Pizza_pedido::all();
         $reg_t = Tabla_pedido::all();
         $pizzas = Pizza::all();
-        $tamanos = PizzaTamano::all();
-        $ingredientes = Ingrediente::all();
+        $tamanos = PizzaTamano::withTrashed()->get();
+        $ingredientes = Ingrediente::withTrashed()->get();
         $reg_ing = PizzaIngrediente::all();
-        $tablas = TablaSushi::all();
+        $tablas = TablaSushi::withTrashed()->get();
         $tsushis = TsushiSushi::all();
-        $sushis = Sushi::all();
+        $sushis = Sushi::withTrashed()->get();
         if (Auth::User()->rol == 'administrador') {
             return view('pedidos.completados', compact('pedidos', 'reg_p', 'reg_t', 'pizzas', 'tamanos', 'ingredientes', 'reg_ing', 'tablas', 'tsushis', 'sushis'));
         } else {

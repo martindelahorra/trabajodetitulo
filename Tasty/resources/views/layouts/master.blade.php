@@ -119,6 +119,7 @@
                     <a href="/agregado/list" class="btn btn-outline-light">Listado Promos</a>
                     <a href="/ingredientes" class="btn btn-outline-light">Listado Ingredientes</a>
                     <a href="/sushis/list" class="btn btn-outline-light">Listado Roll's</a>
+                    <a href="/metodo" class="btn btn-outline-light">Listado Metodos de Pago</a>
                 </div>
             </div>
             <nav class="navbar navbar-dark bg-dark">

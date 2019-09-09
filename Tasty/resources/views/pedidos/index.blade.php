@@ -96,7 +96,7 @@
                     <td><textarea name="" id="" cols="25" rows="5" readonly style="resize: none;">{{$p->descripcion}}</textarea></td>
 
                     <td>{{$p->telefono}}</td>
-                    <td>{{$p->metodo_pago->nombre_metodo}}</td>
+                    <td>{{$p->metodo_pago_borrados->nombre_metodo}}</td>
                     <td>@if ($p->delivery == 0)
                         Envio
                         @else

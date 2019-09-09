@@ -32,6 +32,10 @@ class Pedido extends Model
     }
     public function metodo_pago()
     {
-        return $this->belongsTo('App\MetodoPago', 'id_metodo' );
+        return $this->belongsTo('App\MetodoPago', 'id_metodo');
+    }
+    public function metodo_pago_borrados()
+    {
+        return $this->belongsTo('App\MetodoPago', 'id_metodo')->withTrashed();
     }
 }

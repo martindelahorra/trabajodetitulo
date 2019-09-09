@@ -61,7 +61,7 @@
                     <td>${{number_format($p->total_pedido,0,',','.')}}</td>
                     <td>{{date('d/m/Y h:i A', strtotime($p->fecha))}}</td>
                     <td>{{$p->telefono}}</td>
-                    <td>{{$p->metodo_pago->nombre_metodo}}</td>
+                    <td>{{$p->metodo_pago_borrados->nombre_metodo}}</td>
                     <td>@if ($p->delivery == 0)
                         Envio
                         @else

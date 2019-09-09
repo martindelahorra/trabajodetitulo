@@ -12,7 +12,7 @@ class MetodoPago extends Model
     public $primaryKey = 'id_metodo';
     
     protected $dates =['deleted_at'];
-    public $fillable = ['nombre_metodo'];
+    public $fillable = ['id_metodo','nombre_metodo'];
     public $timestamps = false;
 
     public function pedido()
