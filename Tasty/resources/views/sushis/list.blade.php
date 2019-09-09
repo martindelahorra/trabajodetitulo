@@ -15,7 +15,8 @@
 </div>
 <div class="row mt-2">
     <div class="col">
-        <table class="col-sm-4 col-md-12 table table-bordered table-striped table-hover table-responsive-lg" id="tabTablas">
+        <table class="col-sm-4 col-md-12 table table-bordered table-striped table-hover table-responsive-lg"
+            id="tabTablas">
             <thead class="text-center">
                 <tr>
                     <th>Id</th>
@@ -31,8 +32,8 @@
                 @foreach($sushi as $s)
                 <tr>
                     <td>{{ $s->cod_sushi }}</td>
-                    <td style="width: 200px;"><img src="{{($s->imagen)}}" class="card-img"
-                            alt="Imagen no disponible" width="150px" height="150px"></td>
+                    <td style="width: 200px;"><img src="{{($s->imagen)}}" class="card-img" alt="Imagen no disponible"
+                            width="150px" height="120px"></td>
                     <td>{{ $s->envoltura }}</td>
                     <td>{{ $s->descripcion}}</td>
                     <td>${{ number_format($s->precio,0,",",".") }}</td>
@@ -72,7 +73,8 @@
                 </button>
             </div>
             <div class="modal-body">
-                {{$s->envoltura}}
+                <h4>Envoltura: {{$s->envoltura}}</h4>
+                <p>{{$s->descripcion}}</p>
             </div>
             <div class="modal-footer">
                 {{ Form::open(array('url'=>'sushis/'.$s->cod_sushi,'method'=>'delete')) }}

@@ -35,7 +35,7 @@ class PedidosController extends Controller
 
     {
         //sacar el except
-        $this->middleware('auth')->except(['create']);
+        $this->middleware('auth')->except(['']);
     }
     public function index()
     {
@@ -44,13 +44,14 @@ class PedidosController extends Controller
         $reg_p = Pizza_pedido::all();
         $reg_t = Tabla_pedido::all();
         $pizzas = Pizza::all();
-        $tamanos = PizzaTamano::all();
-        $ingredientes = Ingrediente::all();
+        $tamanos = PizzaTamano::withTrashed()->get();
+        $ingredientes = Ingrediente::withTrashed()->get();
         $reg_ing = PizzaIngrediente::all();
         $tablas = TablaSushi::withTrashed()->get();
         $tsushis = TsushiSushi::all();
-        $sushis = Sushi::all();
         $agregados = Agregado::all();
+        $sushis = Sushi::withTrashed()->get();
+        
         if (Auth::User()->rol == 'administrador') {
             return view('pedidos.index', compact('pedidos', 'reg_p', 'reg_t', 'pizzas', 'tamanos', 'ingredientes', 'reg_ing', 'tablas', 'tsushis', 'sushis','agregados'));
         } else {
@@ -66,12 +67,12 @@ class PedidosController extends Controller
         $reg_p = Pizza_pedido::all();
         $reg_t = Tabla_pedido::all();
         $pizzas = Pizza::all();
-        $tamanos = PizzaTamano::all();
-        $ingredientes = Ingrediente::all();
+        $tamanos = PizzaTamano::withTrashed()->get();
+        $ingredientes = Ingrediente::withTrashed()->get();
         $reg_ing = PizzaIngrediente::all();
-        $tablas = TablaSushi::all();
+        $tablas = TablaSushi::withTrashed()->get();
         $tsushis = TsushiSushi::all();
-        $sushis = Sushi::all();
+        $sushis = Sushi::withTrashed()->get();
         if (Auth::User()->rol == 'administrador') {
             return view('pedidos.completados', compact('pedidos', 'reg_p', 'reg_t', 'pizzas', 'tamanos', 'ingredientes', 'reg_ing', 'tablas', 'tsushis', 'sushis'));
         } else {
@@ -125,6 +126,7 @@ class PedidosController extends Controller
         $pedido->fecha = Carbon::now('GMT-4');
         $pedido->telefono = $request->telefono;
         $pedido->nombre_completo = $request->nombre_completo;
+        $pedido->delivery = $request->delivery;
         $pedido->save();
         //insertar en interseccion
         foreach (Cart::content() as $item) {

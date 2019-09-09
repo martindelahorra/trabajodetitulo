@@ -22,7 +22,7 @@
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js">
     </script>
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
-    
+
     <script src="js/sweetalert.min.js"></script>
 
 </head>
@@ -78,8 +78,13 @@
 
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
+                    @auth
                     <li class="nav-item">
-                        <a class="nav-link text-dark" href="{{ route('cart.index')}}">Cart <i
+                        <a href="/pedidos" class="nav-link text-dark"><i class="fas fa-shopping-bag"></i> Mis Pedidos</a>
+                    </li>
+                    @endauth
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" href="{{ route('cart.index')}}">Carro <i
                                 class="fas fa-shopping-cart"></i> @if (Cart::count()>0)
                             <span class="badge badge-warning">{{ Cart::count() }}</span>
                             @endif
@@ -102,7 +107,35 @@
                 </ul>
             </div>
         </nav>
+        @can('isAdmin', App\Usuario::class)
 
+
+        <div class="pos-f-t">
+            <div class="collapse" id="navbarToggleExternalContent">
+                <div class="bg-dark p-4">
+                    <h4 class="text-white">Administrador</h4>
+                    <a href="/pizza_tamanos" class="btn btn-outline-light">Listado Tamaños</a>
+                    <a href="/tabla_sushis/list" class="btn btn-outline-light">Listado Tablas de Sushi</a>
+                    <a href="/agregado/list" class="btn btn-outline-light">Listado Promos</a>
+                    <a href="/ingredientes" class="btn btn-outline-light">Listado Ingredientes</a>
+                    <a href="/sushis/list" class="btn btn-outline-light">Listado Roll's</a>
+                    <a href="/metodo" class="btn btn-outline-light">Listado Metodos de Pago</a>
+                </div>
+            </div>
+            <nav class="navbar navbar-dark bg-dark">
+                <button class="navbar-toggler" type="button" data-toggle="collapse"
+                    data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div style="align-items: flex-start">
+                    <a href="/pedidos" class="btn btn-outline-light">Pedidos</a>
+                    <a href="/pedidos/completados" class="btn btn-outline-success">Pedidos Completados</a>
+                </div>
+                <h3 class="text-white"><i class="fas fa-user-shield"></i> Administrar Pagina</h3>
+            </nav>
+        </div>
+        @endcan
         @yield('contenido')
         <hr>
         <footer>
@@ -146,7 +179,7 @@
         integrity="sha256-KsRuvuRtUVvobe66OFtOQfjP8WA2SzYsmm4VPfMnxms=" crossorigin="anonymous"></script>
     @include('sweet::alert')
 
-    
+
 </body>
 
 </html>

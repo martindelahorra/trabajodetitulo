@@ -12,12 +12,10 @@ class MetodoPago extends Model
     protected $dates =['deleted_at'];
     public $primaryKey = 'id_metodo'; 
     protected $table = 'metodos_pago';    
-       
-    public $fillable = ['nombre_metodo'];
-    
+    public $fillable = ['id_metodo','nombre_metodo'];
 
     public function pedido()
     {
-        return $this->belongsTo('App\Pedido');
+        return $this->hasMany('App\Pedido');
     }
 }

@@ -57,6 +57,11 @@ Route::get('empty', function () {
     Cart::destroy();
 });
 
+//MetodosPago
+Route::get('/metodo/{id_metodo}/restore','MetodoPagoController@restore');
+
+Route::resource('metodo', 'MetodoPagoController');
+
 //Pedidos
 Route::get('/pedido/generar', 'PedidosController@generarPedido');
 Route::patch('/pedido/{cod_pedido}','PedidosController@update')->name('pedido.update');

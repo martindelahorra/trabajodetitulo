@@ -8,7 +8,7 @@ class Pedido extends Model
 {
     protected $table = 'pedidos';
     public $primaryKey = 'cod_pedido';
-    public $fillable = ['id_usuario', 'estado_pedido', 'descripcion','total_pedido', 'fecha', 'telefono', 'direccion', 'nombre_completo'];
+    public $fillable = ['id_usuario', 'estado_pedido', 'descripcion','total_pedido', 'fecha', 'telefono', 'direccion', 'nombre_completo', 'delivery'];
     public $timestamps = false;
 
 
@@ -32,7 +32,11 @@ class Pedido extends Model
     }
     public function metodo_pago()
     {
-        return $this->belongsTo('App\MetodoPago');
+        return $this->belongsTo('App\MetodoPago', 'id_metodo');
+    }
+    public function metodo_pago_borrados()
+    {
+        return $this->belongsTo('App\MetodoPago', 'id_metodo')->withTrashed();
     }
     public function agregados()
     {

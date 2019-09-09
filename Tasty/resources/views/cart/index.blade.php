@@ -168,6 +168,7 @@
                         quantity: this.value
                     })
                     .then(function(response) {
+                        
                         window.location.href = '{{ route('cart.index') }}'
                     })
                     .catch(function(error) {

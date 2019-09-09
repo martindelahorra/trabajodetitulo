@@ -23,9 +23,12 @@
         </div>
         @endif
         <div class="row">
+            @can('isAdmin', App\Usuario::class)
             <div class="col">
                 <a href="/pedidos/completados" class="btn btn-outline-success ">Pedidos completados</a>
             </div>
+            @endcan
+
             <div class="col" style="text-align: right">
                 <label for="">Buscar: </label>
             </div>
@@ -46,6 +49,10 @@
                     <th>Dirección</th>
                     <th>Monto</th>
                     <th>Fecha</th>
+                    <th>Descripcion</th>
+                    <th>Telefono</th>
+                    <th>Metodo de pago</th>
+                    <th>Envio/Retiro</th>
                     <th>Detalle</th>
 
                 </tr>
@@ -58,6 +65,7 @@
                     <td>{{ $p->nombre_completo }}</td>
                     @endif
                     <td>
+                        @if(Auth::user()->rol=='administrador')
                         <select class="estado_pedido" data-id="{{$p->cod_pedido}}">
                             <option value="P" @if ($p->estado_pedido=='P')
                                 selected
@@ -69,10 +77,31 @@
                                 selected data-target="#exampleModal{{$p->cod_pedido}}" data-toggle="modal"
                                 @endif>Completado</option>
                         </select>
+                        @else
+                        @if ($p->estado_pedido=='P')
+                        <h5><span class="badge badge-secondary">En Preparacion</span></h5>
+                        @endif
+                        @if ($p->estado_pedido=='E')
+                        <h5><span class="badge badge-primary">En Camino</span></h5>
+                        @endif
+                        @if ($p->estado_pedido=='C')
+                        <h5><span class="badge badge-success">Completado</span></h5>
+                        @endif
+                        @endif
+
                     </td>
                     <td>{{$p->direccion}}</td>
                     <td>${{number_format($p->total_pedido,0,',','.')}}</td>
                     <td>{{date('d/m/Y h:i A', strtotime($p->fecha))}}</td>
+                    <td><textarea name="" id="" cols="25" rows="5" readonly style="resize: none;">{{$p->descripcion}}</textarea></td>
+
+                    <td>{{$p->telefono}}</td>
+                    <td>{{$p->metodo_pago_borrados->nombre_metodo}}</td>
+                    <td>@if ($p->delivery == 0)
+                        Envio
+                        @else
+                        Retiro en local
+                        @endif</td>
                     <td>
                         <button type="button" class="btn btn-outline-info btn-fix" data-toggle="modal"
                             data-target="#Modal{{$p->cod_pedido}}">Detalle pedido</button>
