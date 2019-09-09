@@ -34,4 +34,8 @@ class Pedido extends Model
     {
         return $this->belongsTo('App\MetodoPago');
     }
+    public function agregados()
+    {
+        return $this->belongsToMany('App\Agregado','agregado_pedido','cod_pedido','cod_agre')->withPivot('cantidad');
+    }
 }

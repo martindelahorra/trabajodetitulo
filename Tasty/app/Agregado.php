@@ -14,4 +14,8 @@ class Agregado extends Model
     {
         return $this->belongsTo('App\PizzaTamano', 'cod_tamaño');
     }
+    public function pedidos()
+    {
+        return $this->belongsToMany('App\Pedido','agregado_pedido','cod_agre','cod_pedido')->withPivot('cantidad');
+    }
 }

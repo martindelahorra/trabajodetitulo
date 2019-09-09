@@ -152,6 +152,19 @@
                     @endforeach
                     @endif
                     @endforeach
+                    @foreach ($p->agregados as $a)
+                    <li>{{$a->nom_agre}}
+                        @if ($p->descripcion!='')
+                        <span class="text-muted texto-info">(
+                            @if($a->bebida_litros!=null)
+                            {{substr($p->descripcion,strpos($p->descripcion,$a->bebida_litros),strpos($p->descripcion,';'))}}
+                            @endif
+                            @if ($a->tipo=='P')
+                            | {{substr($p->descripcion,strpos($p->descripcion,'Ingredientes:'),-1)}}
+                            @endif
+                            )</span>
+                        @endif</li>
+                    @endforeach
                 </ul>
             </div>
             <div class="modal-footer">

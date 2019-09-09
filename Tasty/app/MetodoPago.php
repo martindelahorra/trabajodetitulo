@@ -8,12 +8,13 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class MetodoPago extends Model
 {
     use SoftDeletes;
-    protected $table = 'metodos_pago';
-    public $primaryKey = 'id_metodo';
-    
-    protected $dates =['deleted_at'];
-    public $fillable = ['nombre_metodo'];
     public $timestamps = false;
+    protected $dates =['deleted_at'];
+    public $primaryKey = 'id_metodo'; 
+    protected $table = 'metodos_pago';    
+       
+    public $fillable = ['nombre_metodo'];
+    
 
     public function pedido()
     {

@@ -16,6 +16,7 @@ use Carbon\Carbon;
 use App\Pizza_pedido;
 use App\Sushi;
 use Alert;
+use App\Agregado;
 use App\Agregado_pedido;
 use App\Bebida;
 use App\TsushiSushi;
@@ -49,12 +50,13 @@ class PedidosController extends Controller
         $tablas = TablaSushi::withTrashed()->get();
         $tsushis = TsushiSushi::all();
         $sushis = Sushi::all();
+        $agregados = Agregado::all();
         if (Auth::User()->rol == 'administrador') {
-            return view('pedidos.index', compact('pedidos', 'reg_p', 'reg_t', 'pizzas', 'tamanos', 'ingredientes', 'reg_ing', 'tablas', 'tsushis', 'sushis'));
+            return view('pedidos.index', compact('pedidos', 'reg_p', 'reg_t', 'pizzas', 'tamanos', 'ingredientes', 'reg_ing', 'tablas', 'tsushis', 'sushis','agregados'));
         } else {
             Cart::destroy();
             $pedidos = Pedido::where('id_usuario', Auth::user()->id_usuario)->get();
-            return view('pedidos.index', compact('pedidos', 'reg_p', 'reg_t', 'pizzas', 'tamanos', 'ingredientes', 'reg_ing', 'tablas', 'tsushis', 'sushis'))->with('msg', 'Su Pedido fue generado con exito');;
+            return view('pedidos.index', compact('pedidos', 'reg_p', 'reg_t', 'pizzas', 'tamanos', 'ingredientes', 'reg_ing', 'tablas', 'tsushis', 'sushis','agregados'))->with('msg', 'Su Pedido fue generado con exito');;
         }
     }
 
@@ -113,7 +115,7 @@ class PedidosController extends Controller
                 } elseif ($item->model->tipo == "P") {
                     $b = Bebida::find($item->options->sabor);
                     $text = $text . $item->options->bebida . ': ' . $b->nombre . ';';
-                    $text = $text . 'ingredientes: ' . $item->options->ingredientes . ';';
+                    $text = $text . 'Ingredientes: ' . $item->options->ingredientes . ';';
                 }
             }
         }
