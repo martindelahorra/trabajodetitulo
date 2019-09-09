@@ -53,9 +53,9 @@ class AgregadoController extends Controller
         }
         $agre = new Agregado();
         if ($request->tipo == "B" || $request->incluye == 1) {
-            $agre->bebida_l = $request->bebida;
+            $agre->bebida_litros = $request->bebida;
         } else {
-            $agre->bebida_l = null;
+            $agre->bebida_litros = null;
         }
         $agre->nom_agre = $request->nombre;
         $agre->precio = $request->precio;

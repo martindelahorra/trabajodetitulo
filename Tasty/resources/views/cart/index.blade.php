@@ -35,7 +35,7 @@
         <div class="row">
             <div class="col-sm-2">
                 <img src="
-                @if ($item->model->primaryKey != " cod_pizza") {{ ($item->model->imagen) }} @else @foreach ($tamanos as
+                @if ($item->model->primaryKey != "cod_pizza") {{ ($item->model->imagen) }} @else @foreach ($tamanos as
                     $tam) @if ($tam->cod_tamaño==$item->model->cod_tamaño)
                 {{ $tam->imagen }}
                 @endif
@@ -58,9 +58,15 @@
                     (Pizza)
                     @elseif($item->model->primaryKey=='cod_agre')
                     @if ($item->model->tipo=="P")
-                    (Promo Pizza)
+                    (Promo de Pizza)
                     @elseif($item->model->tipo=="B")
                     (Bebida)
+                    @elseif($item->model->tipo=="T")
+                    (Promo de Tabla de Sushi)
+                    @elseif($item->model->tipo=="S")
+                    (Promo de Roll de Sushi)
+                    @elseif($item->model->tipo=="A")
+                    (Agregado)
                     @endif
                     @endif </p>
             </div>
@@ -162,8 +168,7 @@
                         quantity: this.value
                     })
                     .then(function(response) {
-                        console.log(response);
-                        // window.location.href = '{{ route('cart.index') }}'
+                        window.location.href = '{{ route('cart.index') }}'
                     })
                     .catch(function(error) {
                         console.log(error);

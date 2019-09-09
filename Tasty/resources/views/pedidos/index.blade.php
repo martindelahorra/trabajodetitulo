@@ -34,9 +34,6 @@
             </div>
         </div>
         <br>
-
-
-
         <table class="col-sm-4 col-md-12 table table-bordered table-striped table-hover table-responsive-lg"
             id="tabla_pedidos">
             <thead class="text-center">
@@ -72,10 +69,7 @@
                                 selected data-target="#exampleModal{{$p->cod_pedido}}" data-toggle="modal"
                                 @endif>Completado</option>
                         </select>
-
                     </td>
-
-
                     <td>{{$p->direccion}}</td>
                     <td>${{number_format($p->total_pedido,0,',','.')}}</td>
                     <td>{{date('d/m/Y h:i A', strtotime($p->fecha))}}</td>
@@ -105,32 +99,32 @@
                 <ul>
                     {{-- $r es el registro de intersección de pizzas --}}
                     @foreach ($reg_p as $r)
-                        @if ($r->cod_pedido == $p->cod_pedido)
-                            @foreach ($pizzas as $pi)
-                            {{-- $pi es el registro de las pizzas --}}
-                                @if ($r->cod_pizza == $pi->cod_pizza)
-                                    @foreach ($tamanos as $ta)
-                                    {{-- $ta es el registro de la tabla tamanos --}}
-                                        @if ($pi->cod_tamaño == $ta->cod_tamaño)
-                                        <li>Pizza {{ $ta->nombre }}
-                                            <span class="text-muted texto-info">(</span>
-                                            @foreach ($reg_ing as $ing1)
-                                                @if ($pi->cod_pizza==$ing1->cod_pizza)
-                                                    @foreach ($ingredientes as $ing2)
-                                                        @if ($ing2->cod_ingrediente==$ing1->cod_ingrediente)
-                                                            <span class="texto-coma text-muted texto-info">{{$ing2->nombre.' |'}}</span>
-                                                        @endif
-                                                    @endforeach
-                                                @endif
-                                            @endforeach
-                                            <span class="text-muted texto-info">)</span>
-                                            (x {{$r->cantidad}})
-                                        </li>
-                                        @endif
-                                    @endforeach
-                                @endif
-                            @endforeach
+                    @if ($r->cod_pedido == $p->cod_pedido)
+                    @foreach ($pizzas as $pi)
+                    {{-- $pi es el registro de las pizzas --}}
+                    @if ($r->cod_pizza == $pi->cod_pizza)
+                    @foreach ($tamanos as $ta)
+                    {{-- $ta es el registro de la tabla tamanos --}}
+                    @if ($pi->cod_tamaño == $ta->cod_tamaño)
+                    <li>Pizza {{ $ta->nombre }}
+                        <span class="text-muted texto-info">(</span>
+                        @foreach ($reg_ing as $ing1)
+                        @if ($pi->cod_pizza==$ing1->cod_pizza)
+                        @foreach ($ingredientes as $ing2)
+                        @if ($ing2->cod_ingrediente==$ing1->cod_ingrediente)
+                        <span class="texto-coma text-muted texto-info">{{$ing2->nombre.' |'}}</span>
                         @endif
+                        @endforeach
+                        @endif
+                        @endforeach
+                        <span class="text-muted texto-info">)</span>
+                        (x {{$r->cantidad}})
+                    </li>
+                    @endif
+                    @endforeach
+                    @endif
+                    @endforeach
+                    @endif
                     @endforeach
                     {{-- $reg_t es la colección de tablas manejadas con el puntero $t --}}
                     @foreach ($reg_t as $t)
@@ -144,30 +138,24 @@
                         <span class="texto-coma text-muted texto-info">
                             @foreach ($sushis as $s)
                             @if ($s->cod_sushi == $ts->cod_sushi)
-                            {{$s->envoltura.' |'}} 
+                            {{$s->envoltura.' |'}}
                             @endif
 
                             @endforeach
                         </span>
                         @endif
-
                         @endforeach
-
                         <span class="text-muted texto-info">) </span>
                         (x {{$t->cantidad}})
                     </li>
                     @endif
                     @endforeach
                     @endif
-                    
                     @endforeach
-                    {{-- <li>Pizza Familiar <span class="text-muted texto-info">(Jamón, Cebolla Morada, Extra Queso,
-                            Piña)</span></li>
-                    <li>Tabla 24 Piezas <span class="text-muted texto-info">(Sesamo, Panko frito)</span></li> --}}
                 </ul>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
             </div>
         </div>
     </div>

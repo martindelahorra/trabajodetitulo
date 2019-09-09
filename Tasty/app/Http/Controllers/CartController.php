@@ -128,9 +128,8 @@ class CartController extends Controller
                     }
                 }
                 $nombre = substr($nombre, 0, -2);
-
                 $precio = ($agre->precio + $precio_add);
-                Cart::add($agre->cod_agre, $agre->nom_agre, 1, $precio, ['ingredientes' => $nombre, 'bebida' => $agre->bebida_l])->associate($tipo);
+                Cart::add($agre->cod_agre, $agre->nom_agre, 1, $precio, ['ingredientes' => $nombre, 'bebida' => $agre->bebida_litros])->associate($tipo);
                 return redirect()->route('cart.index')->with('success_message', 'Producto agregado al carrito! :)');
             } else {
                 return redirect('/');
@@ -138,12 +137,17 @@ class CartController extends Controller
         } else if ($request->tipo == "bebida") {
             $tipo = 'App\Agregado';
             $agre = Agregado::find($request->id);
-            if ($agre->tipo == "B") { 
-                Cart::add($agre->cod_agre, $agre->nom_agre, 1, $agre->precio, ['bebida' => $agre->bebida_l])->associate($tipo);
+            if ($agre->tipo == "B") {
+                Cart::add($agre->cod_agre, $agre->nom_agre, 1, $agre->precio, ['bebida' => $agre->bebida_litros])->associate($tipo);
                 return redirect()->route('cart.index')->with('success_message', 'Producto agregado al carrito! :)');
             } else {
                 return redirect('/');
             }
+        } else if ($request->tipo == "T" || $request->tipo == "S" || $request->tipo == "A") {
+            $tipo = 'App\Agregado';
+            $agre = Agregado::find($request->id);
+            Cart::add($agre->cod_agre, $agre->nom_agre, 1, $agre->precio)->associate($tipo);
+            return redirect()->route('cart.index')->with('success_message', 'Producto agregado al carrito! :)');
         }
     }
 
@@ -180,7 +184,7 @@ class CartController extends Controller
     {
         if (!empty($request->bebida)) {
             $item = Cart::get($id);
-            Cart::update($id, ['options' => ['ingredientes' => $item->options->ingredientes, 'bebida' => $item->options->bebida,'sabor'=>$request->bebida]]);
+            Cart::update($id, ['options' => ['ingredientes' => $item->options->ingredientes, 'bebida' => $item->options->bebida, 'sabor' => $request->bebida]]);
             return redirect('/cart');
         } elseif (!empty($request->quantity)) {
             Cart::update($id, $request->quantity);
