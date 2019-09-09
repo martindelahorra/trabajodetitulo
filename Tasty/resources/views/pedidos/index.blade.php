@@ -99,7 +99,8 @@
                     <td>{{$p->direccion}}</td>
                     <td>${{number_format($p->total_pedido,0,',','.')}}</td>
                     <td>{{date('d/m/Y h:i A', strtotime($p->fecha))}}</td>
-                    <td><textarea name="" id="" cols="25" rows="5" readonly style="resize: none;">{{$p->descripcion}}</textarea></td>
+                    <td><textarea name="" id="" cols="25" rows="5" readonly
+                            style="resize: none;">{{substr($p->descripcion,0,stripos($p->descripcion, "|"))}}</textarea></td>
 
                     <td>{{$p->telefono}}</td>
                     <td>{{$p->metodo_pago_borrados->nombre_metodo}}</td>
@@ -187,12 +188,14 @@
                     @endforeach
                     @endif
                     @endforeach
+                    <?php $varCount = 0;  ?>
                     @foreach ($p->agregados as $a)
                     <li>{{$a->nom_agre}}
                         @if ($p->descripcion!='')
                         <span class="text-muted texto-info">(
                             @if($a->bebida_litros!=null)
-                            {{substr($p->descripcion,strpos($p->descripcion,$a->bebida_litros),strpos($p->descripcion,';'))}}
+                            {{substr($p->descripcion,strpos($p->descripcion,$a->bebida_litros),20)}}
+                            <?php $varCount=$varCount+1;  ?>
                             @endif
                             @if ($a->tipo=='P')
                             | {{substr($p->descripcion,strpos($p->descripcion,'Ingredientes:'),-1)}}
