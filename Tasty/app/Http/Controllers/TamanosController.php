@@ -6,6 +6,8 @@ use App\PizzaTamano;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\TamanosRequest;
+use App\Http\Requests\TamanosEditRequest;
 
 
 class TamanosController extends Controller
@@ -71,7 +73,7 @@ class TamanosController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(TamanosRequest $request)
     {
         $tamaño = new PizzaTamano();
         $tamaño->nombre = $request->nombre;
@@ -117,7 +119,7 @@ class TamanosController extends Controller
      * @param  \App\PizzaTamano  $pizzaTamano
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,  $pizzaTamano)
+    public function update(TamanosEditRequest $request,  $pizzaTamano)
     {   
         $pizzaTamano = PizzaTamano::withTrashed()->get()->find($pizzaTamano);
         $pizzaTamano->nombre = $request->nombre;

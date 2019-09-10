@@ -60,6 +60,8 @@ class CartController extends Controller
             $ing = $request->except(['_token', 'tamano', 'nombre', 'precio', 'tipo']);
             if (empty($ing)) {
                 return redirect('/pizzas')->withErrors('Debe seleccionar al menos 1 ingrediente');
+            }elseif (count($ing) > 7) {
+                return redirect('/pizzas')->withErrors('Debe seleccionar al maximo 7 ingrediente');
             }
             // Se define el modelo para asociar
             $tipo = 'App\Pizza';
@@ -111,6 +113,12 @@ class CartController extends Controller
             if ($agre->tipo == "P") {
                 // se rescatan los codigos de los ingredientes en $ing en caso de ser una promoción de pizza
                 $ing = $request->except(['_token', 'cod_agregado', 'tipo']);
+                
+                if (empty($ing)) {
+                    return redirect('/agregado/'.$agre->cod_agre)->withErrors('Debe seleccionar al menos 1 ingrediente');
+                }elseif (count($ing) > 7) {
+                    return redirect('/agregado/'.$agre->cod_agre)->withErrors('Debe seleccionar al maximo 7 ingrediente');
+                }
                 $agre = Agregado::find($request->cod_agregado);
                 $nombre = '';
                 foreach ($ing as $i) {

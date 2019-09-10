@@ -3,34 +3,35 @@
 @section('contenido')
 <hr>
 <div class="row mt-3">
-    <div class="col">
-        <h1>Usuario: {{Auth::user()->username}}</h1>
-        <hr>
-    </div>
+  <div class="col">
+    <h1>Usuario: {{Auth::user()->username}}</h1>
+    <hr>
+  </div>
 </div>
 <div class="row">
   <div class="col col-md-6">
-      @if (session()->has('success_message'))
-      <div class="alert alert-success" role="alert">
-          {{ session()->get('success_message') }}
-      </div>
-      @endif
-      @if(count($errors) >0)
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-        @endif
+    @if (session()->has('success_message'))
+    <div class="alert alert-success" role="alert">
+      {{ session()->get('success_message') }}
+    </div>
+    @endif
+    @if(count($errors) >0)
+    <div class="alert alert-danger">
+      <ul>
+        @foreach ($errors->all() as $error)
+        <li>{{ $error }}</li>
+        @endforeach
+      </ul>
+    </div>
+    @endif
+
     <div class="card">
       <div class="card-header">Detalles del usuario</div>
       <div class="card-body">
         <div class="form-group">
-            {{Form::open(array('url'=>'usuarios/'.Auth::user()->id_usuario,'method'=>'PATCH')) }}
+          {{Form::open(array('url'=>'usuarios/'.Auth::user()->id_usuario,'method'=>'PATCH')) }}
           <label for="username">Nombre de usuario</label>
-          <input type="text" name="username" class="form-control" value="{{Auth::user()->username}}">
+          <input type="text" name="username" class="form-control" value="{{Auth::user()->username}}" readonly>
         </div>
         <div class="form-group">
           <label for="nombre_completo">Nombre completo</label>
@@ -55,5 +56,6 @@
       </div>
     </div>
   </div>
+
 </div>
 @endsection

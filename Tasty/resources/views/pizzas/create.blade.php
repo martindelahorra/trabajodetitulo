@@ -74,6 +74,7 @@
                 <p>
                     Actualmente llevas $<span id="estimado">0</span> adicional x ingrediente (:
                 </p>
+                
             </div>
         </div>
     </div>

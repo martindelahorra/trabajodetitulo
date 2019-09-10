@@ -35,7 +35,7 @@
         <div class="row">
             <div class="col-sm-2">
                 <img src="
-                @if ($item->model->primaryKey != " cod_pizza") {{ ($item->model->imagen) }} @else @foreach ($tamanos as
+                @if ($item->model->primaryKey != "cod_pizza") {{ ($item->model->imagen) }} @else @foreach ($tamanos as
                     $tam) @if ($tam->cod_tamaño==$item->model->cod_tamaño)
                 {{ $tam->imagen }}
                 @endif

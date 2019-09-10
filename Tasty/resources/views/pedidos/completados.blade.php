@@ -46,7 +46,7 @@
                 @foreach ($pedidos as $p)
                 <tr class="registros">
                     @if(Auth::user()->rol=='administrador')
-                    <td>N°: {{ $p->cod_pedido }}</td>
+                    <td>N° {{ $p->cod_pedido }}</td>
                     <td>{{ $p->nombre_completo }}</td>
                     @endif
                     <td>

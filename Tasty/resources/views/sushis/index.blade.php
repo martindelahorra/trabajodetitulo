@@ -7,9 +7,12 @@
     </div>
 </div>
 <div class="row">
+    @can('isAdmin', App\Usuario::class)
     <div class="col">
-        <a href="/sushis/list" class="btn btn-outline-primary ">Listado de Roll's</a>
-    </div>
+            <a href="/sushis/list" class="btn btn-outline-primary ">Listado de Roll's</a>
+        </div>
+    @endcan
+    
 </div>
 <div class="row mt-4">
     <div class="col">

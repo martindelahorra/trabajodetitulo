@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\UsuarioRequest;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\UsuariosEditRequest;
+
 
 class UsuariosController extends Controller
 {
@@ -88,7 +90,7 @@ class UsuariosController extends Controller
      * @param  \App\Usuario  $usuario
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Usuario $usuario)
+    public function update(UsuariosEditRequest $request, Usuario $usuario)
     {
         $usuario->update(request(['username', 'nombre_completo', 'telefono', 'direccion', 'rut']));
         return redirect('usuarios/ver')->with('success_message', 'Datos guardados con éxito! :)');

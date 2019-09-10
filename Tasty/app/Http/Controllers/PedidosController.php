@@ -69,7 +69,7 @@ class PedidosController extends Controller
         if(Auth::user()->rol != 'administrador'){
             return redirect('/');
           }
-        $pedidos = Pedido::where('estado_pedido', 'C')->get();
+        $pedidos = Pedido::where('estado_pedido', 'C')->orderBy('fecha', 'desc')->get();
         $reg_p = Pizza_pedido::all();
         $reg_t = Tabla_pedido::all();
         $pizzas = Pizza::all();

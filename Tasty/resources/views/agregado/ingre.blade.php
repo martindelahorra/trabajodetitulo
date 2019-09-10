@@ -6,6 +6,17 @@
         <hr>
     </div>
 </div>
+@if($errors->any())
+    <div class="col col-md-6">
+        <div class="alert alert-danger">
+            <ul>
+                @foreach($errors->all() as $error)
+                <li>{{$error}}</li>
+                @endforeach
+            </ul>
+        </div>
+    </div>
+    @endif
 <div class="row">
     <div class="col" style="max-width: 32rem;">
         <div class="card">
@@ -83,6 +94,7 @@
             </div>
         </div>
     </div>
+    
 </div>
 
 <script>

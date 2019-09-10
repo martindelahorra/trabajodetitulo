@@ -168,8 +168,8 @@
                     </div>
                     <div class="col-sm">
                         <span><b>Contacto</b> <i class="fa fa-phone-square"></i></span>
-                        <p>Telefono:****</p>
-                        <p>Mail: *****</p>
+                        <p>Telefono: 2231170624</p>
+                        <p>Mail: tasty.vina@gmail.com</p>
                     </div>
                     <div class="col-sm">
                         <span><b>Dirección</b> <i class="fa fa-road"></i></span>

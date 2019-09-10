@@ -9,6 +9,8 @@ use App\Ingrediente;
 use App\PizzaTamano;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\AgregadoRequest;
+
 
 class AgregadoController extends Controller
 {
@@ -31,10 +33,10 @@ class AgregadoController extends Controller
 
     public function list()
     {
-        if(Auth::User()->rol != 'administrador'){
+        if (Auth::User()->rol != 'administrador') {
             return redirect('/');
-          }
-          $agregados = Agregado::withTrashed()->get();
+        }
+        $agregados = Agregado::withTrashed()->get();
         return view('agregado.list', compact('agregados'));
     }
 
@@ -46,9 +48,9 @@ class AgregadoController extends Controller
     public function create()
 
     {
-        if(Auth::user()->rol != 'administrador'){
+        if (Auth::user()->rol != 'administrador') {
             return redirect('/');
-          }
+        }
         $tamaño = PizzaTamano::all();
         $bebidas = Bebida::select('tamaño')->distinct()->get();
         return view('agregado.create', compact('tamaño', 'bebidas'));
@@ -60,7 +62,7 @@ class AgregadoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(AgregadoRequest $request)
     {
         if (empty($request->sugerido)) {
             $request->sugerido = 0;
@@ -110,12 +112,12 @@ class AgregadoController extends Controller
      * @param  \App\Agregado  $agregado
      * @return \Illuminate\Http\Response
      */
-    public function edit(Agregado $agregado)
+    public function edit($agregado)
     {
-        if(Auth::user()->rol != 'administrador'){
+        if (Auth::user()->rol != 'administrador') {
             return redirect('/');
-          }
-        //dd($agregado);
+        }
+        $agregado=Agregado::withTrashed()->get()->find($agregado);
         $tamaño = PizzaTamano::all();
         return view('agregado.edit', compact('tamaño', 'agregado'));
     }

@@ -27,6 +27,7 @@ class ValidarRut implements Rule
     {
         $value = str_replace("-","",$value);
         $value = str_replace(".","",$value);
+        $value = strtoupper($value);
 
         $rut = substr($value,0,-1);
         $dv =  substr($value,-1);

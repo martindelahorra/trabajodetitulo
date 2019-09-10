@@ -26,7 +26,8 @@ class PedidoRequest extends FormRequest
         return [
             'nombre_completo' => ['required'],
             'direccion' =>['required'],
-            'telefono' => ['required','min:6', 'max:13']
+            'telefono' => ['required','min:6', 'max:13'],
+            'descripcion'=>['max:100']
         ];
     }
     public function messages()
@@ -37,7 +38,8 @@ class PedidoRequest extends FormRequest
             'telefono.required' => 'Ingrese el telefono de contacto',
             'telefono.numeric' => 'El telefono deben ser numeros',
             'telefono.min' => 'El telefono debe tener minimo 7 digitos',
-            'telefono.max' => 'El telefono debe tener maximo 13 digitos'
+            'telefono.max' => 'El telefono debe tener maximo 13 digitos',
+            'descripcion.max' => 'Descripcion muy larga, maximo 100 caracteres'
 
            
 

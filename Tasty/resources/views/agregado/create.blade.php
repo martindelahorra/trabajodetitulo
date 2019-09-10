@@ -22,7 +22,7 @@
         <div class="form-group">
             <label for="descripcion">Descripcion</label>
             <textarea type="number" id="descripcion" name="descripcion" class="form-control"
-                value="{{old('descripcion')}}" rows="4" cols="20" style="resize: none;"></textarea>
+                value="{{old('descripcion')}}" rows="4" cols="20" style="resize: none;">{{old('descripcion')}}</textarea>
         </div>
 
         <div class="form-group">
@@ -32,7 +32,7 @@
         <div class="form-group">
             <label for="tipo">Tipo</label>
             <select class="form-control" name="tipo" id="tipo">
-                <option value="0" selected>Seleccione</option>
+                <option value="" selected>Seleccione</option>
                 <option value="A">Agregado</option>
                 <option value="B">Bebida</option>
                 <option value="P">Pizza</option>
