@@ -8,6 +8,8 @@ use App\TablaSushi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\SushiRequest;
+use App\Http\Requests\SushiEditRequest;
+
 
 class SushisController extends Controller
 {
@@ -83,7 +85,7 @@ class SushisController extends Controller
      * @param  \App\Sushi  $sushi
      * @return \Illuminate\Http\Response
      */
-    public function update(SushiRequest $request,  $sushi)
+    public function update(SushiEditRequest $request,  $sushi)
     {
         
         $sushi = Sushi::find($sushi);

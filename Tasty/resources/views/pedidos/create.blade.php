@@ -78,17 +78,7 @@
             <label class="form-check-label" for="inlineRadio2">Quiere editar los datos? </label>
         </div>
 
-        @if($errors->any())
-        <div class="col col-md-6">
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach($errors->all() as $error)
-                    <li>{{$error}}</li>
-                    @endforeach
-                </ul>
-            </div>
-        </div>
-        @endif
+
         <div class="form-group">
             <button type="submit" class="btn btn-primary">Generar Pedido</button>
             <a href="/cart" class="btn btn-outline-info">Volver</a>
@@ -115,11 +105,31 @@
             @endforeach
         </ul>
         <hr>
-        <div style="float: right;">
+        <div class="row" style="float: right;">
             <h5>Precio Total: <b>${{Cart::total(0,',','.')}}</b></h5>
+
+        </div>
+        <div class="row">
+            @if($errors->any())
+
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach($errors->all() as $error)
+                    <li>{{$error}}</li>
+                    @endforeach
+                </ul>
+            </div>
+
+            @endif
         </div>
 
+
+
+
+
+
     </div>
+
 
 
     {{ Form::close() }}

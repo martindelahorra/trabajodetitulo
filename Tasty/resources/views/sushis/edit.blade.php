@@ -6,6 +6,17 @@
         <hr />
     </div>
 </div>
+@if($errors->any())
+    <div class="col col-md-6">
+        <div class="alert alert-danger">
+            <ul>
+                @foreach($errors->all() as $error)
+                <li>{{$error}}</li>
+                @endforeach
+            </ul>
+        </div>
+    </div>
+    @endif
 <div class="row">
     <div class="col-6">
         {{ Form::open(array('url'=>'sushis/'.$sushi->cod_sushi,'method'=>'PATCH', 'files' => true)) }}
@@ -38,17 +49,7 @@
         </div>
         {{ Form::close() }}
     </div>
-    @if($errors->any())
-    <div class="col col-md-6">
-        <div class="alert alert-danger">
-            <ul>
-                @foreach($errors->all() as $error)
-                <li>{{$error}}</li>
-                @endforeach
-            </ul>
-        </div>
-    </div>
-    @endif
+    
     <div class="col-md-6">
         <img class="img-thumbnail border" height="800" width="600" alt="Error: no se encontró la foto :(" src="{{$sushi->imagen}}"
             title="Nombre de la imagen xd" />

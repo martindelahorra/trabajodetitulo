@@ -23,6 +23,8 @@ use App\TsushiSushi;
 use App\Sushi_pedido;
 use App\MetodoPago;
 
+use App\Http\Requests\PedidoRequest;
+
 
 class PedidosController extends Controller
 {
@@ -100,7 +102,7 @@ class PedidosController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PedidoRequest $request)
     {
         //Insertar en pedido
         $pedido = new Pedido();
