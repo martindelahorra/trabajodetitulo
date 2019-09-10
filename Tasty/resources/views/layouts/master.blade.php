@@ -65,9 +65,11 @@
                     <li class="nav-item @if(\Request::is('agregado')) active @endif">
                         <a class="nav-link" href="/agregado">Promo</a>
                     </li>
-
+                    @can('isAdmin', App\Usuario::class)
                     <li class="nav-item @if(\Request::is('ingredientes')) active @endif">
-                        <a class="nav-link" href="/ingredientes">Ingredientes</a>
+                            <a class="nav-link" href="/ingredientes">Ingredientes</a>
+                    @endcan
+                    
                     <li class="nav-item @if(\Request::is('sushis')) active @endif">
                         <a class="nav-link" href="/sushis">Rolls Sushi</a>
                     </li>
@@ -129,6 +131,7 @@
                     <a href="/ingredientes" class="btn btn-outline-light">Listado Ingredientes</a>
                     <a href="/sushis/list" class="btn btn-outline-light">Listado Roll's</a>
                     <a href="/metodo" class="btn btn-outline-light">Listado Metodos de Pago</a>
+                    <a href="/ventas" class="btn btn-light">Ventas</a>
                 </div>
             </div>
             <nav class="navbar navbar-dark bg-dark">

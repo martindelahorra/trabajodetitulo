@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\PizzaTamano;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
+
 
 class TamanosController extends Controller
 {
@@ -13,6 +15,12 @@ class TamanosController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+
+    {
+        //sacar el except
+        $this->middleware('auth')->except(['']);
+    }
     public function index()
     {
         if(Auth::user()->rol != 'administrador'){

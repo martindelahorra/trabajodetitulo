@@ -1,7 +1,10 @@
 @extends('layouts.master')
 @section('contenido')
 <br>
+@can('isAdmin', App\Usuario::class)
 <a href="/tabla_sushis/list" class="btn btn-outline-primary izquierda">Listado Tablas</a>
+@endcan
+
 <br>
 <div class="row mt-4">
     @foreach ($tabla_sushi as $tabla)

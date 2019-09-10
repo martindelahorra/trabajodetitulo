@@ -8,6 +8,7 @@ use App\Bebida;
 use App\Ingrediente;
 use App\PizzaTamano;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AgregadoController extends Controller
 {
@@ -16,6 +17,12 @@ class AgregadoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+
+    {
+        //sacar el except
+        $this->middleware('auth')->except(['index']);
+    }
     public function index()
     {
         $agregados = Agregado::all();
@@ -24,7 +31,7 @@ class AgregadoController extends Controller
 
     public function list()
     {
-        if(Auth::user()->rol != 'administrador'){
+        if(Auth::User()->rol != 'administrador'){
             return redirect('/');
           }
         $agregados = Agregado::all();

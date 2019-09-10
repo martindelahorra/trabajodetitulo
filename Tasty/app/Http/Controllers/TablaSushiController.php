@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\TablaSushiRequest;
 use App\Http\Requests\TablaSushiEditRequest;
+use Illuminate\Support\Facades\Auth;
+
 
 
 class TablaSushiController extends Controller
@@ -18,6 +20,12 @@ class TablaSushiController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+
+    {
+        //sacar el except
+        $this->middleware('auth')->except(['index']);
+    }
     public function index()
 
     {

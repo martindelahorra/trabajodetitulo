@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 
 use Session;
 use function Psy\info;
+use Illuminate\Support\Facades\Auth;
+
 
 class PizzasController extends Controller
 {
