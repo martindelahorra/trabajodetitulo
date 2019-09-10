@@ -228,10 +228,8 @@ class PedidosController extends Controller
                 return redirect('/pedidos')->with('danger_message', 'Operacion inválida');
             }
         } else {
-
             $pedido = Pedido::find($cod_pedido);
             $pedido->estado_pedido = $request->estado_pedido;
-            
             $pedido->save();
             
             Venta::create([
