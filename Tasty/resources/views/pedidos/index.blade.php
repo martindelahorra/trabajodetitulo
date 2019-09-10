@@ -48,12 +48,12 @@
                     <th>Estado Pedido</th>
                     <th>Dirección</th>
                     <th>Monto</th>
-                    <th>Fecha</th>
                     <th>Descripcion</th>
                     <th>Telefono</th>
                     <th>Metodo de pago</th>
                     <th>Envio/Retiro</th>
                     <th>Detalle</th>
+                    <th>Cancelar</th>
 
                 </tr>
             </thead>
@@ -67,6 +67,7 @@
                     <td>
                         @if(Auth::user()->rol=='administrador')
                         <select class="estado_pedido" data-id="{{$p->cod_pedido}}">
+
                             <option value="M" @if ($p->estado_pedido=='M')
                                 selected
                                 @endif>En Espera</option>
@@ -93,12 +94,15 @@
                         @if ($p->estado_pedido=='C')
                         <h5><span class="badge badge-success">Completado</span></h5>
                         @endif
+                        @if ($p->estado_pedido=='A')
+                        <h5><span class="badge badge-danger">Cancelado</span></h5>
+                        @endif
                         @endif
 
                     </td>
                     <td>{{$p->direccion}}</td>
                     <td>${{number_format($p->total_pedido,0,',','.')}}</td>
-                    <td>{{date('d/m/Y h:i A', strtotime($p->fecha))}}</td>
+                    
                     <td><textarea name="" id="" cols="25" rows="5" readonly
                             style="resize: none;">{{substr($p->descripcion,0,stripos($p->descripcion, "|"))}}</textarea></td>
 
@@ -113,6 +117,8 @@
                         <button type="button" class="btn btn-outline-info btn-fix" data-toggle="modal"
                             data-target="#Modal{{$p->cod_pedido}}">Detalle pedido</button>
                     </td>
+                    <td><button class="btn btn-danger" data-toggle="modal"
+                        data-target="#Modal2{{$p->cod_pedido}}" ><i class="fas fa-ban"></i></button></td>
                 </tr>
                 @endforeach
             </tbody>
@@ -126,7 +132,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Pedido N°: {{$p->cod_pedido}}</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Pedido N°: {{$p->cod_pedido}} Fecha: {{date('d/m/Y h:i A', strtotime($p->fecha))}}</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -238,7 +244,34 @@
         </div>
     </div>
 </div>
+{{-- modal cancelar pedido --}}
+<div class="modal modal-danger fade" id="Modal2{{$p->cod_pedido}}" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Cancelar</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Desea Cancelar pedido? N° {{$p->cod_pedido}}</p>
+                <p>De fecha: {{date('d/m/Y h:i A', strtotime($p->fecha))}}</p>
+            </div>
+            <div class="modal-footer">
+                {{ Form::open(array('url'=>'pedido/'.$p->cod_pedido,'method'=>'patch')) }}
+                <input type="text" value="A" hidden name="estado_pedido" id="estado_pedido">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal"
+                    onClick="window.location.reload();">Cerrar</button>
+                <button type="submit" class="btn btn-danger">Cancelar</button>
+                {{ Form::close() }}
+            </div>
+        </div>
+    </div>
+</div>
 @endforeach
+
 @if(Auth::user()->rol=='administrador')
 
 <script>
@@ -274,7 +307,7 @@
                 element.addEventListener('change', function() {
                     const url = 'pedido/'+element.getAttribute('data-id')
                     console.log(url);
-                    if (this.value=='E' || this.value=='P') {
+                    if (this.value != 'C' ) {
                         axios.patch(url, {
                             estado_pedido: this.value
                         })

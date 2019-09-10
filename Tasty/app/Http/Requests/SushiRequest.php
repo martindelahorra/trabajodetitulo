@@ -13,7 +13,7 @@ class SushiRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,23 @@ class SushiRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'envoltura' => ['required'],
+            'descripcion' =>['required'],
+            'precio' => ['required','min:100', 'max:100000','numeric'],
+            'cortes' => ['required']
+
+        ];
+    }
+    public function messages()
+    {
+        return[
+            'envoltura.required' => 'Ingrese la envoltura',
+            'precio.required' => 'Ingrese el precio',
+            'cortes.required' => 'Ingrese el N° de cortes',
+            'precio.min' => 'El precio tiene que ser mayor que 100',
+            'precio.max' => 'El precio tiene que ser menor a 100000',
+            'precio.numeric' => 'El precio debe ser un número',
+
         ];
     }
 }

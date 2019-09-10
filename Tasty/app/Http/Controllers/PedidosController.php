@@ -40,7 +40,7 @@ class PedidosController extends Controller
     public function index()
     {
 
-        $pedidos = Pedido::where('estado_pedido', 'P')->orWhere('estado_pedido', 'E')->orderBy('fecha')->get();
+        $pedidos = Pedido::where('estado_pedido', '<>','C')->orderBy('fecha')->get();
         $reg_p = Pizza_pedido::all();
         $reg_t = Tabla_pedido::all();
         $pizzas = Pizza::all();
@@ -195,16 +195,26 @@ class PedidosController extends Controller
      */
     public function update(Request $request, $cod_pedido)
     {
-        if ($request->estado_pedido != 'C') {
-            $pedido = Pedido::find($cod_pedido);
+        
+        $pedido = Pedido::find($cod_pedido);
+        if ($pedido->estado_pedido == 'M'){
+            $pedido->estado_pedido = $request->estado_pedido;
+
+            $pedido->save();
+            return redirect()->route('pedidos.index');
+        }
+        else if ($request->estado_pedido != 'C') {
+            
 
             $pedido->estado_pedido = $request->estado_pedido;
 
             $pedido->save();
             session()->flash('success_message', 'Estado actualizado! :)');
             return response()->json(['success' => true]);
-        } else {
-            $pedido = Pedido::find($cod_pedido);
+            
+        }
+        else {
+           
 
             $pedido->estado_pedido = $request->estado_pedido;
 
