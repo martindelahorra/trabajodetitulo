@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\SushiRequest;
 use App\Http\Requests\SushiEditRequest;
+use Illuminate\Support\Facades\Auth;
+
 
 
 class SushisController extends Controller
@@ -18,6 +20,12 @@ class SushisController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+
+    {
+        //sacar el except
+        $this->middleware('auth')->except(['index']);
+    }
     public function index()
     {
         $sushis = Sushi::all();

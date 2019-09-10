@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\MetodoPago;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 
 class MetodoPagoController extends Controller
 {
@@ -12,6 +14,13 @@ class MetodoPagoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+
+    {
+        //sacar el except
+        $this->middleware('auth')->except(['']);
+    }
+    
     public function index()
     {
         if(Auth::user()->rol != 'administrador'){

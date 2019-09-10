@@ -6,6 +6,8 @@ use App\Http\Requests\IngredienteEditRequest;
 use App\Http\Requests\IngredienteRequest;
 use App\Ingrediente;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 
 class IngredientesController extends Controller
 {
@@ -14,6 +16,12 @@ class IngredientesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+
+    {
+        //sacar el except
+        $this->middleware('auth')->except(['']);
+    }
     public function index()
     {
         if(Auth::user()->rol != 'administrador'){

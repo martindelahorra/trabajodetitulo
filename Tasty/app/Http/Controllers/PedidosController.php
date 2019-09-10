@@ -42,9 +42,7 @@ class PedidosController extends Controller
     }
     public function index()
     {
-        if(Auth::user()->rol != 'administrador'){
-            return redirect('/');
-          }
+        
         $pedidos = Pedido::where('estado_pedido', '<>', 'C')->where('estado_pedido', '<>', 'A')->orderBy('fecha', 'desc')->get();
         $reg_p = Pizza_pedido::all();
         $reg_t = Tabla_pedido::all();
@@ -68,6 +66,9 @@ class PedidosController extends Controller
 
     public function pedidosCompletados()
     {
+        if(Auth::user()->rol != 'administrador'){
+            return redirect('/');
+          }
         $pedidos = Pedido::where('estado_pedido', 'C')->get();
         $reg_p = Pizza_pedido::all();
         $reg_t = Tabla_pedido::all();
@@ -94,9 +95,7 @@ class PedidosController extends Controller
      */
     public function create()
     {
-        if(Auth::user()->rol != 'administrador'){
-            return redirect('/');
-          }
+        
         $metodo = MetodoPago::all();
         return view('pedidos.create', compact('metodo'));
     }
