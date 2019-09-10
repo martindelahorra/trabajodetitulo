@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class TablaSushiRequest extends FormRequest
+class TablaSushiEditRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,7 +26,7 @@ class TablaSushiRequest extends FormRequest
         return [
             'nombre' => ['required'],
             'precio' => ['required','gte:1000', 'lt:100000'],
-            'imagen' => ['image', 'required']
+            'imagen' => ['image']
 
         ];
     }
@@ -35,7 +35,6 @@ class TablaSushiRequest extends FormRequest
         return[
             'nombre.required' => 'Ingrese el nombre',
             'precio.required' => 'Ingrese el precio',
-            'imagen.required' => 'Ingrese una imagen',
             'imagen.image' => 'Ingrese un formato valido (jpeg, png, bmp, gif, or svg)',
             'precio.gte' => 'Precio debe ser mayor a $1000',
             'precio.lt' => 'Precio debe ser menor a $100000'

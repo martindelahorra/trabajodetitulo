@@ -23,7 +23,7 @@
                         <ul>
                             @foreach ($inter as $i) @if ($i->cod_tabla==$tabla->cod_tabla)
                             <li>
-                                <p><b>{{$i->sushi->envoltura}}:</b> {{$i->sushi->descripcion}} ({{}})</p>
+                                <p><b>{{$i->sushi->envoltura}}:</b> {{$i->sushi->descripcion}} ({{$i->sushi->cortes}})</p>
                             </li>
                             @endif @endforeach
                         </ul>

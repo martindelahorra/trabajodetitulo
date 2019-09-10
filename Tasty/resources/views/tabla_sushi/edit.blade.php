@@ -6,6 +6,17 @@
         <hr />
     </div>
 </div>
+@if($errors->any())
+    <div class="col col-md-6">
+        <div class="alert alert-danger">
+            <ul>
+                @foreach($errors->all() as $error)
+                <li>{{$error}}</li>
+                @endforeach
+            </ul>
+        </div>
+    </div>
+    @endif
 <div class="row">
     <div class="col-6">
         {{ Form::open(array('url'=>'tabla_sushis/'.$tabla->cod_tabla,'method'=>'PATCH', 'files' => true)) }}
@@ -25,7 +36,7 @@
 
         @foreach($sushi as $s)
         <div class="form-group">
-            <input type="checkbox" value="{{$s->cod_sushi}}" name="{{$s->cod_sushi}}" @if(in_array($s->cod_sushi,$aux))checked @endif />{{$s->envoltura}}
+            <input type="checkbox" value="{{$s->cod_sushi}}" name="{{$s->cod_sushi}}" @if(in_array($s->cod_sushi,$aux))checked @endif /><b>{{$s->envoltura}}</b> ({{$s->descripcion}})
         </div>
         @endforeach
 
@@ -37,17 +48,7 @@
         </div>
         {{ Form::close() }}
     </div>
-    @if($errors->any())
-    <div class="col col-md-6">
-        <div class="alert alert-danger">
-            <ul>
-                @foreach($errors->all() as $error)
-                <li>{{$error}}</li>
-                @endforeach
-            </ul>
-        </div>
-    </div>
-    @endif
+    
     <div class="col-md-6">
         <img class="img-thumbnail border" height="800" width="600" alt="{{$tabla->nombre}}" src="{{$tabla->imagen}}"
             title="{{$tabla->nombre}}" />

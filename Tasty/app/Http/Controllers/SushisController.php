@@ -83,7 +83,7 @@ class SushisController extends Controller
      * @param  \App\Sushi  $sushi
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,  $sushi)
+    public function update(SushiRequest $request,  $sushi)
     {
         
         $sushi = Sushi::find($sushi);

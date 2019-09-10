@@ -8,6 +8,8 @@ use App\Sushi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\TablaSushiRequest;
+use App\Http\Requests\TablaSushiEditRequest;
+
 
 class TablaSushiController extends Controller
 {
@@ -52,14 +54,17 @@ class TablaSushiController extends Controller
         $tabla = new TablaSushi();
         $tabla->nombre = $request->nombre;
         $tabla->precio = $request->precio;
-
-
+        $roll = $request->except(['_token', 'nombre', 'precio', '_method', 'imagen']);
+        
+        if (empty($roll)) {
+           return redirect('/tabla_sushis/create')->withErrors('Debe seleccionar al menos 1 Roll');
+        }
         if ($request->file('imagen')) {
             $path = Storage::disk('public')->put('image', $request->file('imagen'));
             $tabla->fill(['imagen' => asset($path)])->save();
         }
         $tabla->save();
-        $roll = $request->except(['_token', 'nombre', 'precio', '_method', 'imagen']);
+        
 
         foreach ($roll as $r) {
             TsushiSushi::create([
@@ -105,13 +110,18 @@ class TablaSushiController extends Controller
      * @param  \App\TablaSushi  $tablaSushi
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,  $tabla)
+    public function update(TablaSushiEditRequest $request,  $tabla)
     {
         $tabla = TablaSushi::find($tabla);
         $tabla->nombre = $request->nombre;
         $tabla->precio = $request->precio;
         $count = 1;
         $aux = str_replace('http://localhost:8000/','',$tabla->imagen, $count);
+        $roll = $request->except(['_token', 'nombre', 'precio', '_method', 'imagen']);
+        
+        if (empty($roll)) {
+           return redirect('/tabla_sushis/'.$tabla->cod_tabla.'/edit')->withErrors('Debe seleccionar al menos 1 Roll');
+        }
         if ($request->file('imagen')) {
             //eliminar imagen anterior del producto
             Storage::disk('public')->delete($aux);
