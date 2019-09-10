@@ -24,6 +24,9 @@ class AgregadoController extends Controller
 
     public function list()
     {
+        if(Auth::user()->rol != 'administrador'){
+            return redirect('/');
+          }
         $agregados = Agregado::all();
         return view('agregado.list', compact('agregados'));
     }
@@ -34,7 +37,11 @@ class AgregadoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
+
     {
+        if(Auth::user()->rol != 'administrador'){
+            return redirect('/');
+          }
         $tamaño = PizzaTamano::all();
         $bebidas = Bebida::select('tamaño')->distinct()->get();
         return view('agregado.create', compact('tamaño', 'bebidas'));
@@ -98,6 +105,9 @@ class AgregadoController extends Controller
      */
     public function edit(Agregado $agregado)
     {
+        if(Auth::user()->rol != 'administrador'){
+            return redirect('/');
+          }
         //dd($agregado);
         $tamaño = PizzaTamano::all();
         return view('agregado.edit', compact('tamaño', 'agregado'));

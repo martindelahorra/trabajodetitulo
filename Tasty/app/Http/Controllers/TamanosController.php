@@ -15,12 +15,18 @@ class TamanosController extends Controller
      */
     public function index()
     {
+        if(Auth::user()->rol != 'administrador'){
+            return redirect('/');
+          }
         $tamaño = PizzaTamano::withTrashed()->get();
         return view('tamaños.index', compact('tamaño'));
     }
 
     public function disponibleAll()
     {
+        if(Auth::user()->rol != 'administrador'){
+            return redirect('/');
+          }
         $tamaño = PizzaTamano::withTrashed()->get();
         foreach ($tamaño as $t)
             $t->restore();
@@ -29,6 +35,9 @@ class TamanosController extends Controller
 
     public function notDisponibleAll()
     {
+        if(Auth::user()->rol != 'administrador'){
+            return redirect('/');
+          }
         $tamaño = PizzaTamano::withTrashed()->get();
         foreach ($tamaño as $t)
             $t->delete();
@@ -42,6 +51,9 @@ class TamanosController extends Controller
      */
     public function create()
     {
+        if(Auth::user()->rol != 'administrador'){
+            return redirect('/');
+          }
         return view('tamaños.create');
     }
 
@@ -83,6 +95,9 @@ class TamanosController extends Controller
      */
     public function edit( $pizzaTamano)
     {
+        if(Auth::user()->rol != 'administrador'){
+            return redirect('/');
+          }
         $tamaño = PizzaTamano::withTrashed()->get()->find($pizzaTamano);
         return view('tamaños.edit', compact('tamaño'));
     }

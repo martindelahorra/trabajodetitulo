@@ -16,12 +16,18 @@ class IngredientesController extends Controller
      */
     public function index()
     {
+        if(Auth::user()->rol != 'administrador'){
+            return redirect('/');
+          }
         $ingredientes = Ingrediente::withTrashed()->get()->sortBy('nombre');
         return view('ingredientes.index', compact('ingredientes'));
     }
 
     public function disponibleAll()
     {
+        if(Auth::user()->rol != 'administrador'){
+            return redirect('/');
+          }
         $ingredientes = Ingrediente::withTrashed()->get();
         foreach ($ingredientes as $ing)
             $ing->restore();
@@ -30,6 +36,9 @@ class IngredientesController extends Controller
 
     public function notDisponibleAll()
     {
+        if(Auth::user()->rol != 'administrador'){
+            return redirect('/');
+          }
         $ingredientes = Ingrediente::withTrashed()->get();
         foreach ($ingredientes as $ing)
             $ing->delete();
@@ -43,6 +52,9 @@ class IngredientesController extends Controller
      */
     public function create()
     {
+        if(Auth::user()->rol != 'administrador'){
+            return redirect('/');
+          }
         return view('ingredientes.create');
     }
 
@@ -82,6 +94,9 @@ class IngredientesController extends Controller
      */
     public function edit($ingrediente)
     {
+        if(Auth::user()->rol != 'administrador'){
+            return redirect('/');
+          }
         $ingrediente = Ingrediente::withTrashed()->get()->find($ingrediente);
         return view('ingredientes.edit', compact('ingrediente'));
     }
