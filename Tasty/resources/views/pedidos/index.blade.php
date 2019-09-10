@@ -13,6 +13,16 @@
             {{ session()->get('success_message') }}
         </div>
         @endif
+        @if (session()->has('warning_message'))
+        <div class="alert alert-warning" role="alert">
+            {{ session()->get('warning_message') }}
+        </div>
+        @endif
+        @if (session()->has('danger_message'))
+        <div class="alert alert-danger" role="alert">
+            {{ session()->get('danger_message') }}
+        </div>
+        @endif
         @if(count($errors) >0)
         <div class="alert alert-danger">
             <ul>

@@ -40,7 +40,7 @@ class PedidosController extends Controller
     public function index()
     {
 
-        $pedidos = Pedido::where('estado_pedido', '<>','C')->orderBy('fecha')->get();
+        $pedidos = Pedido::where('estado_pedido', '<>', 'C')->orderBy('fecha', 'desc')->get();
         $reg_p = Pizza_pedido::all();
         $reg_t = Tabla_pedido::all();
         $pizzas = Pizza::all();
@@ -51,13 +51,13 @@ class PedidosController extends Controller
         $tsushis = TsushiSushi::all();
         $agregados = Agregado::all();
         $sushis = Sushi::withTrashed()->get();
-        
+
         if (Auth::User()->rol == 'administrador') {
-            return view('pedidos.index', compact('pedidos', 'reg_p', 'reg_t', 'pizzas', 'tamanos', 'ingredientes', 'reg_ing', 'tablas', 'tsushis', 'sushis','agregados'));
+            return view('pedidos.index', compact('pedidos', 'reg_p', 'reg_t', 'pizzas', 'tamanos', 'ingredientes', 'reg_ing', 'tablas', 'tsushis', 'sushis', 'agregados'));
         } else {
             Cart::destroy();
-            $pedidos = Pedido::where('id_usuario', Auth::user()->id_usuario)->get();
-            return view('pedidos.index', compact('pedidos', 'reg_p', 'reg_t', 'pizzas', 'tamanos', 'ingredientes', 'reg_ing', 'tablas', 'tsushis', 'sushis','agregados'))->with('msg', 'Su Pedido fue generado con exito');;
+            $pedidos = Pedido::where('id_usuario', Auth::user()->id_usuario)->orderBy('fecha', 'desc')->get();
+            return view('pedidos.index', compact('pedidos', 'reg_p', 'reg_t', 'pizzas', 'tamanos', 'ingredientes', 'reg_ing', 'tablas', 'tsushis', 'sushis', 'agregados'))->with('msg', 'Su Pedido fue generado con exito');;
         }
     }
 
@@ -195,27 +195,33 @@ class PedidosController extends Controller
      */
     public function update(Request $request, $cod_pedido)
     {
-        
-        $pedido = Pedido::find($cod_pedido);
-        if ($pedido->estado_pedido == 'M'){
-            $pedido->estado_pedido = $request->estado_pedido;
 
-            $pedido->save();
-            return redirect()->route('pedidos.index');
-        }
-        else if ($request->estado_pedido != 'C') {
-            
 
-            $pedido->estado_pedido = $request->estado_pedido;
+        // if ($pedido->estado_pedido == 'M') {
+        //     $pedido = Pedido::find($cod_pedido);
+        //     $pedido->estado_pedido = $request->estado_pedido;
 
-            $pedido->save();
-            session()->flash('success_message', 'Estado actualizado! :)');
-            return response()->json(['success' => true]);
-            
-        }
-        else {
-           
+        //     $pedido->save();
+        //     return redirect('/pedido');
+        // }
+        if ($request->estado_pedido != 'C') {
 
+            $pedido = Pedido::find($cod_pedido);
+            if ($request->estado_pedido != 'A') {
+                $pedido->estado_pedido = $request->estado_pedido;
+                $pedido->save();
+                session()->flash('success_message', 'Estado actualizado! :)');
+                return response()->json(['success' => true]);
+            }elseif ($request->estado_pedido =='A' && $pedido->estado_pedido == 'M') {
+                $pedido->estado_pedido = $request->estado_pedido;
+                $pedido->save();
+                return redirect('/pedidos')->with('warning_message', 'Pedido Cancelado');
+            }else {
+                return redirect('/pedidos')->with('danger_message', 'Operacion invalida');
+            }
+        } else {
+
+            $pedido = Pedido::find($cod_pedido);
             $pedido->estado_pedido = $request->estado_pedido;
 
             $pedido->save();
