@@ -124,8 +124,12 @@ class TamanosController extends Controller
         $pizzaTamano = PizzaTamano::withTrashed()->get()->find($pizzaTamano);
         $pizzaTamano->nombre = $request->nombre;
         $pizzaTamano->precio = $request->precio;
-        
+        $count = 1;
+        $aux = str_replace('http://localhost:8000/','',$pizzaTamano->imagen, $count);
         if ($request->file('imagen')) {
+            //eliminar imagen anterior del producto
+            Storage::disk('public')->delete($aux);
+            //inserción de la imagen nueva
             $path = Storage::disk('public')->put('image', $request->file('imagen'));
             $pizzaTamano->fill(['imagen'=> asset($path)])->save();
         }

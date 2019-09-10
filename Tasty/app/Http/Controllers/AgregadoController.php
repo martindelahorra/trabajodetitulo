@@ -69,7 +69,11 @@ class AgregadoController extends Controller
         }
         $agre = new Agregado();
         if ($request->tipo == "B" || $request->incluye == 1) {
-            $agre->bebida_litros = $request->bebida;
+            if (!empty($request->bebida)) {
+                $agre->bebida_litros = $request->bebida;
+            } else { 
+                return redirect('/agregado/create')->withErrors('Debe indicar el tamaño de la bebida');
+            }
         } else {
             $agre->bebida_litros = null;
         }
@@ -98,11 +102,7 @@ class AgregadoController extends Controller
         if ($agregado->tipo == "P") {
             return view('agregado.ingre', compact('ingredientes', 'agregado'));
         } else {
-            if ($agregado->tipo == "B") {
-                dd('soy una bebida');
-            } else {
-                return redirect('/agregado');
-            }
+            return redirect('/agregado');
         }
     }
 
