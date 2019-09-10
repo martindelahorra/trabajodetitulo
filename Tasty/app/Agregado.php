@@ -16,6 +16,6 @@ class Agregado extends Model
     }
     public function pedidos()
     {
-        return $this->belongsToMany('App\Pedido','agregado_pedido','cod_agre','cod_pedido')->withPivot('cantidad');
+        return $this->belongsToMany('App\Pedido','agregado_pedido','cod_agre','cod_pedido');
     }
 }

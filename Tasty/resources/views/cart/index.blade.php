@@ -35,7 +35,7 @@
         <div class="row">
             <div class="col-sm-2">
                 <img src="
-                @if ($item->model->primaryKey != "cod_pizza") {{ ($item->model->imagen) }} @else @foreach ($tamanos as
+                @if ($item->model->primaryKey != " cod_pizza") {{ ($item->model->imagen) }} @else @foreach ($tamanos as
                     $tam) @if ($tam->cod_tamaño==$item->model->cod_tamaño)
                 {{ $tam->imagen }}
                 @endif
@@ -97,37 +97,37 @@
             </div>
         </div>
         <hr>
-                <!-- Modal -->
-                <div class="modal fade" id="modalBebida{{$item->rowId}}" tabindex="-1" role="dialog"
-                    aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">¿Que sabor desea para su bebida?</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            {{ Form::open(array('url'=>'cart/'.$item->rowId,'method'=>'PATCH')) }}
-                            <div class="modal-body">
-                                <div class="form-group">
-                                    <select class="form-control" name="bebida" id="bebida">
-                                        @foreach ($bebidas as $b)
-                                        @if ($b->tamaño == $item->options->bebida)
-                                        <option value="{{$b->cod_bebida}}">{{$b->nombre}}</option>
-                                        @endif
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                                <button type="submit" class="btn btn-info">Elegir</button>
-                            </div>
-                            {{ Form::close() }}
+        <!-- Modal -->
+        <div class="modal fade" id="modalBebida{{$item->rowId}}" tabindex="-1" role="dialog"
+            aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">¿Que sabor desea para su bebida?</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    {{ Form::open(array('url'=>'cart/'.$item->rowId,'method'=>'PATCH')) }}
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <select class="form-control" name="bebida" id="bebida">
+                                @foreach ($bebidas as $b)
+                                @if ($b->tamaño == $item->options->bebida)
+                                <option value="{{$b->cod_bebida}}">{{$b->nombre}}</option>
+                                @endif
+                                @endforeach
+                            </select>
                         </div>
                     </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                        <button type="submit" class="btn btn-info">Elegir</button>
+                    </div>
+                    {{ Form::close() }}
                 </div>
+            </div>
+        </div>
         @endforeach
         <div class="row">
             <div class="col-6">
