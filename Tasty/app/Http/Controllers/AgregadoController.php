@@ -31,10 +31,10 @@ class AgregadoController extends Controller
 
     public function list()
     {
-        if(Auth::User()->rol != 'administrador'){
+        if (Auth::User()->rol != 'administrador') {
             return redirect('/');
-          }
-          $agregados = Agregado::withTrashed()->get();
+        }
+        $agregados = Agregado::withTrashed()->get();
         return view('agregado.list', compact('agregados'));
     }
 
@@ -46,9 +46,9 @@ class AgregadoController extends Controller
     public function create()
 
     {
-        if(Auth::user()->rol != 'administrador'){
+        if (Auth::user()->rol != 'administrador') {
             return redirect('/');
-          }
+        }
         $tamaño = PizzaTamano::all();
         $bebidas = Bebida::select('tamaño')->distinct()->get();
         return view('agregado.create', compact('tamaño', 'bebidas'));
@@ -67,7 +67,11 @@ class AgregadoController extends Controller
         }
         $agre = new Agregado();
         if ($request->tipo == "B" || $request->incluye == 1) {
-            $agre->bebida_litros = $request->bebida;
+            if (!empty($request->bebida)) {
+                $agre->bebida_litros = $request->bebida;
+            } else { 
+                return redirect('/agregado/create')->withErrors('Debe indicar el tamaño de la bebida');
+            }
         } else {
             $agre->bebida_litros = null;
         }
@@ -96,11 +100,7 @@ class AgregadoController extends Controller
         if ($agregado->tipo == "P") {
             return view('agregado.ingre', compact('ingredientes', 'agregado'));
         } else {
-            if ($agregado->tipo == "B") {
-                dd('soy una bebida');
-            } else {
-                return redirect('/agregado');
-            }
+            return redirect('/agregado');
         }
     }
 
@@ -112,9 +112,9 @@ class AgregadoController extends Controller
      */
     public function edit(Agregado $agregado)
     {
-        if(Auth::user()->rol != 'administrador'){
+        if (Auth::user()->rol != 'administrador') {
             return redirect('/');
-          }
+        }
         //dd($agregado);
         $tamaño = PizzaTamano::all();
         return view('agregado.edit', compact('tamaño', 'agregado'));
