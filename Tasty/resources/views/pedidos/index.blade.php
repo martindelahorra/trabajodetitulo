@@ -48,7 +48,6 @@
                     <th>Estado Pedido</th>
                     <th>Dirección</th>
                     <th>Monto</th>
-                    <th>Fecha</th>
                     <th>Descripcion</th>
                     <th>Telefono</th>
                     <th>Metodo de pago</th>
@@ -92,9 +91,9 @@
                     </td>
                     <td>{{$p->direccion}}</td>
                     <td>${{number_format($p->total_pedido,0,',','.')}}</td>
-                    <td>{{date('d/m/Y h:i A', strtotime($p->fecha))}}</td>
                     <td><textarea name="" id="" cols="25" rows="5" readonly
-                            style="resize: none;">{{substr($p->descripcion,0,stripos($p->descripcion, "|"))}}</textarea></td>
+                            style="resize: none;">{{substr($p->descripcion,0,stripos($p->descripcion, "|"))}}</textarea>
+                    </td>
 
                     <td>{{$p->telefono}}</td>
                     <td>{{$p->metodo_pago_borrados->nombre_metodo}}</td>
@@ -120,7 +119,8 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Pedido N°: {{$p->cod_pedido}}</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Pedido N°: {{$p->cod_pedido}} <span
+                        class="text-muted">{{date('d/m/Y h:i A', strtotime($p->fecha))}}</span></h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -185,7 +185,7 @@
                     <?php $varCount = 0;  ?>
                     @foreach ($p->agregados as $a)
                     <li>{{$a->nom_agre}}
-                        @if ($p->descripcion!='')
+                         @if($a->tipo=='P' || $a->tipo=='B')
                         <span class="text-muted texto-info">(
                             @if($a->bebida_litros!=null)
                             {{substr($p->descripcion,strpos($p->descripcion,$a->bebida_litros),20)}}
@@ -195,7 +195,8 @@
                             | {{substr($p->descripcion,strpos($p->descripcion,'Ingredientes:'),-1)}}
                             @endif
                             )</span>
-                        @endif</li>
+                        @endif
+                        </li>
                     @endforeach
                 </ul>
             </div>
