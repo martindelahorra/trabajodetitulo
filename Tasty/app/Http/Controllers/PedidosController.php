@@ -78,13 +78,15 @@ class PedidosController extends Controller
         $reg_ing = PizzaIngrediente::all();
         $tablas = TablaSushi::withTrashed()->get();
         $tsushis = TsushiSushi::all();
+        $agregados = Agregado::all();
         $sushis = Sushi::withTrashed()->get();
+        $reg_agre = Agregado_pedido::all();
         if (Auth::User()->rol == 'administrador') {
-            return view('pedidos.completados', compact('pedidos', 'reg_p', 'reg_t', 'pizzas', 'tamanos', 'ingredientes', 'reg_ing', 'tablas', 'tsushis', 'sushis'));
+            return view('pedidos.completados', compact('pedidos', 'reg_p', 'reg_t', 'pizzas', 'tamanos', 'ingredientes', 'reg_ing', 'tablas', 'tsushis', 'sushis','reg_agre'));
         } else {
             Cart::destroy();
             $pedidos = Pedido::where('id_usuario', Auth::user()->id_usuario)->get();
-            return view('pedidos.completados', compact('pedidos', 'reg_p', 'reg_t', 'pizzas', 'tamanos', 'ingredientes', 'reg_ing', 'tablas', 'tsushis', 'sushis'))->with('msg', 'Su Pedido fue generado con exito');;
+            return view('pedidos.completados', compact('pedidos', 'reg_p', 'reg_t', 'pizzas', 'tamanos', 'ingredientes', 'reg_ing', 'tablas', 'tsushis', 'sushis','reg_agre'))->with('msg', 'Su Pedido fue generado con exito');;
         }
     }
 
