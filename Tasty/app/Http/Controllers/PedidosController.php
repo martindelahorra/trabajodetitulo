@@ -123,7 +123,7 @@ class PedidosController extends Controller
         $pedido->descripcion = $request->descripcion . '|' . $text;
         $pedido->direccion = $request->direccion;
         $pedido->total_pedido = Cart::total(0, ',', '');
-        $pedido->fecha = Carbon::now('GMT-4');
+        $pedido->fecha = Carbon::now('GMT-3');
         $pedido->telefono = $request->telefono;
         $pedido->nombre_completo = $request->nombre_completo;
         $pedido->delivery = $request->delivery;
