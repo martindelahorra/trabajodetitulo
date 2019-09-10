@@ -112,7 +112,7 @@
                     </td>
                     <td>{{$p->direccion}}</td>
                     <td>${{number_format($p->total_pedido,0,',','.')}}</td>
-                    
+
                     <td><textarea name="" id="" cols="25" rows="5" readonly
                             style="resize: none;">{{substr($p->descripcion,0,stripos($p->descripcion, "|"))}}</textarea>
                     </td>
@@ -128,8 +128,8 @@
                         <button type="button" class="btn btn-outline-info btn-fix" data-toggle="modal"
                             data-target="#Modal{{$p->cod_pedido}}">Detalle pedido</button>
                     </td>
-                    <td><button class="btn btn-danger" data-toggle="modal"
-                        data-target="#Modal2{{$p->cod_pedido}}" ><i class="fas fa-ban"></i></button></td>
+                    <td><button class="btn btn-danger" data-toggle="modal" data-target="#Modal2{{$p->cod_pedido}}"><i
+                                class="fas fa-ban"></i></button></td>
                 </tr>
                 @endforeach
             </tbody>
@@ -209,7 +209,7 @@
                     <?php $varCount = 0;  ?>
                     @foreach ($p->agregados as $a)
                     <li>{{$a->nom_agre}}
-                         @if($a->tipo=='P' || $a->tipo=='B')
+                        @if($a->tipo=='P' || $a->tipo=='B')
                         <span class="text-muted texto-info">(
                             @if($a->bebida_litros!=null)
                             {{substr($p->descripcion,strpos($p->descripcion,$a->bebida_litros),20)}}
@@ -220,7 +220,7 @@
                             @endif
                             )</span>
                         @endif
-                        </li>
+                    </li>
                     @endforeach
                 </ul>
             </div>
@@ -319,16 +319,12 @@
             Array.from(classname).forEach(function(element) {
                 element.addEventListener('change', function() {
                     const url = 'pedido/'+element.getAttribute('data-id')
-                    console.log(url);
                     if (this.value != 'C' ) {
                         axios.patch(url, {
                             estado_pedido: this.value
                         })
-                        .then(function(response) {
-                            console.log(response);
-                            
+                        .then(function(response) {                 
                             window.location.href = '/pedidos'
-
                         })
                         .catch(function(error) {
                             console.log(error);
