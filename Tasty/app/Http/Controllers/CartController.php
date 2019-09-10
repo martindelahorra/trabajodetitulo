@@ -185,7 +185,7 @@ class CartController extends Controller
         if (!empty($request->bebida)) {
             $item = Cart::get($id);
             Cart::update($id, ['options' => ['ingredientes' => $item->options->ingredientes, 'bebida' => $item->options->bebida, 'sabor' => $request->bebida]]);
-            return redirect('/cart');
+            return redirect('/cart')->with('success_message','Sabor de bebida guardado! :)');
         } elseif (!empty($request->quantity)) {
             Cart::update($id, $request->quantity);
             session()->flash('success_message', 'Cantidad actualizada! :)');

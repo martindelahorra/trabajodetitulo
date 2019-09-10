@@ -194,7 +194,6 @@
                             @if ($s->cod_sushi == $ts->cod_sushi)
                             {{$s->envoltura.' |'}}
                             @endif
-
                             @endforeach
                         </span>
                         @endif
@@ -219,6 +218,11 @@
                             | {{substr($p->descripcion,strpos($p->descripcion,'Ingredientes:'),-1)}}
                             @endif
                             )</span>
+                            (x @foreach ($reg_agre as $ra)
+                                @if ($ra->cod_agre==$a->cod_agre && $ra->cod_pedido==$p->cod_pedido)
+                                    {{$ra->cantidad}}
+                                @endif
+                            @endforeach)
                         @endif
                     </li>
                     @endforeach

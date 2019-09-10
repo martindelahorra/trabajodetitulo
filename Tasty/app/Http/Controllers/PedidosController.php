@@ -54,13 +54,13 @@ class PedidosController extends Controller
         $tsushis = TsushiSushi::all();
         $agregados = Agregado::all();
         $sushis = Sushi::withTrashed()->get();
-
+        $reg_agre = Agregado_pedido::all();
         if (Auth::User()->rol == 'administrador') {
-            return view('pedidos.index', compact('pedidos', 'reg_p', 'reg_t', 'pizzas', 'tamanos', 'ingredientes', 'reg_ing', 'tablas', 'tsushis', 'sushis', 'agregados'));
+            return view('pedidos.index', compact('pedidos', 'reg_p', 'reg_t', 'pizzas', 'tamanos', 'ingredientes', 'reg_ing', 'tablas', 'tsushis', 'sushis', 'agregados','reg_agre'));
         } else {
             Cart::destroy();
             $pedidos = Pedido::where('id_usuario', Auth::user()->id_usuario)->orderBy('fecha', 'desc')->get();
-            return view('pedidos.index', compact('pedidos', 'reg_p', 'reg_t', 'pizzas', 'tamanos', 'ingredientes', 'reg_ing', 'tablas', 'tsushis', 'sushis', 'agregados'))->with('msg', 'Su Pedido fue generado con exito');;
+            return view('pedidos.index', compact('pedidos', 'reg_p', 'reg_t', 'pizzas', 'tamanos', 'ingredientes', 'reg_ing', 'tablas', 'tsushis', 'sushis', 'agregados','reg_agre'))->with('msg', 'Su Pedido fue generado con exito');;
         }
     }
 
@@ -94,7 +94,6 @@ class PedidosController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-
     {
         
         $metodo = MetodoPago::all();
@@ -110,6 +109,11 @@ class PedidosController extends Controller
     public function store(PedidoRequest $request)
     {
         //Insertar en pedido
+        foreach(Cart::content() as $item){
+            if($item->associatedModel == "App\Agregado" && !empty($item->options->bebida) && empty($item->options->sabor)){
+                return redirect('/cart')->withErrors(['Debe elegir su bebida en todos los productos.']);
+            }
+        }
         $pedido = new Pedido();
         $pedido->id_usuario = Auth::user()->id_usuario;
         $pedido->id_metodo = $request->metodo_pago;
@@ -164,12 +168,10 @@ class PedidosController extends Controller
             }
         }
         //destruir carrito
-        //Cart::destroy();
+        Cart::destroy();
         alert()->success('Pedido generado con exito!');
         return redirect('/pedidos');
     }
-    public function generarPedido()
-    { }
 
     /**
      * Display the specified resource.
