@@ -40,7 +40,7 @@ class PedidosController extends Controller
     public function index()
     {
 
-        $pedidos = Pedido::where('estado_pedido', 'P')->orWhere('estado_pedido', 'E')->orderBy('fecha')->get();
+        $pedidos = Pedido::where('estado_pedido', '<>','C')->orderBy('fecha')->get();
         $reg_p = Pizza_pedido::all();
         $reg_t = Tabla_pedido::all();
         $pizzas = Pizza::all();
@@ -106,7 +106,7 @@ class PedidosController extends Controller
         $pedido = new Pedido();
         $pedido->id_usuario = Auth::user()->id_usuario;
         $pedido->id_metodo = $request->metodo_pago;
-        $pedido->estado_pedido = 'P';
+        $pedido->estado_pedido = 'M';
         $text = '';
         foreach (Cart::content() as $item) {
             if ($item->associatedModel == "App\Agregado") {
@@ -120,7 +120,7 @@ class PedidosController extends Controller
                 }
             }
         }
-        $pedido->descripcion = $request->descripcion . ';' . $text;
+        $pedido->descripcion = $request->descripcion . '|' . $text;
         $pedido->direccion = $request->direccion;
         $pedido->total_pedido = Cart::total(0, ',', '');
         $pedido->fecha = Carbon::now('GMT-3');
@@ -151,7 +151,7 @@ class PedidosController extends Controller
             } elseif ($item->associatedModel == "App\Agregado") {
                 Agregado_pedido::create([
                     'cod_pedido' => $pedido->cod_pedido,
-                    'cod_agregado' => $item->model->cod_agre,
+                    'cod_agre' => $item->model->cod_agre,
                     'cantidad' => $item->qty
                 ]);
             }
@@ -195,16 +195,26 @@ class PedidosController extends Controller
      */
     public function update(Request $request, $cod_pedido)
     {
-        if ($request->estado_pedido != 'C') {
-            $pedido = Pedido::find($cod_pedido);
+        
+        $pedido = Pedido::find($cod_pedido);
+        if ($pedido->estado_pedido == 'M'){
+            $pedido->estado_pedido = $request->estado_pedido;
+
+            $pedido->save();
+            return redirect()->route('pedidos.index');
+        }
+        else if ($request->estado_pedido != 'C') {
+            
 
             $pedido->estado_pedido = $request->estado_pedido;
 
             $pedido->save();
             session()->flash('success_message', 'Estado actualizado! :)');
             return response()->json(['success' => true]);
-        } else {
-            $pedido = Pedido::find($cod_pedido);
+            
+        }
+        else {
+           
 
             $pedido->estado_pedido = $request->estado_pedido;
 

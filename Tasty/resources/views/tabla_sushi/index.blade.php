@@ -23,7 +23,7 @@
                         <ul>
                             @foreach ($inter as $i) @if ($i->cod_tabla==$tabla->cod_tabla)
                             <li>
-                                <p><b>{{$i->sushi->envoltura}}:</b> {{$i->sushi->descripcion}}</p>
+                                <p><b>{{$i->sushi->envoltura}}:</b> {{$i->sushi->descripcion}} ({{}})</p>
                             </li>
                             @endif @endforeach
                         </ul>
@@ -31,7 +31,7 @@
                     <div class="card-footer">
                         <form action="{{ route('cart.store') }}" method="POST">
                             {{ csrf_field() }}
-                            <p>Precio: ${{$tabla->precio}} <button type="submit" class="btn btn-success derecha">Añadir
+                            <p>Precio: ${{number_format($tabla->precio,0,",",".")}} <button type="submit" class="btn btn-success derecha">Añadir
                                     al carro <i class="fas fa-cart-plus"></i></button></p>
                             <input type="hidden" name="id" value="{{ $tabla->cod_tabla }}">
                             <input type="hidden" name="nombre" value="{{ $tabla->nombre }}">

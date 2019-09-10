@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use App\TablaSushi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\SushiRequest;
 
 class SushisController extends Controller
 {
@@ -37,7 +38,7 @@ class SushisController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(SushiRequest $request)
     {
         $sushi = new Sushi();
         $sushi->envoltura = $request->envoltura;

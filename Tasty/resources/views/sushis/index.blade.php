@@ -18,7 +18,7 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-xs-6 col-sm-3">
-                        <img src="{{$s->imagen}}" class="card-img-top" alt="..." width="20px" height="200px">
+                        <img src="{{$s->imagen}}" class="card-img-top" alt="..." style="max-width: 200px; width: 100%; height: auto; max-height:200px;">
                     </div>
                     <div class="col-xs-6 col-sm-3">
                         <h3 class="card-title">Envoltura: {{$s->envoltura}}</h3>

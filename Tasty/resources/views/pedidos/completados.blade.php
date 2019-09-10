@@ -22,10 +22,6 @@
             </ul>
         </div>
         @endif
-
-
-
-
         <table class="col-sm-4 col-md-12 table table-bordered table-striped table-hover table-responsive-lg "
             id="tabPedidos">
             <thead class="text-center">
@@ -42,6 +38,7 @@
                     <th>Metodo Pago</th>
                     <th>Envio/Retiro</th>
                     <th>Detalle</th>
+                    
 
                 </tr>
             </thead>
@@ -71,6 +68,7 @@
                         <button type="button" class="btn btn-outline-info btn-fix" data-toggle="modal"
                             data-target="#Modal{{$p->cod_pedido}}">Detalle pedido</button>
                     </td>
+                    
                 </tr>
                 @endforeach
             </tbody>

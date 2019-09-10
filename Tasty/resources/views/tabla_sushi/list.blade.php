@@ -31,9 +31,9 @@
                 <tr>
                     <td>{{ $tabla->cod_tabla }}</td>
                     <td style="width: 200px;"><img src="{{($tabla->imagen)}}" class="card-img"
-                            alt="Imagen no disponible" width="150px" height="100px"></td>
+                            alt="Imagen no disponible" width="150px" height="120px"></td>
                     <td>{{ $tabla->nombre }}</td>
-                    <td>${{ number_format($tabla->precio,0,",",".") }}</td>
+                    <td>${{number_format($tabla->precio,0,",",".")}} </td>
 
                     <td>
                         {{ Form::open(array('url'=>'tabla_sushis/'.$tabla->cod_tabla,'method'=>'delete')) }}
