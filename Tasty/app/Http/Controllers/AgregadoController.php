@@ -24,10 +24,7 @@ class AgregadoController extends Controller
 
     public function list()
     {
-        if(Auth::user()->rol != 'administrador'){
-            return redirect('/');
-          }
-        $agregados = Agregado::all();
+        $agregados = Agregado::withTrashed()->get();
         return view('agregado.list', compact('agregados'));
     }
 
@@ -152,6 +149,14 @@ class AgregadoController extends Controller
      */
     public function destroy(Agregado $agregado)
     {
-        //
+        Agregado::destroy($agregado->cod_agre);
+        return redirect('/agregado/list');
+    }
+
+    public function restore($cod_agre)
+    {
+        $agregado = Agregado::onlyTrashed()->where('cod_agre', $cod_agre);
+        $agregado->restore();
+        return redirect('/agregado/list');
     }
 }

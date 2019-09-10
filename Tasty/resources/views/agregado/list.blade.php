@@ -23,6 +23,7 @@
                     <th>Tipo</th>
                     <th>Sugerido</th>
                     <th>Descripción</th>
+                    <th>Estado</th>
                     <th>Opciones</th>
                 </tr>
             </thead>
@@ -46,7 +47,21 @@
                         {{ $a->descripcion }}
                     </td>
                     <td>
+                        @if ($a->deleted_at==null)
+                        Disponible
+                        @else
+                        No Disponible
+                        @endif
+                    </td>
+                    <td>
+                        {{ Form::open(array('url'=>'agregado/'.$a->cod_agre,'method'=>'delete')) }}
                         <a href="/agregado/{{$a->cod_agre}}/edit" class="btn btn-outline-dark">Editar</a>
+                        @if ($a->deleted_at==null)
+                        <button type="submit" class="btn btn-outline-danger">No Disponible</button>
+                        @else
+                        <a href="/agregado/{{$a->cod_agre}}/restore" class="btn btn-outline-info">Disponible</a>
+                        @endif
+                        {{ Form::close() }}
                     </td>
                 </tr>
                 @endforeach

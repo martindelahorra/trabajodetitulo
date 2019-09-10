@@ -70,6 +70,7 @@ Route::resource('pedidos', 'PedidosController');
 
 //Agregado
 Route::get('/agregado/list','AgregadoController@list');
+Route::get('/agregado/{cod_agre}/restore','AgregadoController@restore');
 Route::resource('agregado', 'AgregadoController');
 
 //Ventas
