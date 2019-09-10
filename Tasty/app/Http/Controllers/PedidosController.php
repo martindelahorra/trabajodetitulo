@@ -24,6 +24,7 @@ use App\Sushi_pedido;
 use App\MetodoPago;
 
 use App\Http\Requests\PedidoRequest;
+use App\Venta;
 
 
 class PedidosController extends Controller
@@ -41,6 +42,9 @@ class PedidosController extends Controller
     }
     public function index()
     {
+        if(Auth::user()->rol != 'administrador'){
+            return redirect('/');
+          }
         $pedidos = Pedido::where('estado_pedido', '<>', 'C')->where('estado_pedido', '<>', 'A')->orderBy('fecha', 'desc')->get();
         $reg_p = Pizza_pedido::all();
         $reg_t = Tabla_pedido::all();
@@ -89,8 +93,10 @@ class PedidosController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-
     {
+        if(Auth::user()->rol != 'administrador'){
+            return redirect('/');
+          }
         $metodo = MetodoPago::all();
         return view('pedidos.create', compact('metodo'));
     }
@@ -227,6 +233,12 @@ class PedidosController extends Controller
             $pedido = Pedido::find($cod_pedido);
             $pedido->estado_pedido = $request->estado_pedido;
             $pedido->save();
+            
+            Venta::create([
+                'cod_pedido' => $pedido->cod_pedido,
+                'monto_total' => $pedido->total_pedido,
+                'fecha_venta' => Carbon::now('GMT-3')
+            ]);
             return redirect()->route('pedidos.completados')->with('success_message', 'Pedido completado');
         }
     }

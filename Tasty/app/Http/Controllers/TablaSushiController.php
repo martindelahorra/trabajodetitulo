@@ -33,12 +33,18 @@ class TablaSushiController extends Controller
      */
     public function create()
     {
+        if(Auth::user()->rol != 'administrador'){
+            return redirect('/');
+          }
         $sushi = Sushi::all();
 
         return view('tabla_sushi.create', compact('sushi'));
     }
     public function list()
     {
+        if(Auth::user()->rol != 'administrador'){
+            return redirect('/');
+          }
         $tabla_sushi = TablaSushi::all();
         return view('tabla_sushi.list', compact('tabla_sushi'));
     }
@@ -94,6 +100,9 @@ class TablaSushiController extends Controller
      */
     public function edit($tabla)
     {
+        if(Auth::user()->rol != 'administrador'){
+            return redirect('/');
+          }
         $tabla = TablaSushi::find($tabla);
         $sushi = Sushi::all();
         $tsushi = TsushiSushi::where('cod_tabla', $tabla->cod_tabla)->get();

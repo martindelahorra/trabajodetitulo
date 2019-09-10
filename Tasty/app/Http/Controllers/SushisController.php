@@ -31,6 +31,9 @@ class SushisController extends Controller
      */
     public function create()
     {
+        if(Auth::user()->rol != 'administrador'){
+            return redirect('/');
+          }
         return view('sushis.create');
     }
 
@@ -75,6 +78,9 @@ class SushisController extends Controller
      */
     public function edit(Sushi $sushi)
     {
+        if(Auth::user()->rol != 'administrador'){
+            return redirect('/');
+          }
         return view('sushis.edit', compact('sushi'));
     }
 
@@ -110,6 +116,9 @@ class SushisController extends Controller
 
     public function list()
     {
+        if(Auth::user()->rol != 'administrador'){
+            return redirect('/');
+          }
         $sushi = Sushi::all();
         return view('sushis.list', compact('sushi'));
     }
