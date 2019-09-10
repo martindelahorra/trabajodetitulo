@@ -40,7 +40,7 @@ class PedidosController extends Controller
     public function index()
     {
 
-        $pedidos = Pedido::where('estado_pedido', '<>', 'C')->orderBy('fecha', 'desc')->get();
+        $pedidos = Pedido::where('estado_pedido', '<>', 'C')->where('estado_pedido', '<>', 'A')->orderBy('fecha', 'desc')->get();
         $reg_p = Pizza_pedido::all();
         $reg_t = Tabla_pedido::all();
         $pizzas = Pizza::all();
@@ -195,29 +195,29 @@ class PedidosController extends Controller
      */
     public function update(Request $request, $cod_pedido)
     {
-
-
-        // if ($pedido->estado_pedido == 'M') {
-        //     $pedido = Pedido::find($cod_pedido);
-        //     $pedido->estado_pedido = $request->estado_pedido;
-
-        //     $pedido->save();
-        //     return redirect('/pedido');
-        // }
+        //M=Espera
+        //A=Cancelado
+        //P=Preparación
+        //E=Camino
+        //C=Completado
         if ($request->estado_pedido != 'C') {
-
             $pedido = Pedido::find($cod_pedido);
             if ($request->estado_pedido != 'A') {
-                $pedido->estado_pedido = $request->estado_pedido;
-                $pedido->save();
-                session()->flash('success_message', 'Estado actualizado! :)');
-                return response()->json(['success' => true]);
-            }elseif ($request->estado_pedido =='A' && $pedido->estado_pedido == 'M') {
+                if ($pedido->estado_pedido!='A') {
+                    $pedido->estado_pedido = $request->estado_pedido;
+                    $pedido->save();
+                    session()->flash('success_message', 'Estado actualizado! :)');
+                    return response()->json(['success' => true]);
+                } else {
+                    session()->flash('danger_message', 'El usuario ya cancelo su pedido');
+                    return response()->json(['success' => true]);
+                }
+            } elseif ($request->estado_pedido == 'A' && $pedido->estado_pedido == 'M') {
                 $pedido->estado_pedido = $request->estado_pedido;
                 $pedido->save();
                 return redirect('/pedidos')->with('warning_message', 'Pedido Cancelado');
-            }else {
-                return redirect('/pedidos')->with('danger_message', 'Operacion invalida');
+            } else {
+                return redirect('/pedidos')->with('danger_message', 'Operacion inválida');
             }
         } else {
 
