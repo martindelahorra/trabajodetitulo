@@ -42,7 +42,7 @@ class PedidosController extends Controller
     }
     public function index()
     {
-        
+
         $pedidos = Pedido::where('estado_pedido', '<>', 'C')->where('estado_pedido', '<>', 'A')->orderBy('fecha', 'desc')->get();
         $reg_p = Pizza_pedido::all();
         $reg_t = Tabla_pedido::all();
@@ -56,19 +56,19 @@ class PedidosController extends Controller
         $sushis = Sushi::withTrashed()->get();
         $reg_agre = Agregado_pedido::all();
         if (Auth::User()->rol == 'administrador') {
-            return view('pedidos.index', compact('pedidos', 'reg_p', 'reg_t', 'pizzas', 'tamanos', 'ingredientes', 'reg_ing', 'tablas', 'tsushis', 'sushis', 'agregados','reg_agre'));
+            return view('pedidos.index', compact('pedidos', 'reg_p', 'reg_t', 'pizzas', 'tamanos', 'ingredientes', 'reg_ing', 'tablas', 'tsushis', 'sushis', 'agregados', 'reg_agre'));
         } else {
             Cart::destroy();
             $pedidos = Pedido::where('id_usuario', Auth::user()->id_usuario)->orderBy('fecha', 'desc')->get();
-            return view('pedidos.index', compact('pedidos', 'reg_p', 'reg_t', 'pizzas', 'tamanos', 'ingredientes', 'reg_ing', 'tablas', 'tsushis', 'sushis', 'agregados','reg_agre'))->with('msg', 'Su Pedido fue generado con exito');;
+            return view('pedidos.index', compact('pedidos', 'reg_p', 'reg_t', 'pizzas', 'tamanos', 'ingredientes', 'reg_ing', 'tablas', 'tsushis', 'sushis', 'agregados', 'reg_agre'))->with('msg', 'Su Pedido fue generado con exito');;
         }
     }
 
     public function pedidosCompletados()
     {
-        if(Auth::user()->rol != 'administrador'){
+        if (Auth::user()->rol != 'administrador') {
             return redirect('/');
-          }
+        }
         $pedidos = Pedido::where('estado_pedido', 'C')->orderBy('fecha', 'desc')->get();
         $reg_p = Pizza_pedido::all();
         $reg_t = Tabla_pedido::all();
@@ -82,11 +82,11 @@ class PedidosController extends Controller
         $sushis = Sushi::withTrashed()->get();
         $reg_agre = Agregado_pedido::all();
         if (Auth::User()->rol == 'administrador') {
-            return view('pedidos.completados', compact('pedidos', 'reg_p', 'reg_t', 'pizzas', 'tamanos', 'ingredientes', 'reg_ing', 'tablas', 'tsushis', 'sushis','reg_agre'));
+            return view('pedidos.completados', compact('pedidos', 'reg_p', 'reg_t', 'pizzas', 'tamanos', 'ingredientes', 'reg_ing', 'tablas', 'tsushis', 'sushis', 'reg_agre'));
         } else {
             Cart::destroy();
             $pedidos = Pedido::where('id_usuario', Auth::user()->id_usuario)->get();
-            return view('pedidos.completados', compact('pedidos', 'reg_p', 'reg_t', 'pizzas', 'tamanos', 'ingredientes', 'reg_ing', 'tablas', 'tsushis', 'sushis','reg_agre'))->with('msg', 'Su Pedido fue generado con exito');;
+            return view('pedidos.completados', compact('pedidos', 'reg_p', 'reg_t', 'pizzas', 'tamanos', 'ingredientes', 'reg_ing', 'tablas', 'tsushis', 'sushis', 'reg_agre'))->with('msg', 'Su Pedido fue generado con exito');;
         }
     }
 
@@ -97,7 +97,7 @@ class PedidosController extends Controller
      */
     public function create()
     {
-        
+
         $metodo = MetodoPago::all();
         return view('pedidos.create', compact('metodo'));
     }
@@ -111,13 +111,13 @@ class PedidosController extends Controller
     public function store(PedidoRequest $request)
     {
         //Insertar en pedido
-        foreach(Cart::content() as $item){
-            if($item->associatedModel == "App\Agregado" && empty($item->options->bebida) && empty($item->options->sabor)){
-                return redirect('/cart')->withErrors(['Debe elegir su bebida en todos los productos.']);
+        foreach (Cart::content() as $item) {
+            if ($item->associatedModel == "App\Agregado") {
+                if (!empty($item->model->bebida_litros) && is_null($item->options->sabor)) {
+                    return redirect('/cart')->withErrors(['Debe elegir su bebida en todos los productos.']);
+                }
             }
         }
-        dd(empty($item->options->bebida));
-        dd('stop');
         $pedido = new Pedido();
         $pedido->id_usuario = Auth::user()->id_usuario;
         $pedido->id_metodo = $request->metodo_pago;
@@ -216,7 +216,7 @@ class PedidosController extends Controller
         if ($request->estado_pedido != 'C') {
             $pedido = Pedido::find($cod_pedido);
             if ($request->estado_pedido != 'A') {
-                if ($pedido->estado_pedido!='A') {
+                if ($pedido->estado_pedido != 'A') {
                     $pedido->estado_pedido = $request->estado_pedido;
                     $pedido->save();
                     session()->flash('success_message', 'Estado actualizado! :)');
@@ -236,7 +236,7 @@ class PedidosController extends Controller
             $pedido = Pedido::find($cod_pedido);
             $pedido->estado_pedido = $request->estado_pedido;
             $pedido->save();
-            
+
             Venta::create([
                 'cod_pedido' => $pedido->cod_pedido,
                 'monto_total' => $pedido->total_pedido,
