@@ -62,7 +62,7 @@
 
             </div>
             <div class="form-group">
-                <label for="delivery"></label>
+                <label for="delivery">Envio/Retiro en Local</label>
                 <select name="delivery" id="delivery" class="form-control">
                     <option value="0" selected>Envio</option>
                     <option value="1">Retiro en local</option>

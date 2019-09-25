@@ -10,6 +10,7 @@ use App\PizzaTamano;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\AgregadoRequest;
+use App\Http\Requests\AgregadoEditRequest;
 
 
 class AgregadoController extends Controller
@@ -129,7 +130,7 @@ class AgregadoController extends Controller
      * @param  \App\Agregado  $agregado
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Agregado $agregado)
+    public function update(AgregadoEditRequest $request, Agregado $agregado)
     {
         if (empty($request->sugerido)) {
             $request->sugerido = 0;

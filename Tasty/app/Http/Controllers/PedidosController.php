@@ -112,10 +112,12 @@ class PedidosController extends Controller
     {
         //Insertar en pedido
         foreach(Cart::content() as $item){
-            if($item->associatedModel == "App\Agregado" && !empty($item->options->bebida) && empty($item->options->sabor)){
+            if($item->associatedModel == "App\Agregado" && empty($item->options->bebida) && empty($item->options->sabor)){
                 return redirect('/cart')->withErrors(['Debe elegir su bebida en todos los productos.']);
             }
         }
+        dd(empty($item->options->bebida));
+        dd('stop');
         $pedido = new Pedido();
         $pedido->id_usuario = Auth::user()->id_usuario;
         $pedido->id_metodo = $request->metodo_pago;
