@@ -1,13 +1,13 @@
 @extends('layouts.master')
 @section('contenido')
 <div class="row mt-4">
-    <div class="col-10">
+    <div class="col">
         <h2><i class="fas fa-shopping-cart"></i> Carrito</h2>
         <hr />
     </div>
-    <div class="col-2">
+    {{-- <div class="col-2">
         <a href="/cart/content" class="btn btn-info">Cart Content<i class="fas fa-arrow-right"></i></a>
-    </div>
+    </div> --}}
 </div>
 
 <div class="row">

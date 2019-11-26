@@ -2,7 +2,7 @@
 @section('contenido')
 <div class="row mt-4">
     <div class="col">
-        <h2>Pedidos Activos</h2>
+        <h2>Pedidos</h2>
         <hr />
     </div>
 </div>

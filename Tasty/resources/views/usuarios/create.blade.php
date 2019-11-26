@@ -4,7 +4,7 @@
 <hr>
 <div class="row mt-3">
   <div class="col">
-    <h2>Usuarios</h2>
+    <h2>Registrarse</h2>
     <hr>
   </div>
 </div>
@@ -12,7 +12,7 @@
 <div class="row">
   <div class="col col-md-6">
     <div class="card">
-      <div class="card-header">Agregar Usuario</div>
+      <div class="card-header">Registrarme</div>
       <div class="card-body">
         {{Form::open(array('url'=>'usuarios')) }}
         <input type="hidden" name="rol" value="cliente">
@@ -34,7 +34,7 @@
         </div>
         <div class="form-group">
           <label for="rut">RUT</label>
-          <input type="text" name="rut" class="form-control" value="{{old('rut')}}" placeholder="19.958.436-7">
+          <input type="text" name="rut" class="form-control" value="{{old('rut')}}">
           
         </div>
         <div class="form-group">
