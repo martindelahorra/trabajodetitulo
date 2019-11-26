@@ -2,7 +2,7 @@
 @section('contenido')
 <div class="row mt-4">
     <div class="col">
-        <h2>Agregar nuevo Roll</h2>
+        <h2>Agregar nueva tabla</h2>
         <hr />
     </div>
 </div>
