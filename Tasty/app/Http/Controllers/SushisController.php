@@ -5,11 +5,13 @@ namespace App\Http\Controllers;
 use App\Sushi;
 use Carbon\Carbon;
 use App\TablaSushi;
+use App\TsushiSushi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\SushiRequest;
 use App\Http\Requests\SushiEditRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 
 
@@ -39,9 +41,9 @@ class SushisController extends Controller
      */
     public function create()
     {
-        if(Auth::user()->rol != 'administrador'){
+        if (Auth::user()->rol != 'administrador') {
             return redirect('/');
-          }
+        }
         return view('sushis.create');
     }
 
@@ -58,10 +60,10 @@ class SushisController extends Controller
         $sushi->descripcion = $request->descripcion;
         $sushi->cortes = $request->cortes;
         $sushi->precio = $request->precio;
-        
+
         if ($request->file('imagen')) {
             $path = Storage::disk('public')->put('image', $request->file('imagen'));
-            $sushi->fill(['imagen'=> asset($path)])->save();
+            $sushi->fill(['imagen' => asset($path)])->save();
         }
         $sushi->save();
         return redirect('/sushis');
@@ -86,9 +88,9 @@ class SushisController extends Controller
      */
     public function edit(Sushi $sushi)
     {
-        if(Auth::user()->rol != 'administrador'){
+        if (Auth::user()->rol != 'administrador') {
             return redirect('/');
-          }
+        }
         return view('sushis.edit', compact('sushi'));
     }
 
@@ -101,7 +103,7 @@ class SushisController extends Controller
      */
     public function update(SushiEditRequest $request,  $sushi)
     {
-        
+
         $sushi = Sushi::find($sushi);
         $sushi->envoltura = $request->envoltura;
         $sushi->descripcion = $request->descripcion;
@@ -109,7 +111,7 @@ class SushisController extends Controller
         $sushi->precio = $request->precio;
 
         $count = 1;
-        $aux = str_replace('http://localhost:8000/','',$sushi->imagen, $count);
+        $aux = str_replace('http://localhost:8000/', '', $sushi->imagen, $count);
         if ($request->file('imagen')) {
             //eliminar imagen anterior del producto
             Storage::disk('public')->delete($aux);
@@ -124,9 +126,9 @@ class SushisController extends Controller
 
     public function list()
     {
-        if(Auth::user()->rol != 'administrador'){
+        if (Auth::user()->rol != 'administrador') {
             return redirect('/');
-          }
+        }
         $sushi = Sushi::all();
         return view('sushis.list', compact('sushi'));
     }
@@ -138,8 +140,26 @@ class SushisController extends Controller
      */
     public function destroy(Sushi $sushi)
     {
-        Sushi::destroy($sushi->cod_sushi);
-        alert()->info('Producto borrado con exito', '');
-        return redirect('/sushis/list');
+
+        $rollEntabla = TsushiSushi::where('cod_sushi', $sushi->cod_sushi)->get();
+
+
+        if ($rollEntabla->isEmpty()) {
+            Sushi::destroy($sushi->cod_sushi);
+            alert()->info('Producto borrado con exito', '');
+            return redirect('/sushis/list');
+        } else {
+            $nombreTabla = '';
+            foreach ($rollEntabla as $re) {
+                $nombre = TablaSushi::where('cod_tabla', $re->cod_tabla)->value('nombre');
+                $nombreTabla = $nombreTabla.$nombre.", ";
+                
+            }
+            $nombreTabla = substr($nombreTabla, 0, -2);
+            return redirect('/sushis/list')->withErrors($nombreTabla );
+            
+            
+        }
+        
     }
 }

@@ -13,6 +13,24 @@
         <a href="/ingredientes/nodisponibles" class="btn btn-outline-danger derecha">Todo no disponible</a> --}}
     </div>
 </div>
+
+@if($errors->any())
+<div class="row mt-2">
+
+    <div class="col-md-6 offset-md-3">
+        <div class="alert alert-danger">
+            El roll a eliminar pertenece a la(s) siguentes tablas: 
+            <ul>
+                @foreach($errors->all() as $error)
+                <li><b>{{$error}}</b></li>
+                @endforeach
+            </ul>
+        </div>
+    </div>
+</div>
+
+@endif
+
 <div class="row mt-2">
     <div class="col">
         <table class="col-sm-4 col-md-12 table table-bordered table-striped table-hover table-responsive-lg"

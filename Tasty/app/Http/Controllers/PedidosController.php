@@ -53,7 +53,7 @@ class PedidosController extends Controller
         $tablas = TablaSushi::withTrashed()->get();
         $tsushis = TsushiSushi::all();
         $agregados = Agregado::all();
-        $sushis = Sushi::withTrashed()->get();
+        $sushis = Sushi::all();
         $reg_agre = Agregado_pedido::all();
         if (Auth::User()->rol == 'administrador') {
             return view('pedidos.index', compact('pedidos', 'reg_p', 'reg_t', 'pizzas', 'tamanos', 'ingredientes', 'reg_ing', 'tablas', 'tsushis', 'sushis', 'agregados', 'reg_agre'));
@@ -79,7 +79,7 @@ class PedidosController extends Controller
         $tablas = TablaSushi::withTrashed()->get();
         $tsushis = TsushiSushi::all();
         $agregados = Agregado::all();
-        $sushis = Sushi::withTrashed()->get();
+        $sushis = Sushi::all();
         $reg_agre = Agregado_pedido::all();
         if (Auth::User()->rol == 'administrador') {
             return view('pedidos.completados', compact('pedidos', 'reg_p', 'reg_t', 'pizzas', 'tamanos', 'ingredientes', 'reg_ing', 'tablas', 'tsushis', 'sushis', 'reg_agre'));
